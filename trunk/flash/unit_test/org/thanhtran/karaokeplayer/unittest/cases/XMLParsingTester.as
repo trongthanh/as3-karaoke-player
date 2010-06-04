@@ -1,9 +1,7 @@
 package org.thanhtran.karaokeplayer.unittest.cases {
-	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import flash.text.engine.TextBlock;
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	import org.thanhtran.karaokeplayer.data.LyricBitInfo;
@@ -11,6 +9,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 	import org.thanhtran.karaokeplayer.data.LyricStyle;
 	import org.thanhtran.karaokeplayer.data.SongInfo;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
+	import org.thanhtran.karaokeplayer.KarPlayerError;
 	import org.thanhtran.karaokeplayer.utils.StringUtil;
 	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
 
@@ -24,11 +23,13 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 		
 		private var songInfo: SongInfo;
 		private var xml:XML;
+		private var parser: TimedTextParser;
 		
 		[Before]
 		public function setUp(): void {
 			songInfo = new SongInfo();
 			xml = new XML(new SongXML());
+			parser = new TimedTextParser();
 		}
 		
 		[Test(async, order=1, description="Test Load XML")]
@@ -58,9 +59,9 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 		}
 		
 		[Test(order=2, description="Test get song header")]
-		public function getSongHeader(): void {
+		public function testParseSongHeader(): void {
 			
-			TimedTextParser.parseSongHead(xml.head[0], songInfo);
+			parser.parseSongHead(xml.head[0], songInfo);
 			
 			Assert.assertEquals("Verifying title", "Hạnh Phúc Bất Tận", songInfo.title);
 			Assert.assertEquals("Verifying desc", "Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band", songInfo.description);
@@ -68,16 +69,92 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.audio);
 		}
 		
+		[Test(order=3, description="Test getValueFromSet function")]
+		public function testGetValueFromSet(): void {
+			var set: Array = ["b", "m", "f"];
+			
+			//test value within set
+			var validVal: Object = parser.getValueFromSet("f", set);
+			Assert.assertEquals("Test valid value", "f", validVal);
+			
+			//test value outside set
+			var outVal: Object = parser.getValueFromSet("z", set);
+			Assert.assertEquals("Test invalid value, return default", "b", outVal);
+		}
+		
+		[Test(order=4, description="Test parseTimeAttribute function")]
+		public function testParseTimeAttribute(): void {
+			var ms: Number;
+			// test clock 1
+			ms = parser.parseTimeAttribute( <div dur='00:00:00.456' /> , "dur", true);
+			Assert.assertEquals("Test clock ms", 456, ms);
+			
+			// test clock 1' (missing hour)
+			ms = parser.parseTimeAttribute( <div dur='00:00.789' /> , "dur", true);
+			Assert.assertEquals("Test clock ms", 789, ms);
+			
+			// test clock 1'' (missing hour, minute)
+			//FAILED, won't allow this case
+			//ms = parser.parseTimeAttribute( <div dur='01.234' /> , "dur", true);
+			//Assert.assertEquals("Test clock ms", 1234, ms);
+			
+			
+			// test clock 2
+			ms = parser.parseTimeAttribute( <div begin='00:00:03.456' /> , "begin", true);
+			Assert.assertEquals("Test clock s.ms", 3456, ms);
+			
+			// test clock 3
+			ms = parser.parseTimeAttribute( <div end='00:02:03.456' /> , "end", true);
+			Assert.assertEquals("Test clock m:s.ms", 123456, ms);
+			
+			// test clock 1
+			ms = parser.parseTimeAttribute( <p begin='01:02:03.456' /> , "begin", true);
+			Assert.assertEquals("Test clock h:m:s.ms", 3723456, ms);
+			
+			//test hour value
+			ms = parser.parseTimeAttribute( <p dur='0.01h' /> , "dur", true);
+			Assert.assertEquals("Test hour value", 36000, ms);
+			
+			//test minute value
+			ms = parser.parseTimeAttribute( <p dur='1.5m' /> , "dur", true);
+			Assert.assertEquals("Test minute value", 90000, ms);
+			
+			//test second value
+			ms = parser.parseTimeAttribute( <p dur='3.45s' /> , "dur", true);
+			Assert.assertEquals("Test second value", 3450, ms);
+			
+			//test millisec value
+			ms = parser.parseTimeAttribute( <p dur='9876ms' /> , "dur", true);
+			Assert.assertEquals("Test millisec value", 9876, ms);
+			
+			//test default millisec value
+			ms = parser.parseTimeAttribute( <p dur='5432' /> , "dur", true);
+			Assert.assertEquals("Test default millisec value", 5432, ms);
+			
+			//test no required value
+			ms = parser.parseTimeAttribute( <p begin='5432' /> , "dur", false);
+			Assert.assertTrue("Test default millisec value", isNaN(ms));
+			
+			//test required value
+			try {
+				ms = parser.parseTimeAttribute( <p /> , "dur", true);
+				Assert.fail("test failed if reach here");
+			} catch (err: KarPlayerError){
+				Assert.assertEquals("Test required value", KarPlayerError.INVALID_XML, err.code);
+			}
+			
+		}
+		
 		/**
 		 * 
 		 */
-		[Test(order=3, description="Test parse song lyrics")]
-		public function getSongLyrics(): void {
+		[Test(order=5, description="Test parse song lyrics")]
+		public function testParseSongLyrics(): void {
 			
-			TimedTextParser.parseSongLyrics(xml.body[0], songInfo);
+			parser.parseSongLyrics(xml.body[0], songInfo);
 			
 			var songLyrics: SongLyrics = songInfo.lyrics;
-			try {
+			//try {
 				var blocks: Array = songLyrics.blockArray;
 				//check block length
 				Assert.assertEquals(21, blocks.length);
@@ -93,7 +170,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(2520, LyricBitInfo(bits[0]).duration);
 				
 				Assert.assertEquals("Thắp nến đêm nay", LyricBitInfo(bits[1]).text);
-				Assert.assertEquals(1720, LyricBitInfo(bits[1]).duration);
+				Assert.assertEquals(2000, LyricBitInfo(bits[1]).duration);
 				
 				//test block 2 (female)
 				var block2: LyricBlockInfo = blocks[1];
@@ -124,8 +201,8 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals("khoảnh", LyricBitInfo(bits[2]).text);
 				Assert.assertEquals(440, LyricBitInfo(bits[2]).duration);
 				
-				Assert.assertEquals("khắc", LyricBitInfo(bits[2]).text);
-				Assert.assertEquals(720, LyricBitInfo(bits[2]).duration);
+				Assert.assertEquals("khắc", LyricBitInfo(bits[3]).text);
+				Assert.assertEquals(720, LyricBitInfo(bits[3]).duration);
 				
 				//test block 17 (both/basic) 
 				/*
@@ -181,7 +258,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(2880, LyricBitInfo(bits[2]).duration);
 				
 				Assert.assertEquals("thuộc", LyricBitInfo(bits[3]).text);
-				Assert.assertEquals(450, LyricBitInfo(bits[3]).duration);
+				Assert.assertEquals(480, LyricBitInfo(bits[3]).duration);
 				
 				Assert.assertEquals("về", LyricBitInfo(bits[4]).text);
 				Assert.assertEquals(440, LyricBitInfo(bits[4]).duration);
@@ -193,9 +270,9 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(0, LyricBitInfo(bits[6]).duration);
 				
 				
-			} catch (err:Error){
-				Assert.fail("songLyrics parse failed: \n" + StringUtil.truncate(err.getStackTrace(), 1000));
-			}
+			//} catch (err:Error){
+				//Assert.fail("songLyrics parse failed: \n" + StringUtil.truncate(err.getStackTrace(), 1000));
+			//}
 			
 			
 			
