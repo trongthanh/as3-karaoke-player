@@ -22,7 +22,7 @@ package org.thanhtran.karaokeplayer.data {
 		public var width: Number = 800;
 		public var height: Number = 200;
 		public var numLines: uint = 2;
-		public var blockArray: Array = new Array();
+		public var lyricLines: Array = new Array();
 		
 		public var mainLyricStyle: LyricStyle;
 		public var maleLyricStyle: LyricStyle;

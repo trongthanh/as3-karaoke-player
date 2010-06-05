@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.utils {
-	import org.thanhtran.karaokeplayer.data.LyricBitInfo;
-	import org.thanhtran.karaokeplayer.data.LyricBlockInfo;
+	import org.thanhtran.karaokeplayer.data.BlockInfo;
+	import org.thanhtran.karaokeplayer.data.LineInfo;
 	import org.thanhtran.karaokeplayer.data.SongInfo;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
 	import org.thanhtran.karaokeplayer.KarPlayerError;
-
+	import org.thanhtran.karaokeplayer.karplayer_internal;
+	
+	use namespace karplayer_internal;
 	/**
 	 * @author Thanh Tran
 	 */
@@ -71,7 +73,7 @@ package org.thanhtran.karaokeplayer.utils {
 		 * @param	head
 		 * @param	songInfo
 		 */
-		public function parseSongHead(head: XML, songInfo: SongInfo): void {
+		karplayer_internal function parseSongHead(head: XML, songInfo: SongInfo): void {
 			songInfo.title = head.metadata.ttm::title[0];
 			songInfo.description = head.metadata.ttm::desc[0];
 			songInfo.copyright = head.metadata.ttm::copyright[0];
@@ -96,7 +98,7 @@ package org.thanhtran.karaokeplayer.utils {
 		</div>
 		</body>
 		 */
-		public function parseSongLyrics(body: XML, songInfo: SongInfo): void {
+		karplayer_internal function parseSongLyrics(body: XML, songInfo: SongInfo): void {
 			var divList: XMLList = body.div;
 			var divLen: int = divList.length();
 			if (divLen == 0) {
@@ -105,8 +107,8 @@ package org.thanhtran.karaokeplayer.utils {
 			var pList: XMLList;
 			var div: XML;
 			var p: XML;
-			var lyricBlock: LyricBlockInfo;
-			var lyricBit: LyricBitInfo;
+			var lyricLine: LineInfo;
+			var lyricBlock: BlockInfo;
 			var pLen: int;
 			var begin: Number;
 			var dur: uint;
@@ -118,10 +120,10 @@ package org.thanhtran.karaokeplayer.utils {
 			//process div blocks
 			for (var i : int = 0; i < divLen; i++) {
 				div = divList[i];
-				lyricBlock = new LyricBlockInfo();
+				lyricLine = new LineInfo();
 				trace( "div.@style[0] : " + div.@style[0] );
-				lyricBlock.lyricStyle = String(getValueFromSet(div.@style.toString(), STYLES));
-				trace( "lyricBlock.lyricStyle : " + lyricBlock.lyricStyle );
+				lyricLine.lyricStyle = String(getValueFromSet(div.@style.toString(), STYLES));
+				trace( "lyricLine.lyricStyle : " + lyricLine.lyricStyle );
 				
 				//TODO: get start time of block by div.@begin
 				
@@ -133,14 +135,14 @@ package org.thanhtran.karaokeplayer.utils {
 					//process p
 					for (var j:int = 0; j < pLen; j++) {
 						p = pList[j];
-						lyricBit = new LyricBitInfo();
+						lyricBlock = new BlockInfo();
 						//get text
-						lyricBit.text = p.toString();
-						trace( "lyricBit.text : " + lyricBit.text );
+						lyricBlock.text = p.toString();
+						trace( "lyricBit.text : " + lyricBlock.text );
 						begin = parseTimeAttribute(p, "begin", true);
 						//get start time of block
 						if (j == 0) {
-							lyricBlock.startTime = begin;
+							lyricLine.startTime = begin;
 						}
 						
 						//TODO: get duration from @dur
@@ -155,7 +157,7 @@ package org.thanhtran.karaokeplayer.utils {
 								nextP = nextDiv.p[0];
 							} else {
 								//it's ok for the last p of the last div to miss duration, as long as it is end mark ./.
-								if (lyricBit.text != "./." && lyricBit.duration == 0) {
+								if (lyricBlock.text != "./." && lyricBlock.duration == 0) {
 									throw new KarPlayerError(KarPlayerError.INVALID_XML, "Final <p> is not an end mark (./.)");
 								}
 							}
@@ -163,15 +165,15 @@ package org.thanhtran.karaokeplayer.utils {
 						
 						end = parseTimeAttribute(nextP, "begin", false);
 						if (!isNaN(end)) {
-							lyricBit.duration = end - begin;
+							lyricBlock.duration = end - begin;
 						}
 						//trace( "lyricBit.duration : " + lyricBit.duration );
-						lyricBlock.lyricBits.push(lyricBit);
+						lyricLine.lyricBlocks.push(lyricBlock);
 						
 					} //end p loop
 					
 				}
-				songLyrics.blockArray.push(lyricBlock);
+				songLyrics.lyricLines.push(lyricLine);
 				
 			} //end div loop
 			
@@ -185,7 +187,7 @@ package org.thanhtran.karaokeplayer.utils {
 		 * @param	req
 		 * @return
 		 */
-		public function parseTimeAttribute(parentNode:XML, attr:String, req:Boolean): Number {
+		karplayer_internal function parseTimeAttribute(parentNode:XML, attr:String, req:Boolean): Number {
 			if (!parentNode || parentNode["@" + attr].length() < 1) {
 				if (req) {
 					throw new KarPlayerError(KarPlayerError.INVALID_XML, "Missing required attribute " + attr);
@@ -241,7 +243,7 @@ package org.thanhtran.karaokeplayer.utils {
 		 * @param	set
 		 * @return	value if value is within set; default value (first one) if value is not in set
 		 */
-		public function getValueFromSet(value: Object , valueSet: Array): Object {
+		karplayer_internal function getValueFromSet(value: Object , valueSet: Array): Object {
 			if (valueSet.indexOf(value) != -1) {
 				return value;
 			} else {

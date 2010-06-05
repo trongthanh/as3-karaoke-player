@@ -18,7 +18,7 @@ package org.thanhtran.karaokeplayer.data {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class LyricBitInfo {
+	public class BlockInfo {
 		public var duration: uint = 0;
 		public var text: String = "";
 		

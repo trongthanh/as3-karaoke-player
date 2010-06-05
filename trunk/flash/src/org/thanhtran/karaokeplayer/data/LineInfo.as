@@ -18,9 +18,9 @@ package org.thanhtran.karaokeplayer.data {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class LyricBlockInfo {
+	public class LineInfo {
 		public var startTime: Number = 0; //milliseconds from start
-		public var lyricBits: Array = [];
+		public var lyricBlocks: Array = [];
 		public var lyricStyle: String = "b"; //"b", "f", "m"
 	}
 }

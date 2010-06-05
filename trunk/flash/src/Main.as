@@ -15,13 +15,13 @@
  */
 package {
 	import fl.controls.Button;
-	import org.thanhtran.karaokeplayer.lyrics.TextBlock;
-	import org.thanhtran.karaokeplayer.data.LyricBitInfo;
-	import org.thanhtran.karaokeplayer.data.LyricBlockInfo;
+	import org.thanhtran.karaokeplayer.lyrics.TextLine;
+	import org.thanhtran.karaokeplayer.data.BlockInfo;
+	import org.thanhtran.karaokeplayer.data.LineInfo;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import org.thanhtran.karaokeplayer.lyrics.TextBit;
+	import org.thanhtran.karaokeplayer.lyrics.TextBlock;
 	
 	/**
 	 * ...
@@ -30,8 +30,8 @@ package {
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="1024", height="768")]
 	public class Main extends Sprite {
 		public var playButton: Button;
-		private var bit:TextBit;
-		private var textBlock: TextBlock;
+		private var bit:TextBlock;
+		private var textBlock: TextLine;
 		
 		public function Main():void {
 			if (stage) init();
@@ -61,7 +61,7 @@ package {
 		 */
 		public function testTextBit(): void {
 			
-			bit = new TextBit();
+			bit = new TextBlock();
 			bit.text = "Tran Trong Thanh";
 			//bit.completed.add(bitCompleteHandler);
 			addChild(bit);
@@ -69,34 +69,34 @@ package {
 		}
 		
 		public function testTextBlock(): void {
-			var lb: LyricBlockInfo = new LyricBlockInfo();
+			var lb: LineInfo = new LineInfo();
 			 
-			var lbit1: LyricBitInfo = new LyricBitInfo();
+			var lbit1: BlockInfo = new BlockInfo();
 			lbit1.text = "* * *";
 			lbit1.duration = 2520;
 			
-			lb.lyricBits.push(lbit1);
+			lb.lyricBlocks.push(lbit1);
 			
-			var lbit2: LyricBitInfo = new LyricBitInfo();
+			var lbit2: BlockInfo = new BlockInfo();
 			lbit2.text = "Thắp nến đêm nay";
 			lbit2.duration = 2000;
 			
-			lb.lyricBits.push(lbit2);
+			lb.lyricBlocks.push(lbit2);
 			
-			var lbit3: LyricBitInfo = new LyricBitInfo();
+			var lbit3: BlockInfo = new BlockInfo();
 			lbit3.text = "ấm áp trong tay";
 			lbit3.duration = 1720;
 			
-			lb.lyricBits.push(lbit3);
+			lb.lyricBlocks.push(lbit3);
 			
-			textBlock = new TextBlock();
+			textBlock = new TextLine();
 			textBlock.init(lb);
 			textBlock.completed.add(textBlockCompleteHandler);
 			
 			addChild(textBlock);
 		}
 
-		private function textBlockCompleteHandler(tb: TextBlock): void {
+		private function textBlockCompleteHandler(tb: TextLine): void {
 			trace("text block complete");
 		}
 	}
