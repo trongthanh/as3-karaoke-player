@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.lyrics {
+	import org.thanhtran.karaokeplayer.data.SongLyrics;
 	import flash.display.Sprite;
 
 	/**
 	 * @author Thanh Tran
 	 */
 	public class LyricsPlayer extends Sprite {
-		public function LyricsPlayer() {
+		public var data: SongLyrics;
+		
+		private var _w: Number; //screen width
+		private var _h: Number; // screen height
+		private var lines: Array;
+		
+		
+		public function LyricsPlayer(w: Number, h: Number) {
+			_w = w;
+			_h = h;
+				
+		}
+		
+		public function init(lyrics: SongLyrics): void {
+			data = lyrics;	
 			
 		}
 	}
