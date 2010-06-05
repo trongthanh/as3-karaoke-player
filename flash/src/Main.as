@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 package {
+	import org.thanhtran.karaokeplayer.data.SongInfo;
+	import flash.media.SoundChannel;
+	import flash.utils.getTimer;
+	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
+	import org.thanhtran.karaokeplayer.data.SongLyrics;
+	import flash.media.Sound;
+	import org.thanhtran.karaokeplayer.lyrics.LyricsPlayer;
 	import fl.controls.Button;
 	import org.thanhtran.karaokeplayer.lyrics.TextLine;
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
@@ -33,6 +40,15 @@ package {
 		private var bit:TextBlock;
 		private var textBlock: TextLine;
 		
+		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
+		public var SongXML: Class;
+		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
+		public var SongAudio: Class 
+		
+		public var sound: Sound;
+		public var lyricPlayer: LyricsPlayer;
+		public var startTime: int;
+		
 		public function Main():void {
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -48,12 +64,32 @@ package {
 			addChild(playButton);
 			
 			//testTextBit();
-			testTextBlock();
+			//testTextBlock();
+			testLyricPlayer();
 		}
-		
+
+		private function testLyricPlayer(): void {
+			var xml: XML = new XML(new SongXML());
+			sound = new SongAudio();
+			var lyricParser: TimedTextParser = new TimedTextParser();
+			var songInfo: SongInfo = lyricParser.parseXML(xml);
+			lyricPlayer = new LyricsPlayer(700, 400);
+			lyricPlayer.init(songInfo.lyrics);
+			addChild(lyricPlayer);
+		}
+
 		private function playButtonClickHandler(event: MouseEvent): void {
 			//bit.play();
-			textBlock.play();
+			//textBlock.play();
+			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			startTime = getTimer();
+			var channel: SoundChannel = sound.play();
+		}
+
+		private function enterFrameHandler(event: Event): void {
+			var pos: int = getTimer() - startTime;
+			
+			lyricPlayer.position = pos;
 		}
 
 		/*

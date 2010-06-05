@@ -48,7 +48,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 		
 		public var completed: Signal;
 		
-		private var spaceWidth: Number = 0;
+		private var _spaceWidth: Number = 0;
 
 		public function TextBlock() {
 			completed = new Signal(TextBlock);
@@ -103,8 +103,8 @@ package org.thanhtran.karaokeplayer.lyrics {
 			var temptf: TextField = new TextField();
 			temptf.defaultTextFormat = commonTextFormat;
 			temptf.text = " ";
-			spaceWidth = temptf.textWidth;
-			trace('spaceWidth: ' + (spaceWidth)); 
+			_spaceWidth = temptf.textWidth;
+			trace('spaceWidth: ' + (_spaceWidth)); 
 			
 			this.addChild(_normalText);
 			this.addChild(_syncText);		
@@ -123,7 +123,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 		}
 
 		override public function get width(): Number { 
-			if (_normalText) return _normalText.width + spaceWidth - 4; //automatically add extra space for big font
+			if (_normalText) return _normalText.width + _spaceWidth - 4; //automatically add extra space for big font
 			else return super.width; 
 		}
 

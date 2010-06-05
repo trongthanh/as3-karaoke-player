@@ -20,6 +20,7 @@ package org.thanhtran.karaokeplayer.data {
 	 */
 	public class LineInfo {
 		public var startTime: Number = 0; //milliseconds from start
+		public var duration: uint;
 		public var lyricBlocks: Array = [];
 		public var lyricStyle: String = "b"; //"b", "f", "m"
 	}
