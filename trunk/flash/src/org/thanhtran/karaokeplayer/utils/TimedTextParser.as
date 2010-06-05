@@ -111,7 +111,7 @@ package org.thanhtran.karaokeplayer.utils {
 			var lyricBlock: BlockInfo;
 			var pLen: int;
 			var begin: Number;
-			var dur: uint;
+			var lineDur: uint;
 			var end: Number;
 			
 			var songLyrics: SongLyrics = new SongLyrics();
@@ -129,6 +129,7 @@ package org.thanhtran.karaokeplayer.utils {
 				
 				pList = div.p;
 				pLen = pList.length();
+				lineDur = 0;
 				if (pLen == 0) {
 					throw new KarPlayerError(KarPlayerError.INVALID_XML, "<p> tags are missing from this <div> block: " + div.toXMLString());
 				} else {
@@ -167,12 +168,13 @@ package org.thanhtran.karaokeplayer.utils {
 						if (!isNaN(end)) {
 							lyricBlock.duration = end - begin;
 						}
+						lineDur += lyricBlock.duration; 
 						//trace( "lyricBit.duration : " + lyricBit.duration );
 						lyricLine.lyricBlocks.push(lyricBlock);
 						
 					} //end p loop
-					
 				}
+				lyricLine.duration = lineDur; 
 				songLyrics.lyricLines.push(lyricLine);
 				
 			} //end div loop
@@ -241,7 +243,7 @@ package org.thanhtran.karaokeplayer.utils {
 		 * for e.g: style must match one of "b", "m" or "f"
 		 * @param	value
 		 * @param	set
-		 * @return	value if value is within set; default value (first one) if value is not in set
+		 * @return	value if value is in set; else return default value (first one) 
 		 */
 		karplayer_internal function getValueFromSet(value: Object , valueSet: Array): Object {
 			if (valueSet.indexOf(value) != -1) {

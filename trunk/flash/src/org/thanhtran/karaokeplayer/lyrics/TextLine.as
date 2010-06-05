@@ -23,34 +23,32 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextLine extends Sprite {
+		/* complete event, param: TextLine */
 		public var completed: Signal;
-		/* timestamp millisecond */
-		public var startTime: Number;
 		public var blocks: Array;
+		public var index: int;
 		
-		public var duration: uint = 0;
-		private var data: LineInfo;
-		/* number of bits */
-		private var len: uint;
-		
+		private var _data: LineInfo;
+		/* number of blocks */
+		private var _len: uint;
+		private var _playing: Boolean;
 
 		public function TextLine() {
 			completed = new Signal(TextLine);
 		}
 
 		public function init(data: LineInfo): void {
-			this.data = data;
-			len = data.lyricBlocks.length;
+			this._data = data;
+			_len = data.lyricBlocks.length;
+			
 			blocks = new Array();
 			var blockInfo: BlockInfo;
 			var block: TextBlock;
 			var lastX: Number = 0;
-			for (var i : int = 0; i < len; i++) {
+			for (var i : int = 0; i < _len; i++) {
 				blockInfo = data.lyricBlocks[i];
 				block = new TextBlock();
 				block.duration = blockInfo.duration;
-				//calculate block duration
-				duration += block.duration; 
 				block.text = blockInfo.text;
 				block.completed.add(textBitCompleteHandler);
 				blocks.push(block);
@@ -69,22 +67,36 @@ package org.thanhtran.karaokeplayer.lyrics {
 			if(tb.next) {
 				tb.next.play();
 			} else {
+				_playing = false;
 				completed.dispatch(this);
 			}
 		}
 		
 		public function play(): void {
-			for (var i : int = 0; i < len; i++) {
+			for (var i : int = 0; i < _len; i++) {
 				blocks[i].reset();
 			}
 			blocks[0].play();
+			_playing = true;
 		}
-		
+
 		public function dispose(): void {
-			for (var i : int = 0; i < len; i++) {
+			for (var i : int = 0; i < _len; i++) {
 				blocks[i].dispose();
 			}
 		}
+		
+		public function get duration(): uint {
+			return _data.duration;
+		}
+		
+		/* timestamp millisecond */
+		public function get startTime(): Number {
+			return _data.startTime;
+		}
+		
+		public function get playing(): Boolean {
+			return _playing;
+		}
 	}
-
 }
