@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.lyrics {
+	import org.thanhtran.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
@@ -27,6 +28,9 @@ package org.thanhtran.karaokeplayer.lyrics {
 		public var completed: Signal;
 		public var blocks: Array;
 		public var index: int;
+		// these style are set from SongLyrics
+		public var normalStyle: LyricStyle;
+		public var syncStyle: LyricStyle;
 		
 		private var _data: LineInfo;
 		/* number of blocks */
@@ -39,6 +43,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 
 		public function init(data: LineInfo): void {
 			this._data = data;
+			checkStyle();
 			_len = data.lyricBlocks.length;
 			
 			blocks = new Array();
@@ -48,6 +53,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 			for (var i : int = 0; i < _len; i++) {
 				blockInfo = data.lyricBlocks[i];
 				block = new TextBlock();
+				block.setStyle(normalStyle, syncStyle);
 				block.duration = blockInfo.duration;
 				block.text = blockInfo.text;
 				block.completed.add(textBitCompleteHandler);
@@ -60,6 +66,21 @@ package org.thanhtran.karaokeplayer.lyrics {
 				addChild(block);
 				lastX += block.width;
 			} 
+		}
+
+		private function checkStyle(): void {
+			syncStyle = _data.songLyrics.syncLyricStyle;
+			switch(_data.styleName) {
+				case LyricStyle.MALE:
+					normalStyle = _data.songLyrics.maleLyricStyle;
+					break;
+				case LyricStyle.FEMALE:
+					normalStyle = _data.songLyrics.femaleLyricStyle;
+					break;
+				case LyricStyle.BASIC:
+				default:
+					normalStyle = _data.songLyrics.basicLyricStyle;
+			}
 		}
 
 		private function textBitCompleteHandler(tb: TextBlock): void {
@@ -97,6 +118,14 @@ package org.thanhtran.karaokeplayer.lyrics {
 		
 		public function get playing(): Boolean {
 			return _playing;
+		}
+		
+		override public function toString(): String {
+			var str: String = "Line {";
+			for (var i : int = 0; i < _len; i++) {
+				str += blocks[i].text;
+			}
+			return str + "}";
 		}
 	}
 }

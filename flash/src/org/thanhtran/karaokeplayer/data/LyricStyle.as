@@ -16,6 +16,7 @@
 package org.thanhtran.karaokeplayer.data {
 
 	/**
+	 * TODO: consider support other property of text format like fontWeight, fontStyle, leading ... 
 	 * @author Thanh Tran
 	 */
 	public class LyricStyle {
@@ -23,11 +24,22 @@ package org.thanhtran.karaokeplayer.data {
 		public static const MALE: String = "m";
 		public static const FEMALE: String = "f";
 		
-		public var color: uint = 0x8AD420; //for woman: FF37BF, for man: 00CCFF
-		public var strokeColor: uint = 0xFFFFFF; // 0x000000;
+		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x8AD420, false, 0xFFFFFF);		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x00CCFF, false, 0xFFFFFF);		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF37BF, false, 0xFFFFFF);
+		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF9600, false, 0xFFFFFF);
+		
+		public var color: Number;
+		public var strokeColor: Number;
 		public var font: String;
 		public var size: Number;
 		public var embedFonts: Boolean = false;
 		
+		public function LyricStyle(font: String = null, size: Number = NaN, color: Number = NaN, 
+									embedFonts: Boolean = false, strokeColor: Number = NaN) {
+			if(font) this.font = font;
+			if(size) this.size = size;
+			if(color) this.color = color;
+			this.embedFonts = embedFonts;
+			if(strokeColor) this.strokeColor = strokeColor;
+		}
 	}
 }

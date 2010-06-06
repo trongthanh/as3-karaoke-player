@@ -163,7 +163,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(21, lines.length);
 				//test line 1 (female)
 				var line1: LineInfo = lines[0];
-				Assert.assertEquals(LyricStyle.FEMALE, line1.lyricStyle);
+				Assert.assertEquals(LyricStyle.FEMALE, line1.styleName);
 				
 				var blocks: Array = line1.lyricBlocks;
 					
@@ -179,7 +179,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				
 				//test line 2 (female)
 				var line2: LineInfo = lines[1];
-				Assert.assertEquals(LyricStyle.FEMALE, line2.lyricStyle);
+				Assert.assertEquals(LyricStyle.FEMALE, line2.styleName);
 				
 				blocks = line2.lyricBlocks;
 				
@@ -193,7 +193,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				//test line 10 (male)
 				
 				var line10: LineInfo = lines[9];
-				Assert.assertEquals(LyricStyle.MALE, line10.lyricStyle);
+				Assert.assertEquals(LyricStyle.MALE, line10.styleName);
 				
 				blocks = line10.lyricBlocks;
 				
@@ -223,7 +223,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				 */
 				
 				var line17: LineInfo = lines[16];
-				Assert.assertEquals(LyricStyle.BASIC, line17.lyricStyle);
+				Assert.assertEquals(LyricStyle.BASIC, line17.styleName);
 				
 				blocks = line17.lyricBlocks;
 				
@@ -253,7 +253,7 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				</div>
 				 */
 				var line21: LineInfo = lines[20];
-				Assert.assertEquals(LyricStyle.FEMALE, line21.lyricStyle);
+				Assert.assertEquals(LyricStyle.FEMALE, line21.styleName);
 				
 				blocks = line21.lyricBlocks;
 				

@@ -34,7 +34,7 @@ package {
 	 * ...
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="1024", height="768")]
+	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="800", height="600")]
 	public class Main extends Sprite {
 		public var playButton: Button;
 		private var bit:TextBlock;
