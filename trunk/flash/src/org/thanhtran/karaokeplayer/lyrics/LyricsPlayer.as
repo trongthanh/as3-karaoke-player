@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.lyrics {
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
 	import flash.display.Sprite;
@@ -73,25 +75,39 @@ package org.thanhtran.karaokeplayer.lyrics {
 		}
 
 		private function lineCompleteHandler(textLine: TextLine): void {
-			//remove line
-			if(contains(textLine)) {
-				removeChild(textLine);
-			}
-			
+			var nextLine: TextLine;
 			if(textLine == _l1) {
 				_idx1 += 2;
 				if(_idx1 < _lines.length - 1) {
 					_l1 = _lines[_idx1];
-					addChild(_l1);					
+					addChild(_l1);
+					_l1.alpha = 0;
+					nextLine = _l1;							
 				}
 				
 			} else {
 				_idx2 += 2;
 				if(_idx2 < _lines.length - 1) {
 					_l2 = _lines[_idx2];
-					addChild(_l2);					
+					addChild(_l2);
+					_l2.alpha = 0;
+					nextLine = _l2;
 				}
 			}
+			GTweener.to(textLine, 0.1, {alpha:0}, {data: {last: textLine, next: nextLine}, onComplete: lineFadeOutCompleteHandler});
+		}
+		
+		public function lineFadeOutCompleteHandler(tween: GTween): void {
+			var lastLine: TextLine = TextLine(tween.data.last);
+			var nextLine: TextLine = TextLine(tween.data.next);
+			
+			//remove line
+			if(contains(lastLine)) {
+				removeChild(lastLine);
+			}
+			//fade in next line
+			GTweener.to(nextLine, 0.1, {alpha:1});
+			
 		}
 
 		public function get position(): Number {

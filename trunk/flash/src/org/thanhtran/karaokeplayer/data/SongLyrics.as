@@ -24,10 +24,22 @@ package org.thanhtran.karaokeplayer.data {
 		public var numLines: uint = 2;
 		public var lyricLines: Array = new Array();
 		
-		public var mainLyricStyle: LyricStyle;
+		public var basicLyricStyle: LyricStyle;
 		public var maleLyricStyle: LyricStyle;
 		public var femaleLyricStyle: LyricStyle;
 		public var syncLyricStyle: LyricStyle;
 		
+		public function SongLyrics () {
+			//create default styles
+			basicLyricStyle = LyricStyle.DEFAULT_BASIC_STYLE;
+			maleLyricStyle = LyricStyle.DEFAULT_MALE_STYLE;
+			femaleLyricStyle = LyricStyle.DEFAULT_FEMALE_STYLE;
+			syncLyricStyle = LyricStyle.DEFAULT_SYNC_STYLE;
+		}
+		
+		public function addLine(line: LineInfo): void {
+			line.songLyrics = this;
+			lyricLines.push(line);
+		}
 	}
 }

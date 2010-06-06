@@ -121,9 +121,9 @@ package org.thanhtran.karaokeplayer.utils {
 			for (var i : int = 0; i < divLen; i++) {
 				div = divList[i];
 				lyricLine = new LineInfo();
-				trace( "div.@style[0] : " + div.@style[0] );
-				lyricLine.lyricStyle = String(getValueFromSet(div.@style.toString(), STYLES));
-				trace( "lyricLine.lyricStyle : " + lyricLine.lyricStyle );
+				//trace( "div.@style[0] : " + div.@style[0] );
+				lyricLine.styleName = String(getValueFromSet(div.@style.toString(), STYLES));
+				//trace( "lyricLine.lyricStyle : " + lyricLine.lyricStyle );
 				
 				//TODO: get start time of block by div.@begin
 				
@@ -139,7 +139,7 @@ package org.thanhtran.karaokeplayer.utils {
 						lyricBlock = new BlockInfo();
 						//get text
 						lyricBlock.text = p.toString();
-						trace( "lyricBit.text : " + lyricBlock.text );
+						//trace( "lyricBit.text : " + lyricBlock.text );
 						begin = parseTimeAttribute(p, "begin", true);
 						//get start time of block
 						if (j == 0) {
@@ -175,7 +175,7 @@ package org.thanhtran.karaokeplayer.utils {
 					} //end p loop
 				}
 				lyricLine.duration = lineDur; 
-				songLyrics.lyricLines.push(lyricLine);
+				songLyrics.addLine(lyricLine);
 				
 			} //end div loop
 			

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.lyrics {
+	import org.thanhtran.karaokeplayer.data.LyricStyle;
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import com.gskinner.motion.easing.Linear;
@@ -32,11 +33,12 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 */
 	public class TextBlock extends Sprite {
 		public var next: TextBlock;
-		public var textColor: uint = 0x8AD420; //for woman: FF37BF, for man: 00CCFF
-		public var strokeColor: uint = 0xFFFFFF; // 0x000000;
+		public var textColor: uint = 0x8AD420;
+		public var strokeColor: uint = 0xFFFFFF;
 		public var syncTextColor: uint = 0xFF9600;
-		public var syncStrokeColor: uint = 0xFFFFFF;//0x000000;
-		public var commonTextFormat: TextFormat = new TextFormat("Verdana", 30);
+		public var syncStrokeColor: uint = 0xFFFFFF;
+		public var font: String = "Verdana";
+		public var size: Number = 30;
 		public var embedFonts: Boolean = false;
 		/* milliseconds */
 		public var duration: uint = 0;
@@ -64,10 +66,24 @@ package org.thanhtran.karaokeplayer.lyrics {
 			
 			render();
 		}
+		
+		public function setStyle(normalStyle: LyricStyle, syncStyle: LyricStyle): void {
+			textColor = uint(normalStyle.color);
+			strokeColor = uint(normalStyle.strokeColor);
+			syncTextColor = uint(syncStyle.color);
+			syncStrokeColor = uint(syncStyle.strokeColor);
+			font = normalStyle.font;
+			size = normalStyle.size;
+			embedFonts = normalStyle.embedFonts;
+			if(_text) {
+				//force dispose and re-render
+				text = _text;
+			}
+		}
 
 		public function render(): void {
 			//normal text
-			var normalFormat: TextFormat = new TextFormat(commonTextFormat.font, commonTextFormat.size, textColor, commonTextFormat.bold, commonTextFormat.italic);
+			var normalFormat: TextFormat = new TextFormat(font, size, textColor);
 			_normalText = new TextField();
 			_normalText.mouseEnabled = false;
 			_normalText.autoSize = "left";
@@ -75,12 +91,12 @@ package org.thanhtran.karaokeplayer.lyrics {
 			_normalText.defaultTextFormat = normalFormat;
 			_normalText.text = text;
 			//stroke:
-			var strokeSize: Number = Number(commonTextFormat.size) / 12;
+			var strokeSize: Number = size / 12;
 			var normalGlowFilter: GlowFilter = new GlowFilter(strokeColor, 1, strokeSize, strokeSize, 255, 2);
 			_normalText.filters = [normalGlowFilter];
 			
 			//sync text
-			var syncFormat: TextFormat = new TextFormat(commonTextFormat.font, commonTextFormat.size, syncTextColor, commonTextFormat.bold, commonTextFormat.italic);
+			var syncFormat: TextFormat = new TextFormat(font, size, syncTextColor);
 			_syncText = new TextField();
 			_syncText.mouseEnabled = false;
 			_syncText.autoSize = "left";
@@ -101,10 +117,10 @@ package org.thanhtran.karaokeplayer.lyrics {
 			//TODO: consider move this to a global util to avoid creating too many objects
 			//calculate blank space
 			var temptf: TextField = new TextField();
-			temptf.defaultTextFormat = commonTextFormat;
+			temptf.defaultTextFormat = normalFormat;
 			temptf.text = " ";
 			_spaceWidth = temptf.textWidth;
-			trace('spaceWidth: ' + (_spaceWidth)); 
+//			trace('spaceWidth: ' + (_spaceWidth)); 
 			
 			this.addChild(_normalText);
 			this.addChild(_syncText);		
