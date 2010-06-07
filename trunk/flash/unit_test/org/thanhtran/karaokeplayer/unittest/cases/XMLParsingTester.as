@@ -173,9 +173,11 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(2520, BlockInfo(blocks[0]).duration);
 				
 				Assert.assertEquals("Thắp nến đêm nay", BlockInfo(blocks[1]).text);
-				Assert.assertEquals(2000, BlockInfo(blocks[1]).duration);
+				//Assert.assertEquals(2000, BlockInfo(blocks[1]).duration);
+				//dur at the last p should overwrite any begin
+				Assert.assertEquals(1200, BlockInfo(blocks[1]).duration);
 				
-				Assert.assertEquals(4520, line1.duration);
+				Assert.assertEquals(3720, line1.duration);
 				
 				//test line 2 (female)
 				var line2: LineInfo = lines[1];
@@ -275,12 +277,13 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 				Assert.assertEquals(440, BlockInfo(blocks[4]).duration);
 				
 				Assert.assertEquals("nhau", BlockInfo(blocks[5]).text);
-				Assert.assertEquals(730, BlockInfo(blocks[5]).duration);
+				Assert.assertEquals(2000, BlockInfo(blocks[5]).duration);
 				
-				Assert.assertEquals("./.", BlockInfo(blocks[6]).text);
-				Assert.assertEquals(0, BlockInfo(blocks[6]).duration);
+				//discourage use of ./.
+				//Assert.assertEquals("./.", BlockInfo(blocks[6]).text);
+				//Assert.assertEquals(0, BlockInfo(blocks[6]).duration);
 				
-				Assert.assertEquals(5290, line21.duration);
+				Assert.assertEquals(6560, line21.duration);
 			//} catch (err:Error){
 				//Assert.fail("songLyrics parse failed: \n" + StringUtil.truncate(err.getStackTrace(), 1000));
 			//}

@@ -24,8 +24,10 @@ package org.thanhtran.karaokeplayer.data {
 		public static const MALE: String = "m";
 		public static const FEMALE: String = "f";
 		
-		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x8AD420, false, 0xFFFFFF);		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x00CCFF, false, 0xFFFFFF);		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF37BF, false, 0xFFFFFF);
-		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF9600, false, 0xFFFFFF);
+		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x8AD420, false, 0x000000);
+		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x00CCFF, false, 0x000000);
+		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF37BF, false, 0x000000);
+		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF9600, false, 0x000000);
 		
 		public var color: Number;
 		public var strokeColor: Number;
