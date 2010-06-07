@@ -1,19 +1,18 @@
 package org.thanhtran.karaokeplayer.unittest.cases {
-	import org.thanhtran.karaokeplayer.karplayer_internal;
-
-	import flash.events.Event;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
+	import org.thanhtran.karaokeplayer.KarPlayerError;
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
 	import org.thanhtran.karaokeplayer.data.LyricStyle;
 	import org.thanhtran.karaokeplayer.data.SongInfo;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
-	import org.thanhtran.karaokeplayer.KarPlayerError;
-	import org.thanhtran.karaokeplayer.utils.StringUtil;
+	import org.thanhtran.karaokeplayer.karplayer_internal;
 	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
+
+	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	
 	use namespace karplayer_internal;
 	public class XMLParsingTester {
@@ -149,7 +148,9 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 		}
 		
 		/**
-		 * 
+		 * TODO: test time logic:
+		 * - next begin must not sooner than previous begin
+		 * - line start + line duration must not exceed next line start  
 		 */
 		[Test(order=5, description="Test parse song lyrics")]
 		public function testParseSongLyrics(): void {
@@ -290,12 +291,9 @@ package org.thanhtran.karaokeplayer.unittest.cases {
 			
 			
 			
-			
-			
-			
-			
-			
 		}
+		
+		
 		
 	}
 		

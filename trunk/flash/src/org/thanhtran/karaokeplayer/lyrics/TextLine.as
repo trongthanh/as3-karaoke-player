@@ -25,7 +25,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 */
 	public class TextLine extends Sprite {
 		
-		include "../version.as";		
+		include "../version.as"		
 		
 		/* complete event, param: TextLine */
 		public var completed: Signal;
@@ -39,6 +39,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 		/* number of blocks */
 		private var _len: uint;
 		private var _playing: Boolean;
+		private var _complete: Boolean;
 
 		public function TextLine() {
 			completed = new Signal(TextLine);
@@ -92,6 +93,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 				tb.next.play();
 			} else {
 				_playing = false;
+				_complete = true;
 				completed.dispatch(this);
 			}
 		}
@@ -108,6 +110,8 @@ package org.thanhtran.karaokeplayer.lyrics {
 			for (var i : int = 0; i < _len; i++) {
 				blocks[i].dispose();
 			}
+			_playing = false;
+			_complete = false;
 		}
 		
 		public function get duration(): uint {
@@ -121,6 +125,10 @@ package org.thanhtran.karaokeplayer.lyrics {
 		
 		public function get playing(): Boolean {
 			return _playing;
+		}
+		
+		public function get complete(): Boolean {
+			return _complete;
 		}
 		
 		override public function toString(): String {

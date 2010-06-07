@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 package {
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import org.thanhtran.karaokeplayer.data.SongInfo;
-	import flash.media.SoundChannel;
-	import flash.utils.getTimer;
-	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
-	import org.thanhtran.karaokeplayer.data.SongLyrics;
-	import flash.media.Sound;
-	import org.thanhtran.karaokeplayer.lyrics.LyricsPlayer;
 	import fl.controls.Button;
-	import org.thanhtran.karaokeplayer.lyrics.TextLine;
+
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
+	import org.thanhtran.karaokeplayer.data.SongInfo;
+	import org.thanhtran.karaokeplayer.lyrics.LyricsPlayer;
+	import org.thanhtran.karaokeplayer.lyrics.TextBlock;
+	import org.thanhtran.karaokeplayer.lyrics.TextLine;
+	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
+
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import org.thanhtran.karaokeplayer.lyrics.TextBlock;
-	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.utils.getTimer;
+
 	/**
 	 * ...
 	 * @author Thanh Tran
@@ -45,7 +46,7 @@ package {
 		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
 		//[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
 		public var SongXML: Class;
-		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
+		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan_beat.mp3")]
 		//[Embed(source = "/../bin/audio/co_be_mua_dong_beat.mp3")]
 		public var SongAudio: Class 
 		
