@@ -78,7 +78,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 			var nextLine: TextLine;
 			if(textLine == _l1) {
 				_idx1 += 2;
-				if(_idx1 < _lines.length - 1) {
+				if(_idx1 < _lines.length) {
 					_l1 = _lines[_idx1];
 					addChild(_l1);
 					_l1.alpha = 0;
@@ -87,7 +87,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 				
 			} else {
 				_idx2 += 2;
-				if(_idx2 < _lines.length - 1) {
+				if(_idx2 < _lines.length) {
 					_l2 = _lines[_idx2];
 					addChild(_l2);
 					_l2.alpha = 0;

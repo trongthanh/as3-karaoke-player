@@ -13,29 +13,34 @@
 	<body>
 		<div style="f">
 			<p begin="00:00:21.260">* * *</p> <!-- this first version will only support sequential begin -->
-			<p begin="00:00:23.780">Thắp nến đêm nay</p>
+			<p begin="00:00:23.580">Thắp nến</p>
+			<p begin="00:00:24.590">đêm nay</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:25.780">ấm áp trong tay</p>
+			<p begin="00:00:25.560">ấm áp</p>
+			<p begin="00:00:26.390">trong tay</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:27.500">của người</p>
-			<p begin="00:00:27.860">yêu dấu</p>
+			<p begin="00:00:27.480">của người</p>
+			<p begin="00:00:28.250">yêu dấu</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:29.540">xiết bao ngọt ngào</p>
+			<p begin="00:00:29.320">xiết bao</p>
+			<p begin="00:00:30.170">ngọt ngào</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:31.940">vu vơ mơ về</p>
+			<p begin="00:00:31.790">vu vơ</p>
+			<p begin="00:00:32.270">mơ về</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:33.460">một ngày</p>
-			<p begin="00:00:34.300">của nhau</p>
+			<p begin="00:00:33.300">một ngày</p>
+			<p begin="00:00:34.110">của nhau</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:36.540">hạnh phúc</p>
-			<p begin="00:00:36.860">lứa đôi</p>
-			<p begin="00:00:37.220">tràn dâng</p>
+			<p begin="00:00:36.360">hạnh phúc</p>
+			<p begin="00:00:37.110">lứa đôi</p>
+			<p begin="00:00:38.090">tràn</p>
+			<p begin="00:00:38.490">dâng</p>
 		</div>
 		<div style="m">
 			<p begin="00:00:43.060">Hãy</p>
@@ -82,26 +87,26 @@
 			<p begin="00:00:58.390">tận</p>
 		</div>
 		<div style="f">
-			<p begin="00:00:59.870">Khi</p>
-			<p begin="00:01:00.110">đã</p>
-			<p begin="00:01:00.350">yêu</p>
+			<p begin="00:00:59.080">Khi</p>
+			<p begin="00:00:59.400">đã</p>
+			<p begin="00:00:59.670">yêu</p>
 		</div>
 		<div style="f">
-			<p begin="00:01:00.830">em</p>
-			<p begin="00:01:01.070">trao</p>
-			<p begin="00:01:01.510">rất</p>
-			<p begin="00:01:01.990">nhìêu</p>
+			<p begin="00:01:00.220">em</p>
+			<p begin="00:01:00.550">trao</p>
+			<p begin="00:01:01.130">rất</p>
+			<p begin="00:01:01.560">nhiều</p>
 		</div>
 		<div style="f">
-			<p begin="00:01:03.230">khi</p>
-			<p begin="00:01:03.470">đã</p>
-			<p begin="00:01:03.790">yêu</p>
+			<p begin="00:01:02.930">khi</p>
+			<p begin="00:01:03.300">đã</p>
+			<p begin="00:01:03.580">yêu</p>
 		</div>
 		<div style="f">
-			<p begin="00:01:04.470">em</p>
-			<p begin="00:01:04.790">yêu</p>
-			<p begin="00:01:05.230">thật</p>
-			<p begin="00:01:05.790">nhiều</p>
+			<p begin="00:01:04.270">em</p>
+			<p begin="00:01:04.570">yêu</p>
+			<p begin="00:01:05.160">thật</p>
+			<p begin="00:01:05.540">lòng</p>
 		</div>
 		<div style="m">
 			<p begin="00:01:07.030">Khi</p>
@@ -128,41 +133,53 @@
 			<p begin="00:01:15.470">em</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:18.150">Bao</p>
-			<p begin="00:01:18.390">nhiêu</p>
-			<p begin="00:01:18.790">yêu</p>
-			<p begin="00:01:19.190">thương</p>
+			<p begin="00:01:17.700">Bao</p>
+			<p begin="00:01:18.030">nhiêu</p>
+			<p begin="00:01:18.460">yêu</p>
+			<p begin="00:01:19.000">thương</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:19.870">bao</p>
-			<p begin="00:01:20.190">nhiêu</p>
-			<p begin="00:01:20.670">diệu</p>
-			<p begin="00:01:21.110">kì</p>
+			<p begin="00:01:19.700">bao</p>
+			<p begin="00:01:20.000">nhiêu</p>
+			<p begin="00:01:20.250">diệu</p>
+			<p begin="00:01:20.880">kì</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:21.830">bao</p>
-			<p begin="00:01:22.150">nhiêu</p>
-			<p begin="00:01:22.590">tin</p>
-			<p begin="00:01:22.990">yêu</p>
+			<p begin="00:01:21.610">bao</p>
+			<p begin="00:01:21.880">nhiêu</p>
+			<p begin="00:01:22.390">tin</p>
+			<p begin="00:01:22.790">yêu</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:23.750">suốt</p>
-			<p begin="00:01:24.030">cả</p>
-			<p begin="00:01:24.510">cuộc</p>
-			<p begin="00:01:24.950">đời</p>
+			<p begin="00:01:23.360">suốt</p>
+			<p begin="00:01:23.860">cả</p>
+			<p begin="00:01:24.370">cuộc</p>
+			<p begin="00:01:24.800">đời</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:26.430">chỉ</p>
-			<p begin="00:01:26.750">để</p>
-			<p begin="00:01:27.190">dành</p>
-			<p begin="00:01:27.590">riêng</p>
-			<p begin="00:01:27.830">em</p>
-			<p begin="00:01:28.150">thôi</p>
+			<p begin="00:01:26.220">chỉ</p>
+			<p begin="00:01:26.520">để</p>
+			<p begin="00:01:26.680" dur="1300">dành</p>
 		</div>
 		<div style="m">
-			<p begin="00:01:29.070">chỉ</p>
-			<p begin="00:01:29.310">một</p>
-			<p begin="00:01:29.630">người</p>
+			<p begin="00:01:27.160">(chỉ</p>
+			<p begin="00:01:27.550">để</p>
+			<p begin="00:01:27.780">dành)</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:28.080">riêng</p>
+			<p begin="00:01:28.390">em</p>
+			<p begin="00:01:28.690" dur="870">thôi</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:29.030">(riêng</p>
+			<p begin="00:01:29.340">em</p>
+			<p begin="00:01:29.610" dur="1300">thôi)</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:30.030">chỉ</p>
+			<p begin="00:01:30.330">một</p>
+			<p begin="00:01:30.560">người</p>
 		</div>
 		<div style="f">
 			<p begin="00:01:33.430">Đêm</p>
@@ -199,7 +216,7 @@
 		<div style="f">
 			<p begin="00:01:45.790">phút</p>
 			<p begin="00:01:46.150">giây</p>
-			<p begin="00:01:46.550">này</p>
+			<p begin="00:01:46.550" dur="4800">này</p>
 		</div>
 		<div style="f">
 			<p begin="00:02:05.030">*</p>
@@ -301,7 +318,7 @@
 			<p begin="00:02:46.190">em</p>
 			<p begin="00:02:46.510">trao</p>
 			<p begin="00:02:46.870">rất</p>
-			<p begin="00:02:47.350">nhìêu</p>
+			<p begin="00:02:47.350">nhiều</p>
 		</div>
 		<div style="f">
 			<p begin="00:02:48.630">khi</p>
@@ -312,7 +329,7 @@
 			<p begin="00:02:50.070">em</p>
 			<p begin="00:02:50.430">yêu</p>
 			<p begin="00:02:50.750">thật</p>
-			<p begin="00:02:51.190">nhiều</p>
+			<p begin="00:02:51.190">lòng</p>
 		</div>
 		<div style="m">
 			<p begin="00:02:52.510">Khi</p>
@@ -520,8 +537,7 @@
 			<p begin="00:04:21.470">này</p>
 			<p begin="00:04:24.350">thuộc</p>
 			<p begin="00:04:24.830">về</p>
-			<p begin="00:04:25.270">nhau</p>
-			<p begin="00:04:26.000">./.</p>
+			<p begin="00:04:25.270" dur="4000">nhau</p>
 		</div>
 	</body>
 </tt>

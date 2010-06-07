@@ -22,5 +22,8 @@ package org.thanhtran.karaokeplayer.data {
 		public var duration: uint = 0;
 		public var text: String = "";
 		
+		public function toString(): String {
+			return text + " : " + duration;
+		}
 	}
 }

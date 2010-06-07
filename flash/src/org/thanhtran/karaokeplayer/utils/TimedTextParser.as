@@ -113,6 +113,7 @@ package org.thanhtran.karaokeplayer.utils {
 			var begin: Number;
 			var lineDur: uint;
 			var end: Number;
+			var dur: uint;
 			
 			var songLyrics: SongLyrics = new SongLyrics();
 			//TODO: parse other info of SongLyrics
@@ -141,38 +142,44 @@ package org.thanhtran.karaokeplayer.utils {
 						lyricBlock.text = p.toString();
 						//trace( "lyricBit.text : " + lyricBlock.text );
 						begin = parseTimeAttribute(p, "begin", true);
-						//get start time of block
+						//get start time of block from first p (if not, get start time from div.@begin
 						if (j == 0) {
 							lyricLine.startTime = begin;
 						}
 						
-						//TODO: get duration from @dur
+						lyricBlock.duration = (p.@dur[0] != undefined)? uint(p.@dur[0]): 0;
 						
-						//get duration from next start time
 						//try next p
 						var nextP: XML = pList[j + 1];
-						if (!nextP || !nextP.@begin[0]) {
+						var beginRequired: Boolean = (lyricBlock.duration == 0)? true : false;
+						if (!nextP && beginRequired) {
 							//try first p of next div
 							var nextDiv: XML = divList[i + 1];
-							if (nextDiv && nextDiv.p[0]) {
+							if (nextDiv) {
 								nextP = nextDiv.p[0];
-							} else {
-								//it's ok for the last p of the last div to miss duration, as long as it is end mark ./.
-								if (lyricBlock.text != "./." && lyricBlock.duration == 0) {
-									throw new KarPlayerError(KarPlayerError.INVALID_XML, "Final <p> is not an end mark (./.)");
+								if (!nextP.@begin[0]) {
+									//try next div
+									nextP = nextDiv;
 								}
+							} else {
+								throw new KarPlayerError(KarPlayerError.INVALID_XML, "Final <p> doesn't have duration");
 							}
-						} 
+							
+						}
 						
-						end = parseTimeAttribute(nextP, "begin", false);
+						end = parseTimeAttribute(nextP, "begin", beginRequired);
 						if (!isNaN(end)) {
 							lyricBlock.duration = end - begin;
 						}
+						//trace( "lyricBlock: " + lyricBlock );
 						lineDur += lyricBlock.duration; 
 						//trace( "lyricBit.duration : " + lyricBit.duration );
 						lyricLine.lyricBlocks.push(lyricBlock);
 						
 					} //end p loop
+				}
+				if (!lyricLine.startTime) {
+					lyricLine.startTime = parseTimeAttribute(div, "begin", true);
 				}
 				lyricLine.duration = lineDur; 
 				songLyrics.addLine(lyricLine);
@@ -192,7 +199,7 @@ package org.thanhtran.karaokeplayer.utils {
 		karplayer_internal function parseTimeAttribute(parentNode:XML, attr:String, req:Boolean): Number {
 			if (!parentNode || parentNode["@" + attr].length() < 1) {
 				if (req) {
-					throw new KarPlayerError(KarPlayerError.INVALID_XML, "Missing required attribute " + attr);
+					throw new KarPlayerError(KarPlayerError.INVALID_XML, "Missing required attribute " + attr + " in node: " + parentNode);
 				}
 				return NaN;
 			}
@@ -237,6 +244,7 @@ package org.thanhtran.karaokeplayer.utils {
 			}
 			return theTime;
 		}
+		
 		
 		/**
 		 * get value from set of predefined value.<br/>

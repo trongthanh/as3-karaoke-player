@@ -13,7 +13,7 @@
 	<body>
 		<div style="f">
 			<p begin="00:00:21.260">* * *</p> <!-- this first version will only support sequential begin -->
-			<p begin="00:00:23.780">Thắp nến đêm nay</p>
+			<p begin="00:00:23.780" dur="1200">Thắp nến đêm nay</p>
 		</div>
 		<div style="f">
 			<p begin="00:00:25.780">ấm áp trong tay</p>
@@ -128,8 +128,7 @@
 			<p begin="00:04:21.470">này</p>
 			<p begin="00:04:24.350">thuộc</p>
 			<p begin="00:04:24.830">về</p>
-			<p begin="00:04:25.270">nhau</p>
-			<p begin="00:04:26.000">./.</p>
+			<p begin="00:04:25.270" dur="2000">nhau</p>
 		</div>
 	</body>
 </tt>

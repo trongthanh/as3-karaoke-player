@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package {
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import org.thanhtran.karaokeplayer.data.SongInfo;
 	import flash.media.SoundChannel;
 	import flash.utils.getTimer;
@@ -40,9 +42,11 @@ package {
 		private var bit:TextBlock;
 		private var textBlock: TextLine;
 		
-		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
+		//[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
+		[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
 		public var SongXML: Class;
-		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
+		//[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
+		[Embed(source = "/../bin/audio/co_be_mua_dong_beat.mp3")]
 		public var SongAudio: Class 
 		
 		public var sound: Sound;
@@ -56,6 +60,9 @@ package {
 		
 		private function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			
 			
 			playButton = new Button();
 			playButton.label = "Start";
@@ -73,7 +80,7 @@ package {
 			sound = new SongAudio();
 			var lyricParser: TimedTextParser = new TimedTextParser();
 			var songInfo: SongInfo = lyricParser.parseXML(xml);
-			lyricPlayer = new LyricsPlayer(700, 400);
+			lyricPlayer = new LyricsPlayer(600, 400);
 			lyricPlayer.init(songInfo.lyrics);
 			addChild(lyricPlayer);
 		}
