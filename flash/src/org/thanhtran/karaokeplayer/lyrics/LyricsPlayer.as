@@ -24,6 +24,9 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class LyricsPlayer extends Sprite {
+		
+		include "../version.as";
+		
 		public var data: SongLyrics;
 		
 		private var _w: Number; //screen width

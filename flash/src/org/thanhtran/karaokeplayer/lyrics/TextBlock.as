@@ -32,6 +32,9 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextBlock extends Sprite {
+		
+		include "../version.as";
+		
 		public var next: TextBlock;
 		public var textColor: uint = 0x8AD420;
 		public var strokeColor: uint = 0xFFFFFF;
