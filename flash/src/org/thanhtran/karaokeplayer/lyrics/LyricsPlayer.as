@@ -25,7 +25,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 */
 	public class LyricsPlayer extends Sprite {
 		
-		include "../version.as";
+		include "../version.as"
 		
 		public var data: SongLyrics;
 		
@@ -97,7 +97,8 @@ package org.thanhtran.karaokeplayer.lyrics {
 					nextLine = _l2;
 				}
 			}
-			GTweener.to(textLine, 0.1, {alpha:0}, {data: {last: textLine, next: nextLine}, onComplete: lineFadeOutCompleteHandler});
+			//only fade current line if there's next line to show
+			if(nextLine) GTweener.to(textLine, 0.1, {alpha:0}, {data: {last: textLine, next: nextLine}, onComplete: lineFadeOutCompleteHandler});
 		}
 		
 		public function lineFadeOutCompleteHandler(tween: GTween): void {
@@ -119,10 +120,10 @@ package org.thanhtran.karaokeplayer.lyrics {
 		
 		public function set position(position: Number): void {
 			_pos = position;
-			if(_pos > _l1.startTime && !_l1.playing) {
+			if(_pos > _l1.startTime && !_l1.playing && !_l1.complete) {
 				_l1.play();
 			}
-			if(_pos > _l2.startTime && !_l2.playing) {
+			if(_pos > _l2.startTime && !_l2.playing && !_l2.complete) {
 				_l2.play();
 			}	
 		}

@@ -27,7 +27,7 @@ package org.thanhtran.karaokeplayer.utils {
 	 */
 	public class TimedTextParser {
 		
-		include "../version.as";
+		include "../version.as"
 		
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");
 		public var tts: Namespace = new Namespace("http://www.w3.org/ns/ttml#styling");
@@ -116,7 +116,6 @@ package org.thanhtran.karaokeplayer.utils {
 			var begin: Number;
 			var lineDur: uint;
 			var end: Number;
-			var dur: uint;
 			
 			var songLyrics: SongLyrics = new SongLyrics();
 			//TODO: parse other info of SongLyrics
