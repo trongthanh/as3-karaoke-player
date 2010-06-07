@@ -81,6 +81,7 @@ package {
 			var lyricParser: TimedTextParser = new TimedTextParser();
 			var songInfo: SongInfo = lyricParser.parseXML(xml);
 			lyricPlayer = new LyricsPlayer(600, 400);
+			trace("karPlayer version: " + LyricsPlayer.VERSION);
 			lyricPlayer.init(songInfo.lyrics);
 			addChild(lyricPlayer);
 		}

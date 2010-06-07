@@ -26,6 +26,9 @@ package org.thanhtran.karaokeplayer.utils {
 	 * @author Thanh Tran
 	 */
 	public class TimedTextParser {
+		
+		include "../version.as";
+		
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");
 		public var tts: Namespace = new Namespace("http://www.w3.org/ns/ttml#styling");
 		public var ttm: Namespace = new Namespace("http://www.w3.org/ns/ttml#metadata");

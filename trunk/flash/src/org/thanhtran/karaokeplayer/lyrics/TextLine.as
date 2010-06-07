@@ -24,6 +24,9 @@ package org.thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextLine extends Sprite {
+		
+		include "../version.as";		
+		
 		/* complete event, param: TextLine */
 		public var completed: Signal;
 		public var blocks: Array;
