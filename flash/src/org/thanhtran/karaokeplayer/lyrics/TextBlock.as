@@ -87,15 +87,19 @@ package org.thanhtran.karaokeplayer.lyrics {
 		public function render(): void {
 			//normal text
 			var normalFormat: TextFormat = new TextFormat(font, size, textColor);
+			//trace( "font : " + font );
+			//trace( "embedFonts : " + embedFonts );
 			_normalText = new TextField();
 			_normalText.mouseEnabled = false;
 			_normalText.autoSize = "left";
 			_normalText.embedFonts = embedFonts;
+			
 			_normalText.defaultTextFormat = normalFormat;
 			_normalText.text = text;
+			_normalText.setTextFormat(normalFormat);
 			//stroke:
-			var strokeSize: Number = size / 12;
-			var normalGlowFilter: GlowFilter = new GlowFilter(strokeColor, 1, strokeSize, strokeSize, 255, 2);
+			var strokeSize: Number = size / 10;
+			var normalGlowFilter: GlowFilter = new GlowFilter(strokeColor, 1, strokeSize, strokeSize, 20, 2);
 			_normalText.filters = [normalGlowFilter];
 			
 			//sync text
@@ -106,8 +110,9 @@ package org.thanhtran.karaokeplayer.lyrics {
 			_syncText.embedFonts = embedFonts;
 			_syncText.defaultTextFormat = syncFormat;
 			_syncText.text = text;
+			_syncText.setTextFormat(syncFormat);
 			//stroke:
-			var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 255, 2);
+			var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 20, 2);
 			_syncText.filters = [syncGlowFilter];
 			
 			//mask

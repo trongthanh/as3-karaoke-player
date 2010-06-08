@@ -131,6 +131,20 @@ package org.thanhtran.karaokeplayer.lyrics {
 			return _complete;
 		}
 		
+		override public function get width(): Number { 
+			if (blocks && blocks.length) {
+				var lastBlock: TextBlock = blocks[blocks.length - 1];
+				return (lastBlock.x + lastBlock.width);
+			} else {
+				return super.width; 
+			}
+		}
+		
+		override public function set width(value: Number): void {
+			//super.width = value;
+			trace("this component has read-only width");
+		}
+		
 		override public function toString(): String {
 			var str: String = "Line {";
 			for (var i : int = 0; i < _len; i++) {
@@ -138,5 +152,6 @@ package org.thanhtran.karaokeplayer.lyrics {
 			}
 			return str + "}";
 		}
+		
 	}
 }

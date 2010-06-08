@@ -15,6 +15,9 @@
  */
 package {
 	import fl.controls.Button;
+	import flash.display.Bitmap;
+	import flash.text.Font;
+	import org.thanhtran.karaokeplayer.data.SongLyrics;
 
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
@@ -37,24 +40,39 @@ package {
 	 * ...
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="800", height="600")]
+	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
 	public class Main extends Sprite {
 		public var playButton: Button;
 		private var bit:TextBlock;
 		private var textBlock: TextLine;
 		
+		[Embed(source = '/../assets/images/simplygreen.jpg')]
+		public var BGClass: Class;
+		
 		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
 		//[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
 		public var SongXML: Class;
-		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan_beat.mp3")]
+		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
 		//[Embed(source = "/../bin/audio/co_be_mua_dong_beat.mp3")]
-		public var SongAudio: Class 
+		public var SongAudio: Class
+		
+		[Embed(systemFont='Verdana'
+		,fontFamily  = 'VerdanaRegularVN'
+		,fontName  ='VerdanaRegularVN'
+		,fontStyle   ='normal' // normal|italic
+		,fontWeight  ='normal' // normal|bold
+		,unicodeRange = 'U+0020-U+002F,U+0030-U+0039,U+003A-U+0040,U+0041-U+005A,U+005B-U+0060,U+0061-U+007A,U+007B-U+007E,U+00C0-U+00C3,U+00C8-U+00CA,U+00CC-U+00CD,U+00D0,U+00D2-U+00D5,U+00D9-U+00DA,U+00DD,U+00E0-U+00E3,U+00E8-U+00EA,U+00EC-U+00ED,U+00F2-U+00F5,U+00F9-U+00FA,U+00FD,U+0102-U+0103,U+0110-U+0111,U+0128-U+0129,U+0168-U+0169,U+01A0-U+01B0,U+1EA0-U+1EF9,U+02C6-U+0323',
+		mimeType='application/x-font'
+		//,embedAsCFF='false'
+		)]
+		public static const fontClass:Class;
 		
 		public var sound: Sound;
 		public var lyricPlayer: LyricsPlayer;
 		public var startTime: int;
 		
 		public function Main():void {
+			Font.registerFont(fontClass);
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -64,6 +82,8 @@ package {
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
+			var bg: Bitmap = new BGClass();
+			addChild(bg);
 			
 			playButton = new Button();
 			playButton.label = "Start";
@@ -81,8 +101,17 @@ package {
 			sound = new SongAudio();
 			var lyricParser: TimedTextParser = new TimedTextParser();
 			var songInfo: SongInfo = lyricParser.parseXML(xml);
-			lyricPlayer = new LyricsPlayer(600, 400);
+			lyricPlayer = new LyricsPlayer(500, 400);
+			lyricPlayer.y = 300;
+			lyricPlayer.x = 50;
 			trace("karPlayer version: " + LyricsPlayer.VERSION);
+			var lyrics: SongLyrics = songInfo.lyrics;
+			lyrics.basicLyricStyle.font = "VerdanaRegularVN";
+			lyrics.basicLyricStyle.embedFonts = true;
+			lyrics.maleLyricStyle.font = "VerdanaRegularVN";
+			lyrics.maleLyricStyle.embedFonts = true;
+			lyrics.femaleLyricStyle.font = "VerdanaRegularVN";
+			lyrics.femaleLyricStyle.embedFonts = true;
 			lyricPlayer.init(songInfo.lyrics);
 			addChild(lyricPlayer);
 		}
@@ -93,6 +122,7 @@ package {
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			startTime = getTimer();
 			var channel: SoundChannel = sound.play();
+			playButton.visible = false;
 		}
 
 		private function enterFrameHandler(event: Event): void {
