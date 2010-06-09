@@ -26,7 +26,7 @@ package org.thanhtran.karaokeplayer.data {
 		
 		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x33CC33, false, 0x000000);
 		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x3299FF, false, 0x000000);
-		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF0098, false, 0x000000);
+		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF32CC, false, 0x000000);
 		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF9900, false, 0x000000);
 		
 		public var color: Number;

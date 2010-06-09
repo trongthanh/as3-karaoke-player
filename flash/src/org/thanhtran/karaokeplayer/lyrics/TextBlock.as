@@ -28,6 +28,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 	import flash.text.TextFormat;
 
 	/**
+	 * TODO: use object pool to optimize memmory and performance
 	 * The smallest block of texts which share the same speed
 	 * @author Thanh Tran
 	 */
@@ -101,6 +102,15 @@ package org.thanhtran.karaokeplayer.lyrics {
 			var strokeSize: Number = size / 10;
 			var normalGlowFilter: GlowFilter = new GlowFilter(strokeColor, 1, strokeSize, strokeSize, 20, 2);
 			_normalText.filters = [normalGlowFilter];
+			//if (strokeFilters) {
+				//_normalText.filters = strokeFilters;
+			//} else {
+				//trace("should be here once");
+				//var normalGlowFilter: GlowFilter = new GlowFilter(strokeColor, 1, strokeSize, strokeSize, 20, 2);
+				//strokeFilters = [normalGlowFilter];
+				//_normalText.filters = strokeFilters;
+			//}
+			
 			
 			//sync text
 			var syncFormat: TextFormat = new TextFormat(font, size, syncTextColor);
@@ -112,8 +122,10 @@ package org.thanhtran.karaokeplayer.lyrics {
 			_syncText.text = text;
 			_syncText.setTextFormat(syncFormat);
 			//stroke:
-			var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 20, 2);
-			_syncText.filters = [syncGlowFilter];
+			//if (syncStrokeColor != strokeColor) {
+				//var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 20, 2);
+				//_syncText.filters = [syncGlowFilter];
+			//}
 			
 			//mask
 			_mask = new Shape();

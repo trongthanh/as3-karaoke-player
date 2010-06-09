@@ -48,6 +48,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib" />
+    <element path="assets\swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

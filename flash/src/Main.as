@@ -18,6 +18,7 @@ package {
 	import flash.display.Bitmap;
 	import flash.text.Font;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
+	import org.thanhtran.karaokeplayer.utils.EnterFrameManager;
 
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
@@ -70,6 +71,7 @@ package {
 		public var sound: Sound;
 		public var lyricPlayer: LyricsPlayer;
 		public var startTime: int;
+		public var enterFrameManager: EnterFrameManager;
 		
 		public function Main():void {
 			Font.registerFont(fontClass);
@@ -114,18 +116,20 @@ package {
 			lyrics.femaleLyricStyle.embedFonts = true;
 			lyricPlayer.init(songInfo.lyrics);
 			addChild(lyricPlayer);
+			
+			enterFrameManager = new EnterFrameManager();
 		}
 
 		private function playButtonClickHandler(event: MouseEvent): void {
 			//bit.play();
 			//textBlock.play();
-			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			enterFrameManager.enterFrame.add(enterFrameHandler);
 			startTime = getTimer();
 			var channel: SoundChannel = sound.play();
 			playButton.visible = false;
 		}
 
-		private function enterFrameHandler(event: Event): void {
+		private function enterFrameHandler(): void {
 			var pos: int = getTimer() - startTime;
 			
 			lyricPlayer.position = pos;
