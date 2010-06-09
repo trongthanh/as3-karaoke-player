@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.thanhtran.karaokeplayer.lyrics {
+	import flash.filters.GlowFilter;
 	import org.thanhtran.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
 	import org.thanhtran.karaokeplayer.data.BlockInfo;
@@ -69,9 +70,10 @@ package org.thanhtran.karaokeplayer.lyrics {
 				block.x = lastX;
 				addChild(block);
 				lastX += block.width;
-			} 
+			}
+			
 		}
-
+		
 		private function checkStyle(): void {
 			syncStyle = _data.songLyrics.syncLyricStyle;
 			switch(_data.styleName) {
@@ -109,9 +111,11 @@ package org.thanhtran.karaokeplayer.lyrics {
 		public function dispose(): void {
 			for (var i : int = 0; i < _len; i++) {
 				blocks[i].dispose();
+				removeChild(blocks[i]);
 			}
+			blocks = null;
 			_playing = false;
-			_complete = false;
+			_complete = true;
 		}
 		
 		public function get duration(): uint {

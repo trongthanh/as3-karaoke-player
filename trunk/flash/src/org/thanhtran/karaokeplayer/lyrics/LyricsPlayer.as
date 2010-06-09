@@ -16,6 +16,7 @@
 package org.thanhtran.karaokeplayer.lyrics {
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
+	import org.osflash.signals.Signal;
 	import org.thanhtran.karaokeplayer.data.LineInfo;
 	import org.thanhtran.karaokeplayer.data.SongLyrics;
 	import flash.display.Sprite;
@@ -28,6 +29,7 @@ package org.thanhtran.karaokeplayer.lyrics {
 		include "../version.as"
 		
 		public var data: SongLyrics;
+		public var lyricsCompleted: Signal;
 		
 		private var _w: Number; //screen width
 		private var _h: Number; // screen height
@@ -39,11 +41,18 @@ package org.thanhtran.karaokeplayer.lyrics {
 		private var _l2: TextLine;
 		private var _idx2: int;
 		
+		private var _complete: Boolean;
+		
 		public function LyricsPlayer(w: Number, h: Number) {
 			_w = w;
 			_h = h;
+			lyricsCompleted = new Signal(SongLyrics);
 		}
 		
+		/**
+		 * TODO: create exactly number of line 
+		 * @param	lyrics
+		 */
 		public function init(lyrics: SongLyrics): void {
 			data = lyrics;	
 			_lines = new Array();
@@ -95,10 +104,15 @@ package org.thanhtran.karaokeplayer.lyrics {
 					addChild(_l2);
 					_l2.alpha = 0;
 					nextLine = _l2;
-				}
+				} 
 			}
 			//only fade current line if there's next line to show
-			if(nextLine) GTweener.to(textLine, 0.1, {alpha:0}, {data: {last: textLine, next: nextLine}, onComplete: lineFadeOutCompleteHandler});
+			if (nextLine) GTweener.to(textLine, 0.1, { alpha:0 }, { data: { last: textLine, next: nextLine }, onComplete: lineFadeOutCompleteHandler } );
+			
+			if (_lines.indexOf(textLine) == _len -1) {
+				//all lines have been played:
+				lyricsCompleted.dispatch(data);
+			}
 		}
 		
 		public function lineFadeOutCompleteHandler(tween: GTween): void {
@@ -126,6 +140,19 @@ package org.thanhtran.karaokeplayer.lyrics {
 			if(_pos > _l2.startTime && !_l2.playing && !_l2.complete) {
 				_l2.play();
 			}	
+		}
+		
+		/**
+		 * Test release memory
+		 */
+		public function cleanUp(): void {
+			trace("clean up");
+			for (var i : int = 0; i < _len; i++) {
+				_lines[i].dispose();
+			}
+			if (contains(_l1)) removeChild(_l1);
+			if (contains(_l2)) removeChild(_l2);
+			_lines = null;
 		}
 	}
 }
