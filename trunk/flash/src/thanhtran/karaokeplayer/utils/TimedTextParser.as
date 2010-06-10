@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer.utils {
-	import org.thanhtran.karaokeplayer.data.BlockInfo;
-	import org.thanhtran.karaokeplayer.data.LineInfo;
-	import org.thanhtran.karaokeplayer.data.SongInfo;
-	import org.thanhtran.karaokeplayer.data.SongLyrics;
-	import org.thanhtran.karaokeplayer.KarPlayerError;
-	import org.thanhtran.karaokeplayer.karplayer_internal;
+package thanhtran.karaokeplayer.utils {
+	import thanhtran.karaokeplayer.data.BlockInfo;
+	import thanhtran.karaokeplayer.data.LineInfo;
+	import thanhtran.karaokeplayer.data.SongInfo;
+	import thanhtran.karaokeplayer.data.SongLyrics;
+	import thanhtran.karaokeplayer.KarPlayerError;
+	import thanhtran.karaokeplayer.karplayer_internal;
 	
 	use namespace karplayer_internal;
 	/**

@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer.data {
+package thanhtran.karaokeplayer.data {
 
 	/**
 	 * @author Thanh Tran
 	 */
-	public class BlockInfo {
-		public var duration: uint = 0;
-		public var text: String = "";
-		
-		public function toString(): String {
-			return text + " : " + duration;
-		}
+	public class SongInfo {
+		public var title: String = "";
+		public var description: String = "";
+		public var copyright: String = "";
+		public var audio: String = "";
+		public var lyrics: SongLyrics;
 	}
 }

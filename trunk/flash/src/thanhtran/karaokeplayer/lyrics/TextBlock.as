@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer.lyrics {
-	import org.thanhtran.karaokeplayer.data.LyricStyle;
+package thanhtran.karaokeplayer.lyrics {
+	import thanhtran.karaokeplayer.data.LyricStyle;
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import com.gskinner.motion.easing.Linear;

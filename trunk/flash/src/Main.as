@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 package {
+	import flash.media.SoundTransform;
 	import fl.controls.Button;
 	import flash.display.Bitmap;
 	import flash.text.Font;
-	import org.thanhtran.karaokeplayer.data.SongLyrics;
-	import org.thanhtran.karaokeplayer.utils.EnterFrameManager;
+	import thanhtran.karaokeplayer.data.SongLyrics;
+	import thanhtran.karaokeplayer.utils.EnterFrameManager;
 
-	import org.thanhtran.karaokeplayer.data.BlockInfo;
-	import org.thanhtran.karaokeplayer.data.LineInfo;
-	import org.thanhtran.karaokeplayer.data.SongInfo;
-	import org.thanhtran.karaokeplayer.lyrics.LyricsPlayer;
-	import org.thanhtran.karaokeplayer.lyrics.TextBlock;
-	import org.thanhtran.karaokeplayer.lyrics.TextLine;
-	import org.thanhtran.karaokeplayer.utils.TimedTextParser;
+	import thanhtran.karaokeplayer.data.BlockInfo;
+	import thanhtran.karaokeplayer.data.LineInfo;
+	import thanhtran.karaokeplayer.data.SongInfo;
+	import thanhtran.karaokeplayer.lyrics.LyricsPlayer;
+	import thanhtran.karaokeplayer.lyrics.TextBlock;
+	import thanhtran.karaokeplayer.lyrics.TextLine;
+	import thanhtran.karaokeplayer.utils.TimedTextParser;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -51,10 +52,10 @@ package {
 		public var BGClass: Class;
 		
 		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
-		//[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
+//		[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
 		public var SongXML: Class;
 		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
-		//[Embed(source = "/../bin/audio/co_be_mua_dong_beat.mp3")]
+//		[Embed(source = "/../bin/audio/co_be_mua_dong.mp3")]
 		public var SongAudio: Class
 		
 		[Embed(systemFont='Verdana'
@@ -125,7 +126,7 @@ package {
 			//textBlock.play();
 			enterFrameManager.enterFrame.add(enterFrameHandler);
 			startTime = getTimer();
-			var channel: SoundChannel = sound.play();
+			var channel: SoundChannel = sound.play(0,1,new SoundTransform(0.5));
 			playButton.visible = false;
 		}
 

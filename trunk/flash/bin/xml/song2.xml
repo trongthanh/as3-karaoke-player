@@ -11,8 +11,7 @@
 		</metadata>
 	</head>
 	<body>
-		<div style="b">
-			<p begin="00:19.555">*</p>
+		<div style="f">
 			<p begin="00:28.444">*</p>
 			<p begin="00:30.222">*</p>
 			<p begin="00:31.999">*</p>
@@ -20,18 +19,18 @@
 			<p begin="00:33.333">cơn</p>
 			<p begin="00:33.777">gió</p>
 		</div>
-		<div style="b">
+		<div style="f">
 			<p begin="00:34.666">khẽ</p>
 			<p begin="00:35.110">vô</p>
 			<p begin="00:35.555">tình.</p>
 		</div>
-		<div style="b">
+		<div style="f">
 			<p begin="00:37.110">Chiếc</p>
 			<p begin="00:37.333">lá</p>
 			<p begin="00:37.777">lìa</p>
 			<p begin="00:37.999">cành,</p>
 		</div>
-		<div style="b">
+		<div style="f">
 			<p begin="00:38.888">buông</p>
 			<p begin="00:39.110">xuống</p>
 			<p begin="00:39.555">lòng</p>
@@ -123,7 +122,7 @@
 			<p begin="01:11.110">đến</p>
 		</div>
 		<div style="f">
-			<p begin="01:11.999">dẫu</p>
+			<p begin="01:11.999">gió</p>
 			<p begin="01:12.443">khiến</p>
 			<p begin="01:12.888">em</p>
 			<p begin="01:13.332">se</p>
@@ -211,7 +210,6 @@
 			<p begin="01:46.221" dur="4000">đềm.</p>
 		</div>
 		<div style="f">
-			<p begin="02:06.221">*</p>
 			<p begin="02:15.109">*</p>
 			<p begin="02:16.887">*</p>
 			<p begin="02:18.665">*</p>
@@ -322,7 +320,7 @@
 			<p begin="02:57.776">đến</p>
 		</div>
 		<div style="f">
-			<p begin="02:58.664">dẫu</p>
+			<p begin="02:58.664">gió</p>
 			<p begin="02:59.109">khiến</p>
 			<p begin="02:59.553">em</p>
 			<p begin="02:59.998">se</p>
