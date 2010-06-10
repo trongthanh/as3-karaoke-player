@@ -1,5 +1,5 @@
-package org.thanhtran.karaokeplayer.unittest {
-	import org.thanhtran.karaokeplayer.unittest.cases.XMLParsingTester;
+package thanhtran.karaokeplayer.unittest {
+	import thanhtran.karaokeplayer.unittest.cases.XMLParsingTester;
 
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]	

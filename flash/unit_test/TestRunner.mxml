@@ -5,7 +5,7 @@
 	styleName="flexUnitApplication" >
 	<mx:Script>
 		<![CDATA[		
-			import org.thanhtran.karaokeplayer.unittest.XMLTestSuite;
+			import thanhtran.karaokeplayer.unittest.XMLTestSuite;
 			//import org.flexunit.assertThat;
 			//import org.flexunit.asserts.*;
 			import org.flexunit.listeners.UIListener;

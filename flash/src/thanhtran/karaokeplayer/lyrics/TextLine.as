@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer.lyrics {
+package thanhtran.karaokeplayer.lyrics {
 	import flash.filters.GlowFilter;
-	import org.thanhtran.karaokeplayer.data.LyricStyle;
+	import thanhtran.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
-	import org.thanhtran.karaokeplayer.data.BlockInfo;
-	import org.thanhtran.karaokeplayer.data.LineInfo;
+	import thanhtran.karaokeplayer.data.BlockInfo;
+	import thanhtran.karaokeplayer.data.LineInfo;
 	import flash.display.Sprite;
 	/**
 	 * A line of text

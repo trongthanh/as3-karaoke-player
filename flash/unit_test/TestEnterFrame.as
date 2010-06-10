@@ -3,14 +3,14 @@ package  {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import org.osflash.signals.Signal;
-	import org.thanhtran.karaokeplayer.utils.EnterFrameManager;
-	//import org.thanhtran.karaokeplayer.utils.EnterFrameDispatcher;
+	import thanhtran.karaokeplayer.utils.EnterFrameManager;
+	//import thanhtran.karaokeplayer.utils.EnterFrameDispatcher;
 	
 	/**
 	 * ...
 	 * @author Thanh Tran
 	 */
-	//[Frame(factoryClass="org.thanhtran.karaokeplayer.utils.EnterFrameDispatcher")]
+	//[Frame(factoryClass="thanhtran.karaokeplayer.utils.EnterFrameDispatcher")]
 	public class TestEnterFrame extends MovieClip {
 		public var a: uint;
 		public var eventsArr: Array = [];

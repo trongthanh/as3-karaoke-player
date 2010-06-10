@@ -13,11 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer {
+package thanhtran.karaokeplayer.utils {
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import org.osflash.signals.Signal;
 	/**
-	 * internal namespace
+	 * A single manager which centralizes all enter-frame handler
 	 * @author Thanh Tran
 	 */
-	public namespace karplayer_internal = "http://code.google.com/p/as3-karaoke-player/";
+	public class EnterFrameManager extends TwoFrameMovie {
+		public var enterFrame: Signal;
+		
+		public function EnterFrameManager() {
+			enterFrame = new Signal();
+			addFrameScript(0, enterFrameHandler, 1, enterFrameHandler);
+			//stop();
+			//addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+		}
+		
+		private function enterFrameHandler(event: Event = null): void {
+			enterFrame.dispatch();
+		}
+		
+	}
 
 }

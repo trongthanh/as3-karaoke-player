@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thanhtran.karaokeplayer {
+package thanhtran.karaokeplayer {
 	/**
 	 * ...
 	 * @author Thanh Tran
