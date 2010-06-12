@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.utils {
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import org.osflash.signals.Signal;
 	/**

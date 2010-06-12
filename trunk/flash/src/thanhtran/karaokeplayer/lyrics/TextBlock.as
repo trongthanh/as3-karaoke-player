@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.lyrics {
+	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.LyricStyle;
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
@@ -33,8 +34,7 @@ package thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextBlock extends Sprite {
-		
-		include "../version.as"
+		public static const VERSION: String = Version.VERSION;
 		
 		public var next: TextBlock;
 		public var textColor: uint = 0x8AD420;
@@ -122,10 +122,10 @@ package thanhtran.karaokeplayer.lyrics {
 			_syncText.text = text;
 			_syncText.setTextFormat(syncFormat);
 			//stroke:
-			//if (syncStrokeColor != strokeColor) {
-				//var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 20, 2);
-				//_syncText.filters = [syncGlowFilter];
-			//}
+			if (syncStrokeColor != strokeColor) {
+				var syncGlowFilter: GlowFilter = new GlowFilter(syncStrokeColor, 1, strokeSize, strokeSize, 20, 2);
+				_syncText.filters = [syncGlowFilter];
+			}
 			
 			//mask
 			_mask = new Shape();

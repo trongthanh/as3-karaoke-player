@@ -13,5 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-	/* major.minor.svnrevision */
-	public static const VERSION: String = "0.0.8";
+package thanhtran.karaokeplayer {
+	public class Version {
+		/* major.minor.svnrevision */
+		public static const VERSION: String = "0.0.16";
+	}
+}

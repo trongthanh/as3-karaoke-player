@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.utils {
+	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.BlockInfo;
 	import thanhtran.karaokeplayer.data.LineInfo;
 	import thanhtran.karaokeplayer.data.SongInfo;
@@ -26,8 +27,7 @@ package thanhtran.karaokeplayer.utils {
 	 * @author Thanh Tran
 	 */
 	public class TimedTextParser {
-		
-		include "../version.as"
+		public static const VERSION: String = Version.VERSION;
 		
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");
 		public var tts: Namespace = new Namespace("http://www.w3.org/ns/ttml#styling");

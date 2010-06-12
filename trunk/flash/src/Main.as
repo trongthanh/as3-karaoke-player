@@ -54,7 +54,7 @@ package {
 		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
 //		[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
 		public var SongXML: Class;
-		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
+		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan_beat.mp3")]
 //		[Embed(source = "/../bin/audio/co_be_mua_dong.mp3")]
 		public var SongAudio: Class
 		
