@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.lyrics {
-	import flash.filters.GlowFilter;
+	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
 	import thanhtran.karaokeplayer.data.BlockInfo;
@@ -25,8 +25,7 @@ package thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextLine extends Sprite {
-		
-		include "../version.as"		
+		public static const VERSION: String = Version.VERSION;	
 		
 		/* complete event, param: TextLine */
 		public var completed: Signal;

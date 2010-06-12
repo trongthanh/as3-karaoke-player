@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.lyrics {
+	import thanhtran.karaokeplayer.Version;
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import org.osflash.signals.Signal;
@@ -25,8 +26,7 @@ package thanhtran.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class LyricsPlayer extends Sprite {
-		
-		include "../version.as"
+		public static const VERSION: String = Version.VERSION;
 		
 		public var data: SongLyrics;
 		public var lyricsCompleted: Signal;
