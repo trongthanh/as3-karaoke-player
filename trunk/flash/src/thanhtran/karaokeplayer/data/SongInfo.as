@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.data {
+	import flash.media.Sound;
 
 	/**
 	 * @author Thanh Tran
@@ -22,7 +23,10 @@ package thanhtran.karaokeplayer.data {
 		public var title: String = "";
 		public var description: String = "";
 		public var copyright: String = "";
-		public var audio: String = "";
+		public var beatURL: String = "";
 		public var lyrics: SongLyrics;
+		
+		/** used to store reference of Sound object for this song */
+		public var beatSound: Sound;
 	}
 }

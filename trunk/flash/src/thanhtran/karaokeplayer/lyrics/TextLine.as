@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.lyrics {
+	import thanhtran.karaokeplayer.karplayer_internal;
 	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
@@ -23,6 +24,7 @@ package thanhtran.karaokeplayer.lyrics {
 	/**
 	 * A line of text
 	 * @author Thanh Tran
+	 * TODO: pass screen width from LyricPlayer and auto reduce font size if text line width exceed
 	 */
 	public class TextLine extends Sprite {
 		public static const VERSION: String = Version.VERSION;	
@@ -137,7 +139,7 @@ package thanhtran.karaokeplayer.lyrics {
 		override public function get width(): Number { 
 			if (blocks && blocks.length) {
 				var lastBlock: TextBlock = blocks[blocks.length - 1];
-				return (lastBlock.x + lastBlock.width);
+				return (lastBlock.x + lastBlock.karplayer_internal::noSpaceWidth);
 			} else {
 				return super.width; 
 			}

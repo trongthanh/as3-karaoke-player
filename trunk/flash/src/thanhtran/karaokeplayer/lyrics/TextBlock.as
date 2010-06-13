@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.lyrics {
+	import thanhtran.karaokeplayer.karplayer_internal;
 	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.LyricStyle;
 	import com.gskinner.motion.GTween;
@@ -159,7 +160,12 @@ package thanhtran.karaokeplayer.lyrics {
 		}
 
 		override public function get width(): Number { 
-			if (_normalText) return _normalText.width + _spaceWidth - 4; //automatically add extra space for big font
+			if (_normalText) return _normalText.width + _spaceWidth - 4; //automatically add one space after
+			else return super.width; 
+		}
+
+		karplayer_internal function get noSpaceWidth(): Number { 
+			if (_normalText) return _normalText.width - 2; //2 is normally padding of text within textfield
 			else return super.width; 
 		}
 

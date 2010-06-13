@@ -14,26 +14,38 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.utils {
-	import flash.events.Event;
 	import org.osflash.signals.Signal;
 	/**
 	 * A single manager which centralizes all enter-frame handler
 	 * @author Thanh Tran
 	 */
 	public class EnterFrameManager extends TwoFrameMovie {
-		public var enterFrame: Signal;
+		private static var _instance: EnterFrameManager;
+
+		private var _enterFrame: Signal; 
 		
 		public function EnterFrameManager() {
-			enterFrame = new Signal();
+			if(_instance) {
+				throw new Error("EnterFrameManager - Singleton exception");
+			}
+			_enterFrame = new Signal();
 			addFrameScript(0, enterFrameHandler, 1, enterFrameHandler);
-			//stop();
 			//addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
-		private function enterFrameHandler(event: Event = null): void {
+		private function enterFrameHandler(/*event: Event = null*/): void {
 			enterFrame.dispatch();
 		}
 		
+		public function get enterFrame(): Signal {
+			return _enterFrame;
+		}
+		
+		static public function get instance(): EnterFrameManager {
+			if(!_instance) {
+				_instance = new EnterFrameManager();
+			}
+			return _instance;
+		}
 	}
-
 }
