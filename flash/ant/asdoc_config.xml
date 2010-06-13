@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flex-config>
-  <!-- output>../../doc/</output -->
+  <output>../../doc/</output>
   <compiler>
 	<source-path>
 	  <path-element>../src</path-element>
@@ -19,9 +19,9 @@
   </doc-sources>
   <!-- templates-path>asdoc\templates</templates-path -->
   <window-title>AS3 Karaoke Player</window-title>
-  <main-title>as3-karaoke-player - Language Reference</main-title>
-  <footer>&#169; 2010 Tran Trong Thanh</footer>
-  <!-- packages>
+  <main-title>AS3 Karaoke Player - Language Reference</main-title>
+  <footer>&#169; 2010 Tran Trong Thanh - trongthanh@gmail.com</footer>
+  <packages>
 	<package>
 		<string>thanhtran.karaokeplayer.lyrics</string>
 		<string>Lyric text rendering classes</string>
@@ -34,5 +34,5 @@
 		<string>thanhtran.karaokeplayer</string>
 		<string>Contains core classes</string>
 	</package>
-  </packages -->
+  </packages>
 </flex-config>

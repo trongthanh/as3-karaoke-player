@@ -19,7 +19,7 @@ package thanhtran.karaokeplayer.utils {
 	import thanhtran.karaokeplayer.data.LineInfo;
 	import thanhtran.karaokeplayer.data.SongInfo;
 	import thanhtran.karaokeplayer.data.SongLyrics;
-	import thanhtran.karaokeplayer.KarPlayerError;
+	import thanhtran.karaokeplayer.data.KarPlayerError;
 	import thanhtran.karaokeplayer.karplayer_internal;
 	
 	use namespace karplayer_internal;
@@ -67,12 +67,7 @@ package thanhtran.karaokeplayer.utils {
 		}
 		
 		/**
-		 * <metadata>
-			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
-			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
-			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
-			<audio>mp3/hanh_phuc_bat_tan.mp3</audio>
-		</metadata>
+		 * 
 		 * @param	head
 		 * @param	songInfo
 		 */
@@ -80,26 +75,12 @@ package thanhtran.karaokeplayer.utils {
 			songInfo.title = head.metadata.ttm::title[0];
 			songInfo.description = head.metadata.ttm::desc[0];
 			songInfo.copyright = head.metadata.ttm::copyright[0];
-			songInfo.audio = head.metadata.audio;
+			songInfo.beatURL = head.metadata.audio;
 		}
 		
 		/**
 		 * 
-		 * <body><div style="f">
-			<p begin="00:00:21.260">* * *</p> <!-- this first version will only support sequential begin -->
-			<p begin="00:00:23.780">Thắp nến đêm nay</p>
-		</div>
-		<div style="f">
-			<p begin="00:00:25.780">ấm áp trong tay</p>
-		</div>
-		<div style="f">
-			<p begin="00:00:27.500">của người</p>
-			<p begin="00:00:27.860">yêu dấu</p>
-		</div>
-		<div style="f">
-			<p begin="00:00:29.540">xiết bao ngọt ngào</p>
-		</div>
-		</body>
+		 *
 		 */
 		karplayer_internal function parseSongLyrics(body: XML, songInfo: SongInfo): void {
 			var divList: XMLList = body.div;

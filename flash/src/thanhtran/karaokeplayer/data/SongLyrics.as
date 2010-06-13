@@ -19,9 +19,6 @@ package thanhtran.karaokeplayer.data {
 	 * @author Thanh Tran
 	 */
 	public class SongLyrics {
-		public var width: Number = 800;
-		public var height: Number = 200;
-		public var numLines: uint = 2;
 		public var lyricLines: Array = new Array();
 		
 		public var basicLyricStyle: LyricStyle;

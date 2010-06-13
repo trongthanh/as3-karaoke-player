@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer {
+	/**
+	 * This class manages version of this library
+	 *  
+	 */
 	public class Version {
-		/* major.minor.svnrevision */
-		public static const VERSION: String = "0.0.16";
+		/**
+		 * major.minor.svnrevision
+		 */
+		public static const VERSION: String = "0.0.18";
 	}
 }

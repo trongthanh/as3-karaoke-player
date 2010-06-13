@@ -35,6 +35,12 @@ package thanhtran.karaokeplayer.data {
 		public var size: Number;
 		public var embedFonts: Boolean = false;
 		
+		//reserve for later
+		public var lineSpace: Number; //space beetween lines
+		public var fontWeight: String; //bold or normal
+		public var fontStyle: String; //italic or normal
+		 
+		
 		public function LyricStyle(font: String = null, size: Number = NaN, color: Number = NaN, 
 									embedFonts: Boolean = false, strokeColor: Number = NaN) {
 			if(font) this.font = font;

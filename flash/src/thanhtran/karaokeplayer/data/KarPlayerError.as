@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer {
+package thanhtran.karaokeplayer.data {
 	/**
-	 * ...
+	 * Karaoke Player's errors
 	 * @author Thanh Tran
 	 */
 	public class KarPlayerError extends Error {

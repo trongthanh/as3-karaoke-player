@@ -1,7 +1,7 @@
 package thanhtran.karaokeplayer.unittest.cases {
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
-	import thanhtran.karaokeplayer.KarPlayerError;
+	import thanhtran.karaokeplayer.data.KarPlayerError;
 	import thanhtran.karaokeplayer.data.BlockInfo;
 	import thanhtran.karaokeplayer.data.LineInfo;
 	import thanhtran.karaokeplayer.data.LyricStyle;
@@ -68,7 +68,7 @@ package thanhtran.karaokeplayer.unittest.cases {
 			Assert.assertEquals("Verifying title", "Hạnh Phúc Bất Tận", songInfo.title);
 			Assert.assertEquals("Verifying desc", "Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band", songInfo.description);
 			Assert.assertEquals("Verifying desc", "Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com", songInfo.copyright);
-			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.audio);
+			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.beatURL);
 		}
 		
 		[Test(order=3, description="Test getValueFromSet function")]

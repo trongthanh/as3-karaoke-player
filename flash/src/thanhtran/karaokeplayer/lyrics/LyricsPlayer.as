@@ -33,6 +33,7 @@ package thanhtran.karaokeplayer.lyrics {
 		
 		private var _w: Number; //screen width
 		private var _h: Number; // screen height
+		private var _align: String;		
 		private var _lines: Array;
 		private var _len: int;
 		private var _pos: Number;
@@ -43,12 +44,21 @@ package thanhtran.karaokeplayer.lyrics {
 		
 		private var _complete: Boolean;
 		
-		public function LyricsPlayer(w: Number, h: Number) {
+		public function LyricsPlayer(w: Number, h: Number, align: String = "bottom") {
 			_w = w;
-			_h = h;
+			_h = h;				
+			_align = align;
 			lyricsCompleted = new Signal(SongLyrics);
+			
+			//comment me 
+			debug();
 		}
-		
+
+		private function debug(): void {
+			graphics.lineStyle(1, 0x00FF00, 0.8);
+			graphics.drawRect(0, 0, _w, _h);				
+		}
+
 		/**
 		 * TODO: create exactly number of line 
 		 * @param	lyrics
@@ -67,10 +77,11 @@ package thanhtran.karaokeplayer.lyrics {
 				textLine.index = i;
 				//position all lines
 				if(i % 2 == 0) {
+					textLine.y = _h - (textLine.height * 2);
 					//align left
 				} else {
+					textLine.y = _h - (textLine.height);
 					//align right
-					textLine.y = textLine.height + 5;
 					textLine.x = _w - textLine.width; 
 				}
 				
