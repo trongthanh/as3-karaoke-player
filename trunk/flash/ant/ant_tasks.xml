@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- set your own path to Flex SDK home folder -->
+<project name="Pop Rox Ant Builder" basedir=".">
+    <property name="FLEX_HOME" value="/home/thanh/flex_sdk"/>
+    <taskdef resource="flexTasks.tasks"
+        classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<property name="SRC" value="../src"/>
+	<property name="OUTPUT" value="../bin"/>
+	<property name="SWC_OUTPUT" value="../../bin"/>
+	<property name="DOC_OUTPUT" value="../../doc"/>
+	<target name="build">
+		<mxmlc file="${SRC}/Main.as"
+			   output="${OUTPUT}/main.swf" >
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
+			<load-config filename="build_config.xml" />
+		</mxmlc>
+	</target>
+	<target name="gen_swc">
+		<compc output="${SWC_OUTPUT}/karplayer.swc">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
+			<load-config filename="compc_config.xml" />
+		</compc>
+	</target>
+	<target name="gen_doc">
+		<exec executable="${FLEX_HOME}/bin/asdoc" spawn="no">
+			<arg line="-load-config+=asdoc_config.xml" />
+		</exec>
+	</target>
+</project>

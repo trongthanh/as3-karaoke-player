@@ -84,7 +84,7 @@ package thanhtran.karaokeplayer.utils {
 
 		private function ioErrorHandler(event: IOErrorEvent): void {
 			trace("Asset load failed: " + url);
-			failed.dispatch(this);	
+			failed.dispatch(this, "I/O Error");	
 		}
 
 		private function loaderCompleteHandler(event: Event): void {

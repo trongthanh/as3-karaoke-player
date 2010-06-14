@@ -42,8 +42,6 @@ package thanhtran.karaokeplayer.lyrics {
 		private var _l2: TextLine;
 		private var _idx2: int;
 		
-		private var _complete: Boolean;
-		
 		public function LyricsPlayer(w: Number, h: Number, align: String = "bottom") {
 			_w = w;
 			_h = h;				
@@ -51,7 +49,7 @@ package thanhtran.karaokeplayer.lyrics {
 			lyricsCompleted = new Signal(SongLyrics);
 			
 			//comment me 
-			debug();
+//			debug();
 		}
 
 		private function debug(): void {
