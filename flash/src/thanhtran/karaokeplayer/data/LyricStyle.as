@@ -37,8 +37,8 @@ package thanhtran.karaokeplayer.data {
 		
 		//reserve for later
 		public var lineSpace: Number; //space beetween lines
-		public var fontWeight: String; //bold or normal
-		public var fontStyle: String; //italic or normal
+		public var fontWeight: String = "normal"; //bold or normal
+		public var fontStyle: String = "normal"; //italic or normal
 		 
 		
 		public function LyricStyle(font: String = null, size: Number = NaN, color: Number = NaN, 
@@ -48,6 +48,16 @@ package thanhtran.karaokeplayer.data {
 			if(color) this.color = color;
 			this.embedFonts = embedFonts;
 			if(strokeColor) this.strokeColor = strokeColor;
+		}
+		
+		public function copyBasicStyles(basicStyle: LyricStyle): void {
+			size = basicStyle.size;
+			font = basicStyle.font;
+			embedFonts = basicStyle.embedFonts;
+			//later:
+			lineSpace = basicStyle.lineSpace;
+			fontWeight = basicStyle.fontWeight;
+			fontStyle = basicStyle.fontStyle;
 		}
 	}
 }

@@ -116,6 +116,10 @@ package thanhtran.karaokeplayer {
 			if(_options.maleLyricStyle) songLyrics.maleLyricStyle = _options.maleLyricStyle;
 			if(_options.femaleLyricStyle) songLyrics.femaleLyricStyle = _options.femaleLyricStyle;
 			if(_options.syncLyricStyle) songLyrics.syncLyricStyle = _options.syncLyricStyle;
+			//copy all basic styles to other styles:
+			songLyrics.maleLyricStyle.copyBasicStyles(songLyrics.basicLyricStyle);
+			songLyrics.femaleLyricStyle.copyBasicStyles(songLyrics.basicLyricStyle);
+			songLyrics.syncLyricStyle.copyBasicStyles(songLyrics.basicLyricStyle);
 			
 			_songInfo = song;
 		}
