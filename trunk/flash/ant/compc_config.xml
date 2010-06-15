@@ -11,6 +11,10 @@
       <path-element>../lib</path-element>
       <path-element>../assets/swc</path-element>
     </library-path>
+    <include-libraries>
+    	<library>../lib/as3-signals-v0.6.swc</library>
+    	<library>../lib/GTween_V2_01.swc</library>
+    </include-libraries>
     <!-- external-library-path append="true">
        <path-element>../lib</path-element>
     </external-library-path -->
