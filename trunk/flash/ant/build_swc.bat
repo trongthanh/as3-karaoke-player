@@ -9,7 +9,7 @@
 @SET BASE_SRC=..\src
 @SET LINK_REPORT=link_report.xml
 
-echo :: Generating doc ::
-asdoc -load-config+=asdoc_config.xml
+echo :: Compiling SWC ::
+compc -load-config+=compc_config.xml
 
 pause
