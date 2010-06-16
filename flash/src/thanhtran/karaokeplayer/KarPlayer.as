@@ -34,7 +34,14 @@ package thanhtran.karaokeplayer {
 	public class KarPlayer extends Sprite {
 		public static const VERSION: String = Version.VERSION;
 		
+		/**
+		 * dispatch when data and sound are ready
+		 */
 		public var ready: Signal;
+		/**
+		 * arguments (position: Number, length: Number)  
+		 */
+		public var progress: Signal;
 		
 		private var _tickingManager: EnterFrameManager = EnterFrameManager.instance;
 		private var _parser: TimedTextParser;
@@ -68,6 +75,7 @@ package thanhtran.karaokeplayer {
 			addChild(_lyricPlayer);
 			
 			ready = new Signal();
+			progress = new Signal(Number, Number);
 		}
 
 		public function loadSong(urlOrSongInfo: Object): void {
@@ -78,6 +86,7 @@ package thanhtran.karaokeplayer {
 				_songReady = true;
 				ready.dispatch();
 			} else {
+				_parser = new TimedTextParser();
 				var xmlLoader: AssetLoader = new AssetLoader();
 				xmlLoader.completed.add(xmlLoadHandler);
 				xmlLoader.load(String(urlOrSongInfo));		
@@ -87,12 +96,12 @@ package thanhtran.karaokeplayer {
 
 		private function xmlLoadHandler(xmlLoader: AssetLoader): void {
 			trace("xml Loaded");
-			_parser = new TimedTextParser();
-			
+			 
 			var xml: XML = new XML(xmlLoader.data);
 			acceptSongInfo(_parser.parseXML(xml));
 			xmlLoader.dispose();
 			trace('_songInfo.beatURL: ' + (_songInfo.beatURL));
+			trace('_songInfo.title: ' + (_songInfo.title));
 			//continue to load audio:
 			var audioLoader: AssetLoader = new AssetLoader();
 			audioLoader.completed.add(audioLoadHandler);
@@ -139,6 +148,7 @@ package thanhtran.karaokeplayer {
 			var elapsedTime: uint = getTimer() - _startTime;
 			_lyricPlayer.position = elapsedTime;
 			
+			progress.dispatch(_beatPlayer.position, _beatPlayer.length);
 			//_lyricPlayer.position = _beatPlayer.position + 50;
 			 
 			//var diff: Number = (elapsedTime - _beatPlayer.position) - 50;
@@ -171,6 +181,14 @@ package thanhtran.karaokeplayer {
 
 		override public function get height(): Number {
 			return _options.height;
+		}
+		
+		public function get beatPlayer(): BeatPlayer {
+			return _beatPlayer;
+		}
+		
+		public function get lyricPlayer(): LyricsPlayer {
+			return _lyricPlayer;
 		}
 	}
 }
