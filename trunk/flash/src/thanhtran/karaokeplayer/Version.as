@@ -22,6 +22,6 @@ package thanhtran.karaokeplayer {
 		/**
 		 * major.minor.svnrevision
 		 */
-		public static const VERSION: String = "0.0.21";
+		public static const VERSION: String = "0.1.25";
 	}
 }
