@@ -96,6 +96,7 @@ package thanhtran.karaokeplayer.lyrics {
 		}
 
 		private function lineCompleteHandler(textLine: TextLine): void {
+			if(_pos == 0) return;
 			var nextLine: TextLine;
 			if(textLine == _l1) {
 				_idx1 += 2;
@@ -141,8 +142,29 @@ package thanhtran.karaokeplayer.lyrics {
 			return _pos;
 		}
 		
+		/**
+		 * TODO: enble seeking, user can seek to any position
+		 */
 		public function set position(position: Number): void {
 			_pos = position;
+			if(_pos == 0) {
+				trace("reset position");
+				if(contains(_l1)) removeChild(_l1); 				if(contains(_l2)) removeChild(_l2);
+				for (var i : int = 0; i < _len; i++) {
+					_lines[i].reset();
+				}
+				_idx1 = 0;
+				_l1 = _lines[_idx1];
+				_idx2 = 1;
+				_l2 = _lines[_idx2];
+				_l1.alpha = 1;
+				_l2.alpha = 1;
+				addChild(_l1);
+				addChild(_l2);
+				return;
+			}
+			
+			
 			if(_pos > _l1.startTime && !_l1.playing && !_l1.complete) {
 				_l1.play();
 			}
@@ -155,7 +177,7 @@ package thanhtran.karaokeplayer.lyrics {
 		 * Test release memory
 		 */
 		public function cleanUp(): void {
-			trace("clean up");
+			trace("lyric player clean up");
 			for (var i : int = 0; i < _len; i++) {
 				_lines[i].dispose();
 			}

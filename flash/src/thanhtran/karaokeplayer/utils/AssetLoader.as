@@ -31,6 +31,9 @@ package thanhtran.karaokeplayer.utils {
 	 */
 	public class AssetLoader {
 		public var completed: Signal;
+		/**
+		 * Arguments: AssetLoader, percent, byteLoaded, byteTotal
+		 */
 		public var progress: Signal;
 		public var failed: Signal;
 		public var url: String;
@@ -39,7 +42,7 @@ package thanhtran.karaokeplayer.utils {
 		
 		public function AssetLoader() {
 			completed = new Signal(AssetLoader);
-			progress = new Signal(AssetLoader, Number, uint, uint); //AssetLoader, percent, byteLoaded, byteTotal 
+			progress = new Signal(AssetLoader, Number, uint, uint); 
 			failed = new Signal(AssetLoader, String);
 		}
 
