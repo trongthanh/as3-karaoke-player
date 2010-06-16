@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer.utils {
+	import thanhtran.karaokeplayer.KarPlayer;
 	import thanhtran.karaokeplayer.Version;
 	import thanhtran.karaokeplayer.data.BlockInfo;
 	import thanhtran.karaokeplayer.data.LineInfo;
@@ -35,11 +36,11 @@ package thanhtran.karaokeplayer.utils {
 		
 		private static const STYLES: Array = ["b", "m", "f"];
 		
-		
 		public function parseXML(xml: XML): SongInfo {
 			if(xml) {
 				//support later version of TimedText
 				tt = xml.namespace();
+				if(!tt.uri) throw new KarPlayerError(KarPlayerError.INVALID_XML, "XML must have default namespace");
 				tts = new Namespace(tt.uri + "#styling");
 				ttm = new Namespace(tt.uri + "#metadata");
 			}
