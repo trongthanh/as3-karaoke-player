@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package thanhtran.karaokeplayer {
+	import com.gskinner.motion.GTween;
 	import flash.utils.getTimer;
 	import com.gskinner.motion.GTweener;
 	import thanhtran.karaokeplayer.data.SongLyrics;
@@ -39,9 +40,15 @@ package thanhtran.karaokeplayer {
 		 */
 		public var ready: Signal;
 		/**
+		 * dispatch playing progress
 		 * arguments (position: Number, length: Number)  
 		 */
 		public var progress: Signal;
+		/**
+		 * dispatch loading progress
+		 * arguments (percent: Number, byteLoaded: uint, byteTotal: uint)
+		 */
+		public var loading: Signal;
 		
 		private var _tickingManager: EnterFrameManager = EnterFrameManager.instance;
 		private var _parser: TimedTextParser;
@@ -55,7 +62,8 @@ package thanhtran.karaokeplayer {
 		
 		///testing
 		private var _startTime: uint;
-		private var _diffArray: Array = [];
+		private var _position: Number = 0;
+		//private var _diffArray: Array = [];
 
 		public function KarPlayer (options: KarPlayerOptions = null) {
 			trace("[AS3 Karaoke Player " + VERSION + "]");
@@ -76,6 +84,7 @@ package thanhtran.karaokeplayer {
 			
 			ready = new Signal();
 			progress = new Signal(Number, Number);
+			loading = new Signal(Number, Number, Number);
 		}
 
 		public function loadSong(urlOrSongInfo: Object): void {
@@ -100,13 +109,17 @@ package thanhtran.karaokeplayer {
 			var xml: XML = new XML(xmlLoader.data);
 			acceptSongInfo(_parser.parseXML(xml));
 			xmlLoader.dispose();
-			trace('_songInfo.beatURL: ' + (_songInfo.beatURL));
-			trace('_songInfo.title: ' + (_songInfo.title));
+			//trace('_songInfo.beatURL: ' + (_songInfo.beatURL));
+			//trace('_songInfo.title: ' + (_songInfo.title));
 			//continue to load audio:
 			var audioLoader: AssetLoader = new AssetLoader();
+			audioLoader.progress.add(audioLoadingProgressHandler);
 			audioLoader.completed.add(audioLoadHandler);
 			audioLoader.load(_songInfo.beatURL);
-			
+		}
+
+		private function audioLoadingProgressHandler(audioLoader: AssetLoader, percent: Number, bytesLoaded: uint, bytesTotal: uint): void {
+			loading.dispatch(percent, bytesLoaded, bytesTotal);	
 		}
 
 		private function audioLoadHandler(audioLoader: AssetLoader): void {
@@ -132,15 +145,29 @@ package thanhtran.karaokeplayer {
 			
 			_songInfo = song;
 		}
+		
+		public function pause(): void {
+			_tickingManager.enterFrame.remove(enterFrameHandler);
+			_position = _beatPlayer.position;	
+			_beatPlayer.pause();
+		}
 
 		/**
 		 * Play the audio and lyric without recording
 		 */
 		public function play(): void {
 			GTweener.to(_lyricPlayer, 1, {alpha:1});
-			_beatPlayer.play();
+			_beatPlayer.play(_position);
+			_startTime = getTimer() - _position;
 			_tickingManager.enterFrame.add(enterFrameHandler);
-			_startTime = getTimer();
+		}
+		
+		public function stop(): void {
+			_tickingManager.enterFrame.remove(enterFrameHandler);
+			_lyricPlayer.position = 0;
+			_lyricPlayer.alpha = 0;
+			_position = 0;
+			_beatPlayer.stop();
 		}
 
 		private function enterFrameHandler(): void {
@@ -189,6 +216,14 @@ package thanhtran.karaokeplayer {
 		
 		public function get lyricPlayer(): LyricsPlayer {
 			return _lyricPlayer;
+		}
+		
+		public function get position(): Number {
+			return _beatPlayer.position;
+		}
+		
+		public function get length(): Number {
+			return _beatPlayer.length;
 		}
 	}
 }

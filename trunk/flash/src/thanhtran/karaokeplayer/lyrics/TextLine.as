@@ -108,6 +108,12 @@ package thanhtran.karaokeplayer.lyrics {
 			blocks[0].play();
 			_playing = true;
 		}
+		
+		public function reset(): void {
+			for (var i : int = 0; i < _len; i++) {
+				blocks[i].reset();
+			}
+		}
 
 		public function dispose(): void {
 			for (var i : int = 0; i < _len; i++) {
