@@ -45,7 +45,11 @@ package thanhtran.karaokeplayer.utils {
 			progress = new Signal(AssetLoader, Number, uint, uint); 
 			failed = new Signal(AssetLoader, String);
 		}
-
+		
+		/**
+		 * TODO: add loader context for cross domain checking
+		 * @param	url
+		 */
 		public function load(url: String): void {
 			this.url = url; 
 //			trace('url: ' + (url));
@@ -62,6 +66,7 @@ package thanhtran.karaokeplayer.utils {
 					}
 					break;
 				case "SWF":
+				case "IMAGE":
 					var loader: Loader = new Loader();
 					loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleteHandler);
@@ -117,7 +122,7 @@ package thanhtran.karaokeplayer.utils {
 		}
 
 		/**
-		 * Checking for XML for MP3
+		 * Checks type of TXT, IMAGE, MP3
 		 * TODO: implement complicated type checking. 
 		 */
 		private function checkType(url: String): String {
@@ -125,6 +130,10 @@ package thanhtran.karaokeplayer.utils {
 			
 			if(url.toLowerCase().indexOf(".mp3") != -1){
 				type = "MP3";
+			} else if (url.toLowerCase().indexOf(".jpg") != -1 ||
+					   url.toLowerCase().indexOf(".png") != -1 ||
+					   url.toLowerCase().indexOf(".gif") != -1){
+				type = "IMAGE";
 			} else if(url.toLowerCase().indexOf(".swf") != -1){
 				type = "SWF";
 			} else  {
