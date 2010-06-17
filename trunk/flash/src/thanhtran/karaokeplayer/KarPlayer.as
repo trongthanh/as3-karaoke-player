@@ -50,6 +50,8 @@ package thanhtran.karaokeplayer {
 		 */
 		public var loading: Signal;
 		
+		public var audioCompleted: Signal;
+		
 		private var _tickingManager: EnterFrameManager = EnterFrameManager.instance;
 		private var _parser: TimedTextParser;
 		private var _songReady: Boolean;
@@ -85,6 +87,7 @@ package thanhtran.karaokeplayer {
 			ready = new Signal();
 			progress = new Signal(Number, Number);
 			loading = new Signal(Number, Number, Number);
+			audioCompleted = _beatPlayer.audioCompleted;
 		}
 
 		public function loadSong(urlOrSongInfo: Object): void {
