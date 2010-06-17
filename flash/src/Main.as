@@ -22,8 +22,9 @@ package {
 			addChild(karPlayer);
 			
 			karPlayer.ready.add(playerReadyHandler);
-			karPlayer.loadSong("xml/song1.xml");
-//			karPlayer.loadSong("xml/song2.xml");
+			//karPlayer.loadSong("xml/song1.xml");
+			//karPlayer.loadSong("xml/song2.xml");
+			karPlayer.loadSong("xml/song3.xml");
 		}
 
 		private function playerReadyHandler(): void {
