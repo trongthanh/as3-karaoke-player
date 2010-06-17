@@ -5,3 +5,7 @@
 [song2]
 - With vocal: http://www.fileden.com/files/2009/8/2/2530043/music/co_be_mua_dong.mp3
 - Beat: http://www.fileden.com/files/2009/8/2/2530043/music/co_be_mua_dong_beat.mp3
+
+[song3]
+- With vocal: http://www.fileden.com/files/2009/8/2/2530043/music/con_duong_tinh_yeu.mp3
+- Beat: http://www.fileden.com/files/2009/8/2/2530043/music/con_duong_tinh_yeu_beat.mp3
