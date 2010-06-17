@@ -88,6 +88,7 @@ package thanhtran.karaokeplayer {
 			progress = new Signal(Number, Number);
 			loading = new Signal(Number, Number, Number);
 			audioCompleted = _beatPlayer.audioCompleted;
+			audioCompleted.add(stop);
 		}
 
 		public function loadSong(urlOrSongInfo: Object): void {
@@ -98,7 +99,6 @@ package thanhtran.karaokeplayer {
 				_songReady = true;
 				ready.dispatch();
 			} else {
-				_parser = new TimedTextParser();
 				var xmlLoader: AssetLoader = new AssetLoader();
 				xmlLoader.completed.add(xmlLoadHandler);
 				xmlLoader.load(String(urlOrSongInfo));		
@@ -108,7 +108,7 @@ package thanhtran.karaokeplayer {
 
 		private function xmlLoadHandler(xmlLoader: AssetLoader): void {
 			trace("xml Loaded: " + xmlLoader.url);
-			 
+			_parser = new TimedTextParser();
 			var xml: XML = new XML(xmlLoader.data);
 			acceptSongInfo(_parser.parseXML(xml));
 			xmlLoader.dispose();
@@ -167,10 +167,13 @@ package thanhtran.karaokeplayer {
 		
 		public function stop(): void {
 			_tickingManager.enterFrame.remove(enterFrameHandler);
-			_lyricPlayer.position = 0;
-			_lyricPlayer.alpha = 0;
+			GTweener.to(_lyricPlayer, 0.2, {alpha:0}, {onComplete: lyricFadeCompleteHandler});
 			_position = 0;
 			_beatPlayer.stop();
+		}
+		
+		private function lyricFadeCompleteHandler(tween: GTween): void {
+			_lyricPlayer.position = 0;
 		}
 
 		private function enterFrameHandler(): void {
