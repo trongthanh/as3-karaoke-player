@@ -104,7 +104,7 @@ package thanhtran.karaokeplayer {
 		}
 
 		private function xmlLoadHandler(xmlLoader: AssetLoader): void {
-			trace("xml Loaded");
+			trace("xml Loaded: " + xmlLoader.url);
 			 
 			var xml: XML = new XML(xmlLoader.data);
 			acceptSongInfo(_parser.parseXML(xml));
@@ -123,7 +123,7 @@ package thanhtran.karaokeplayer {
 		}
 
 		private function audioLoadHandler(audioLoader: AssetLoader): void {
-			trace("audio loaded");
+			trace("audio loaded: " + audioLoader.url);
 			_songInfo.beatSound = Sound(audioLoader.data);
 			_lyricPlayer.init(_songInfo.lyrics);
 			_beatPlayer.init(_songInfo.beatSound);

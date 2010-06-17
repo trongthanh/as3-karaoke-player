@@ -52,9 +52,12 @@ package thanhtran.karaokeplayer.audio {
 		}
 		
 		public function stop(): void {
-			_channel.stop();
-			_channel.removeEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
-			_channel = null;	
+			if (_channel) { 
+				_channel.stop();
+				_channel.removeEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+				_channel = null;
+			}
+			
 			_playing = false;
 			_pausing = false;
 			_position = 0;
