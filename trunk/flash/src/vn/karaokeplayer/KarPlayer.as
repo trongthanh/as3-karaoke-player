@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer {
+package vn.karaokeplayer {
 	import com.gskinner.motion.GTween;
 	import flash.utils.getTimer;
 	import com.gskinner.motion.GTweener;
-	import thanhtran.karaokeplayer.data.SongLyrics;
+	import vn.karaokeplayer.data.SongLyrics;
 	import flash.media.Sound;
-	import thanhtran.karaokeplayer.utils.TimedTextParser;
+	import vn.karaokeplayer.utils.TimedTextParser;
 	import org.osflash.signals.Signal;
-	import thanhtran.karaokeplayer.data.SongInfo;
-	import thanhtran.karaokeplayer.utils.AssetLoader;
-	import thanhtran.karaokeplayer.data.KarPlayerOptions;
-	import thanhtran.karaokeplayer.audio.BeatPlayer;
-	import thanhtran.karaokeplayer.lyrics.LyricsPlayer;
-	import thanhtran.karaokeplayer.utils.EnterFrameManager;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.utils.AssetLoader;
+	import vn.karaokeplayer.data.KarPlayerOptions;
+	import vn.karaokeplayer.audio.BeatPlayer;
+	import vn.karaokeplayer.lyrics.LyricsPlayer;
+	import vn.karaokeplayer.utils.EnterFrameManager;
 	import flash.display.Sprite;
 
 	/**
@@ -231,8 +231,5 @@ package thanhtran.karaokeplayer {
 		public function get length(): Number {
 			return _beatPlayer.length;
 		}
-		
-		public function get playing(): Boolean { return _beatPlayer.playing; }
-		public function get pausing(): Boolean { return _beatPlayer.pausing; }
 	}
 }

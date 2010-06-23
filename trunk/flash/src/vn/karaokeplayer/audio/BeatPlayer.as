@@ -1,8 +1,8 @@
-package thanhtran.karaokeplayer.audio {
+package vn.karaokeplayer.audio {
 	import org.osflash.signals.Signal;
 	import flash.events.Event;
 	import flash.media.SoundChannel;
-	import thanhtran.karaokeplayer.Version;
+	import vn.karaokeplayer.Version;
 	import flash.media.Sound;
 
 	/**
@@ -78,9 +78,5 @@ package thanhtran.karaokeplayer.audio {
 		public function get length(): Number {
 			return _sound.length;
 		}
-		
-		public function get playing(): Boolean { return _playing; }
-		
-		public function get pausing(): Boolean { return _pausing; }
 	}
 }

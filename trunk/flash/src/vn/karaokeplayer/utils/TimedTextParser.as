@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer.utils {
-	import thanhtran.karaokeplayer.KarPlayer;
-	import thanhtran.karaokeplayer.Version;
-	import thanhtran.karaokeplayer.data.BlockInfo;
-	import thanhtran.karaokeplayer.data.LineInfo;
-	import thanhtran.karaokeplayer.data.SongInfo;
-	import thanhtran.karaokeplayer.data.SongLyrics;
-	import thanhtran.karaokeplayer.data.KarPlayerError;
-	import thanhtran.karaokeplayer.karplayer_internal;
+package vn.karaokeplayer.utils {
+	import vn.karaokeplayer.KarPlayer;
+	import vn.karaokeplayer.Version;
+	import vn.karaokeplayer.data.BlockInfo;
+	import vn.karaokeplayer.data.LineInfo;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.data.SongLyrics;
+	import vn.karaokeplayer.data.KarPlayerError;
+	import vn.karaokeplayer.karplayer_internal;
 	
 	use namespace karplayer_internal;
 	/**

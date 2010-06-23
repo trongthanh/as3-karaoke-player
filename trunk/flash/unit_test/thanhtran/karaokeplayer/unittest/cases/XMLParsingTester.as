@@ -1,14 +1,14 @@
-package thanhtran.karaokeplayer.unittest.cases {
+package vn.karaokeplayer.unittest.cases {
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
-	import thanhtran.karaokeplayer.data.KarPlayerError;
-	import thanhtran.karaokeplayer.data.BlockInfo;
-	import thanhtran.karaokeplayer.data.LineInfo;
-	import thanhtran.karaokeplayer.data.LyricStyle;
-	import thanhtran.karaokeplayer.data.SongInfo;
-	import thanhtran.karaokeplayer.data.SongLyrics;
-	import thanhtran.karaokeplayer.karplayer_internal;
-	import thanhtran.karaokeplayer.utils.TimedTextParser;
+	import vn.karaokeplayer.data.KarPlayerError;
+	import vn.karaokeplayer.data.BlockInfo;
+	import vn.karaokeplayer.data.LineInfo;
+	import vn.karaokeplayer.data.LyricStyle;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.data.SongLyrics;
+	import vn.karaokeplayer.karplayer_internal;
+	import vn.karaokeplayer.utils.TimedTextParser;
 
 	import flash.events.Event;
 	import flash.net.URLLoader;
