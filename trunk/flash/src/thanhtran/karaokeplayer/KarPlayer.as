@@ -231,5 +231,8 @@ package thanhtran.karaokeplayer {
 		public function get length(): Number {
 			return _beatPlayer.length;
 		}
+		
+		public function get playing(): Boolean { return _beatPlayer.playing; }
+		public function get pausing(): Boolean { return _beatPlayer.pausing; }
 	}
 }
