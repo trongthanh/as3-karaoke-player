@@ -1,8 +1,8 @@
 package {
 	import flash.events.MouseEvent;
 	import fl.controls.Button;
-	import thanhtran.karaokeplayer.data.KarPlayerOptions;
-	import thanhtran.karaokeplayer.KarPlayer;
+	import vn.karaokeplayer.data.KarPlayerOptions;
+	import vn.karaokeplayer.KarPlayer;
 	import flash.display.Sprite;
 
 	/**

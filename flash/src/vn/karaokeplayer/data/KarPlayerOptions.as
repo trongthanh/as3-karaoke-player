@@ -1,4 +1,4 @@
-package thanhtran.karaokeplayer.data {
+package vn.karaokeplayer.data {
 
 	/**
 	 * @author Thanh Tran

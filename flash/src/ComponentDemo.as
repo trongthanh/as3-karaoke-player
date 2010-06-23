@@ -18,16 +18,16 @@ package {
 	import fl.controls.Button;
 	import flash.display.Bitmap;
 	import flash.text.Font;
-	import thanhtran.karaokeplayer.data.SongLyrics;
-	import thanhtran.karaokeplayer.utils.EnterFrameManager;
+	import vn.karaokeplayer.data.SongLyrics;
+	import vn.karaokeplayer.utils.EnterFrameManager;
 
-	import thanhtran.karaokeplayer.data.BlockInfo;
-	import thanhtran.karaokeplayer.data.LineInfo;
-	import thanhtran.karaokeplayer.data.SongInfo;
-	import thanhtran.karaokeplayer.lyrics.LyricsPlayer;
-	import thanhtran.karaokeplayer.lyrics.TextBlock;
-	import thanhtran.karaokeplayer.lyrics.TextLine;
-	import thanhtran.karaokeplayer.utils.TimedTextParser;
+	import vn.karaokeplayer.data.BlockInfo;
+	import vn.karaokeplayer.data.LineInfo;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.lyrics.LyricsPlayer;
+	import vn.karaokeplayer.lyrics.TextBlock;
+	import vn.karaokeplayer.lyrics.TextLine;
+	import vn.karaokeplayer.utils.TimedTextParser;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;

@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer.data {
-	import flash.media.Sound;
+package vn.karaokeplayer.data {
 
 	/**
 	 * @author Thanh Tran
 	 */
-	public class SongInfo {
-		public var title: String = "";
-		public var description: String = "";
-		public var copyright: String = "";
-		public var beatURL: String = "";
-		public var lyrics: SongLyrics;
+	public class BlockInfo {
+		public var duration: uint = 0;
+		public var text: String = "";
 		
-		/** used to store reference of Sound object for this song */
-		public var beatSound: Sound;
+		public function toString(): String {
+			return text + " : " + duration;
+		}
 	}
 }

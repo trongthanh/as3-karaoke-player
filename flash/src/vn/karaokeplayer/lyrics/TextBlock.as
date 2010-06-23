@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer.lyrics {
-	import thanhtran.karaokeplayer.karplayer_internal;
-	import thanhtran.karaokeplayer.Version;
-	import thanhtran.karaokeplayer.data.LyricStyle;
+package vn.karaokeplayer.lyrics {
+	import vn.karaokeplayer.karplayer_internal;
+	import vn.karaokeplayer.Version;
+	import vn.karaokeplayer.data.LyricStyle;
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import com.gskinner.motion.easing.Linear;

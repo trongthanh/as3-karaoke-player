@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer.lyrics {
-	import thanhtran.karaokeplayer.karplayer_internal;
-	import thanhtran.karaokeplayer.Version;
-	import thanhtran.karaokeplayer.data.LyricStyle;
+package vn.karaokeplayer.lyrics {
+	import vn.karaokeplayer.karplayer_internal;
+	import vn.karaokeplayer.Version;
+	import vn.karaokeplayer.data.LyricStyle;
 	import org.osflash.signals.Signal;
-	import thanhtran.karaokeplayer.data.BlockInfo;
-	import thanhtran.karaokeplayer.data.LineInfo;
+	import vn.karaokeplayer.data.BlockInfo;
+	import vn.karaokeplayer.data.LineInfo;
 	import flash.display.Sprite;
 	/**
 	 * A line of text

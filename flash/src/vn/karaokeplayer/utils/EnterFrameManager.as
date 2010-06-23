@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package thanhtran.karaokeplayer.utils {
+package vn.karaokeplayer.utils {
 	import org.osflash.signals.Signal;
 	/**
 	 * A single manager which centralizes all enter-frame handler
