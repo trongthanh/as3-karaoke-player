@@ -25,7 +25,7 @@ package vn.karaokeplayer.lyrics {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class LyricsPlayer extends Sprite {
+	public class LyricsPlayer extends Sprite implements ISeekable {
 		public static const VERSION: String = Version.VERSION;
 		
 		public var data: SongLyrics;
@@ -117,6 +117,7 @@ package vn.karaokeplayer.lyrics {
 				} 
 			}
 			//only fade current line if there's next line to show
+			//TODO: implement a simple animator, to completely remove 3rd party tweener
 			if (nextLine) GTweener.to(textLine, 0.1, { alpha:0 }, { data: { last: textLine, next: nextLine }, onComplete: lineFadeOutCompleteHandler } );
 			
 			if (_lines.indexOf(textLine) == _len -1) {
@@ -165,11 +166,11 @@ package vn.karaokeplayer.lyrics {
 			}
 			
 			
-			if(_pos > _l1.startTime && !_l1.playing && !_l1.complete) {
-				_l1.play();
+			if(_pos > _l1.begin && !_l1.playing && !_l1.complete) {
+				_l1.position = _pos;
 			}
-			if(_pos > _l2.startTime && !_l2.playing && !_l2.complete) {
-				_l2.play();
+			if(_pos > _l2.begin && !_l2.playing && !_l2.complete) {
+				_l2.position = _pos;
 			}	
 		}
 		

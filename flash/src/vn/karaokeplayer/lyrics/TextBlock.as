@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
+	import vn.karaokeplayer.data.KarPlayerError;
 	import vn.karaokeplayer.karplayer_internal;
 	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.LyricStyle;
-	import com.gskinner.motion.GTween;
-	import com.gskinner.motion.GTweener;
-	import com.gskinner.motion.easing.Linear;
 
 	import org.osflash.signals.Signal;
 
@@ -34,7 +32,7 @@ package vn.karaokeplayer.lyrics {
 	 * The smallest block of texts which share the same speed
 	 * @author Thanh Tran
 	 */
-	public class TextBlock extends Sprite {
+	public class TextBlock extends Sprite implements ISeekable, IBlock {
 		public static const VERSION: String = Version.VERSION;
 		
 		public var next: TextBlock;
@@ -45,20 +43,24 @@ package vn.karaokeplayer.lyrics {
 		public var font: String = "Verdana";
 		public var size: Number = 30;
 		public var embedFonts: Boolean = false;
-		/* milliseconds */
-		public var duration: uint = 0;
+		/** milliseconds */
+		private var _dur: Number = 0;
+		/** milliseconds */
+		private var _begin: Number;
+		/** milliseconds */
+		private var _pos: Number;
 		
 		private var _text: String = "";
 		private var _normalText: TextField;
 		private var _syncText: TextField;
 		private var _mask: Shape;
 		
-		public var completed: Signal;
+		private var _completed: Signal;
 		
 		private var _spaceWidth: Number = 0;
 
 		public function TextBlock() {
-			completed = new Signal(TextBlock);
+			_completed = new Signal(TextBlock);
 		}
 
 		public function get text(): String { 
@@ -86,7 +88,7 @@ package vn.karaokeplayer.lyrics {
 			}
 		}
 
-		public function render(): void {
+		private function render(): void {
 			//normal text
 			var normalFormat: TextFormat = new TextFormat(font, size, textColor);
 			//trace( "font : " + font );
@@ -148,15 +150,21 @@ package vn.karaokeplayer.lyrics {
 			this.addChild(_mask);	
 		}
 		/**
-		 * TODO: consider split the words and animate them equally in time (instead of text length right now) 
+		 * consider split the words and animate them equally in time (instead of text length right now) 
 		 */
+		 /*
 		public function play(): void {
 			reset();
-			GTweener.to(_mask, duration * 0.001, {x: _syncText.x }, {ease: Linear.easeNone, onComplete: textCompleteHandler });
+			//GTweener.to(_mask, _dur * 0.001, {x: _syncText.x }, {ease: Linear.easeNone, onComplete: textCompleteHandler });
 		}
 
 		private function textCompleteHandler(tween: GTween): void {
 			completed.dispatch(this);
+		}
+		 */
+		private function updateMaskPosition(percent: Number): void {
+			//trace('percent: ' + (percent));
+			_mask.x = (_mask.width * percent) - _mask.width;
 		}
 
 		override public function get width(): Number { 
@@ -184,9 +192,65 @@ package vn.karaokeplayer.lyrics {
 		
 		public function reset(): void {
 			_mask.x = -_syncText.width;
-			GTweener.removeTweens(_mask);
+			_pos = _begin;
+			//GTweener.removeTweens(_mask);
+		}
+		
+		public function get position(): Number {
+			return _pos;
+		}
+		
+		public function get begin(): Number {
+			return _begin;
+		}
+		
+		public function get duration(): Number {
+			return _dur;
+		}
+		
+		public function get end(): Number {
+			return _begin + _dur;
+		}
+		
+		public function set position(value: Number): void {
+			if(value < begin) {
+				updateMaskPosition(0);
+			} else if (value > end) {
+				updateMaskPosition(1);
+				if(_pos <= end) {
+					//if _pos was previously less than end, then this is the first time it pass end
+					_completed.dispatch(this);
+				}
+			} else {
+				updateMaskPosition((value - _begin) / _dur);
+			}
+			_pos = value;
+		}
+		
+		public function set begin(value: Number): void {
+			_begin = value;
+		}
+		
+		public function set duration(value: Number): void {
+			_dur = value;
+			
 		}
 
+		public function set end(value: Number): void {
+			if(_begin) {
+				_dur = value - _begin;
+			} else {
+				_begin = value - _dur;
+			}
+			validateTimeValues();
+		}
+		
+		private function validateTimeValues(): void {
+			if(isNaN(_begin) || isNaN(_dur) || _begin < 0 || _dur < 0) {
+				throw new KarPlayerError(KarPlayerError.INITALIZATION_ERROR,'Text block has invalid "begin": ' + _begin + ', or "duration":' + _dur);
+			}
+		}
+		
 		public function dispose(): void {
 			if (_normalText) {
 				if (_normalText.parent) _normalText.parent.removeChild(_normalText);
@@ -197,6 +261,10 @@ package vn.karaokeplayer.lyrics {
 				_syncText = null;
 			}
 			_text = ""; 
+		}
+		
+		public function get completed(): Signal {
+			return _completed;
 		}
 	}
 }

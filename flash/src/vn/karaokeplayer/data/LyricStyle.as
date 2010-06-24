@@ -24,10 +24,10 @@ package vn.karaokeplayer.data {
 		public static const MALE: String = "m";
 		public static const FEMALE: String = "f";
 		
-		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x33CC33, false, 0x000000);
-		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0x3299FF, false, 0x000000);
-		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF32CC, false, 0x000000);
-		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Verdana",30, 0xFF9900, false, 0x000000);
+		public static const DEFAULT_BASIC_STYLE: LyricStyle = new LyricStyle("Arial",30, 0x33CC33, false, 0x000000);
+		public static const DEFAULT_MALE_STYLE: LyricStyle = new LyricStyle("Arial",30, 0x3299FF, false, 0x000000);
+		public static const DEFAULT_FEMALE_STYLE: LyricStyle = new LyricStyle("Arial",30, 0xFF32CC, false, 0x000000);
+		public static const DEFAULT_SYNC_STYLE: LyricStyle = new LyricStyle("Arial",30, 0xFF9900, false, 0x000000);
 		
 		public var color: Number;
 		public var strokeColor: Number;
