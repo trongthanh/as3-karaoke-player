@@ -45,8 +45,8 @@ package {
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
 	public class ComponentDemo extends Sprite {
 		public var playButton: Button;
-		private var bit:TextBlock;
-		private var textBlock: TextLine;
+		private var block:TextBlock;
+		private var line: TextLine;
 		
 		[Embed(source = '/../assets/images/simplygreen.jpg')]
 		public var BGClass: Class;
@@ -93,9 +93,10 @@ package {
 			playButton.x = stage.stageWidth - playButton.width;
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClickHandler);
 			addChild(playButton);
+			enterFrameManager = new EnterFrameManager();
 			
-			//testTextBit();
 			//testTextBlock();
+			//testTextLine();
 			testLyricPlayer();
 		}
 
@@ -118,7 +119,7 @@ package {
 			lyricPlayer.init(songInfo.lyrics);
 			addChild(lyricPlayer);
 			
-			enterFrameManager = new EnterFrameManager();
+			
 		}
 
 		private function playButtonClickHandler(event: MouseEvent): void {
@@ -134,25 +135,35 @@ package {
 			var pos: int = getTimer() - startTime;
 			
 			lyricPlayer.position = pos;
+			//test text block seekable:
+			//block.position = pos;
+			//test text line seekable:
+			//line.position = pos;
 		}
 
 		/*
 		 * test text bit:
 		 */
-		public function testTextBit(): void {
-			
-			bit = new TextBlock();
-			bit.text = "Tran Trong Thanh";
-			//bit.completed.add(bitCompleteHandler);
-			addChild(bit);
-			
-		}
-		
 		public function testTextBlock(): void {
+			block = new TextBlock();
+			block.text = "Tran Trong Thanh";
+			block.begin = 1;
+			block.duration = 5000;
+			block.completed.add(blockCompleteHandler);
+			addChild(block);
+		}
+
+		private function blockCompleteHandler(block: TextBlock): void {
+			trace("block complete");
+		}
+
+		public function testTextLine(): void {
 			var lb: LineInfo = new LineInfo();
+			var mockupSongLyric: SongLyrics = new SongLyrics();
+			lb.songLyrics = mockupSongLyric; 
 			 
 			var lbit1: BlockInfo = new BlockInfo();
-			lbit1.text = "* * *";
+			lbit1.text = "*";
 			lbit1.duration = 2520;
 			
 			lb.lyricBlocks.push(lbit1);
@@ -169,15 +180,15 @@ package {
 			
 			lb.lyricBlocks.push(lbit3);
 			
-			textBlock = new TextLine();
-			textBlock.init(lb);
-			textBlock.completed.add(textBlockCompleteHandler);
+			line = new TextLine();
+			line.init(lb);
+			line.completed.add(textLineCompleteHandler);
 			
-			addChild(textBlock);
+			addChild(line);
 		}
 
-		private function textBlockCompleteHandler(tb: TextLine): void {
-			trace("text block complete");
+		private function textLineCompleteHandler(tl: TextLine): void {
+			trace("text line complete");
 		}
 	}
 }

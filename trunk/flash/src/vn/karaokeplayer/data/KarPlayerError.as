@@ -23,12 +23,14 @@ package vn.karaokeplayer.data {
 		public static const XML_ERROR: uint = 1301;
 		public static const INVALID_XML: uint = 1302;
 		public static const AUDIO_ERROR: uint = 1303;
+		public static const INITALIZATION_ERROR: uint = 1304;
 		
 		private static const ERROR_MSG: Array = [
-			"Karaoke common error",
-			"XML data error",
-			"Invalid TimedText XML",
-			"Audio Error"
+			"Karaoke common error"
+			,"XML data error"
+			,"Invalid TimedText XML"
+			,"Audio Error"
+			,"Initialization Error"
 		]
 		
 		private var _code: uint;

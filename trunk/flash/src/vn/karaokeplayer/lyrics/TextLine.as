@@ -26,11 +26,10 @@ package vn.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 * TODO: pass screen width from LyricPlayer and auto reduce font size if text line width exceed
 	 */
-	public class TextLine extends Sprite {
+	public class TextLine extends Sprite implements ISeekable, ILine {
 		public static const VERSION: String = Version.VERSION;	
 		
-		/* complete event, param: TextLine */
-		public var completed: Signal;
+		private var _completed: Signal;
 		public var blocks: Array;
 		public var index: int;
 		// these style are set from SongLyrics
@@ -42,25 +41,36 @@ package vn.karaokeplayer.lyrics {
 		private var _len: uint;
 		private var _playing: Boolean;
 		private var _complete: Boolean;
+		/** milliseconds */
+		private var _dur: Number = 0;
+		/** milliseconds */
+		private var _begin: Number;
+		/** milliseconds */
+		private var _pos: Number;
 
 		public function TextLine() {
-			completed = new Signal(TextLine);
+			_completed = new Signal(TextLine);
 		}
 
 		public function init(data: LineInfo): void {
 			this._data = data;
 			checkStyle();
 			_len = data.lyricBlocks.length;
+			_begin = data.startTime;
+			_dur = data.duration;
 			
 			blocks = new Array();
 			var blockInfo: BlockInfo;
 			var block: TextBlock;
 			var lastX: Number = 0;
+			var begin: Number = data.startTime;
 			for (var i : int = 0; i < _len; i++) {
 				blockInfo = data.lyricBlocks[i];
 				block = new TextBlock();
 				block.setStyle(normalStyle, syncStyle);
+				block.begin = begin;
 				block.duration = blockInfo.duration;
+				begin += blockInfo.duration; 
 				block.text = blockInfo.text;
 				block.completed.add(textBitCompleteHandler);
 				blocks.push(block);
@@ -89,18 +99,18 @@ package vn.karaokeplayer.lyrics {
 					normalStyle = _data.songLyrics.basicLyricStyle;
 			}
 		}
-
+		
 		private function textBitCompleteHandler(tb: TextBlock): void {
 //			trace('text bit ' + tb.text + ' complete, next:  ' + (tb.next));
 			if(tb.next) {
-				tb.next.play();
+				//tb.next.play();
 			} else {
 				_playing = false;
 				_complete = true;
-				completed.dispatch(this);
+				_completed.dispatch(this);
 			}
 		}
-		
+		/*
 		public function play(): void {
 			for (var i : int = 0; i < _len; i++) {
 				blocks[i].reset();
@@ -108,7 +118,7 @@ package vn.karaokeplayer.lyrics {
 			blocks[0].play();
 			_playing = true;
 		}
-		
+		*/
 		public function reset(): void {
 			for (var i : int = 0; i < _len; i++) {
 				blocks[i].reset();
@@ -125,14 +135,6 @@ package vn.karaokeplayer.lyrics {
 			_complete = true;
 		}
 		
-		public function get duration(): uint {
-			return _data.duration;
-		}
-		
-		/* timestamp millisecond */
-		public function get startTime(): Number {
-			return _data.startTime;
-		}
 		
 		public function get playing(): Boolean {
 			return _playing;
@@ -164,5 +166,31 @@ package vn.karaokeplayer.lyrics {
 			return str + "}";
 		}
 		
+		public function get position(): Number {
+			return _pos;
+		}
+				
+		public function set position(value: Number): void {
+			_pos = value;
+			for (var i : int = 0; i < _len; i++) {
+				blocks[i].position = _pos;
+			}
+		}
+		public function get begin(): Number {
+			return _begin;
+		}
+		
+		public function get duration(): Number {
+			return _dur;
+		}
+		
+		public function get end(): Number {
+			return _begin + _dur;
+		}
+		
+		/* complete event, param: TextLine */
+		public function get completed(): Signal {
+			return _completed;
+		}
 	}
 }
