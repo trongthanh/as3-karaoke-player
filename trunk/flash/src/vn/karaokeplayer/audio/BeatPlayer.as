@@ -78,5 +78,10 @@ package vn.karaokeplayer.audio {
 		public function get length(): Number {
 			return _sound.length;
 		}
+		
+		public function get playing(): Boolean { return _playing; }
+		
+		public function get pausing(): Boolean { return _pausing; }
+ 	
 	}
 }

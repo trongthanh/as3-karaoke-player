@@ -19,6 +19,6 @@
     </external-library-path -->
   </compiler>
   <include-sources>
-     <path-element>../src/thanhtran/</path-element>
+     <path-element>../src/vn/</path-element>
   </include-sources>
 </flex-config>
