@@ -16,7 +16,8 @@
 package vn.karaokeplayer.data {
 
 	/**
-	 * TODO: consider support other property of text format like fontWeight, fontStyle, leading ... 
+	 * TODO: consider support other property of text format like fontWeight, fontStyle, leading ...
+	 * TODO: create functions to get native TextFormat & space width 
 	 * @author Thanh Tran
 	 */
 	public class LyricStyle {

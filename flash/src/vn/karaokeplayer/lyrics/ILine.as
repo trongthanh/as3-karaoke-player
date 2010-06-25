@@ -28,9 +28,6 @@ package vn.karaokeplayer.lyrics {
 		function get complete(): Boolean;
 		function get width(): Number;
 		function toString(): String;
-		function get begin(): Number;
-		function get duration(): Number;
-		function get end(): Number;
 		function get completed(): Signal;
 	}
 }

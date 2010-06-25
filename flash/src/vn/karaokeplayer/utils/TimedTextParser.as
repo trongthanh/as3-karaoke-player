@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.utils {
-	import vn.karaokeplayer.KarPlayer;
 	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LineInfo;
@@ -95,7 +94,8 @@ package vn.karaokeplayer.utils {
 			var lyricLine: LineInfo;
 			var lyricBlock: BlockInfo;
 			var pLen: int;
-			var begin: Number;
+			var lineBegin: Number;
+			var blockBegin: Number;
 			var lineDur: uint;
 			var end: Number;
 			
@@ -110,7 +110,10 @@ package vn.karaokeplayer.utils {
 				lyricLine.styleName = String(getValueFromSet(div.@style.toString(), STYLES));
 				//trace( "lyricLine.lyricStyle : " + lyricLine.lyricStyle );
 				
-				//TODO: get start time of block by div.@begin
+				//TODO: get start time of line by div.@begin
+				if (!lyricLine.begin) {
+					lyricLine.begin = parseTimeAttribute(div, "begin", false);
+				}
 				
 				pList = div.p;
 				pLen = pList.length();
@@ -125,11 +128,16 @@ package vn.karaokeplayer.utils {
 						//get text
 						lyricBlock.text = p.toString();
 						//trace( "lyricBit.text : " + lyricBlock.text );
-						begin = parseTimeAttribute(p, "begin", true);
+						lineBegin = parseTimeAttribute(p, "begin", false);
 						//get start time of block from first p (if not, get start time from div.@begin
 						if (j == 0) {
-							lyricLine.startTime = begin;
-						}
+							if(lineBegin) {
+								lyricLine.begin = lineBegin;	
+							} else if(isNaN(lyricLine.begin)) {
+								throw new KarPlayerError(KarPlayerError.INVALID_XML,"<div> and first <p> don't have begin property: " + div.toXMLString());
+							}
+							blockBegin = lyricLine.begin;
+						} 
 						
 						lyricBlock.duration = (p.@dur[0] != undefined)? uint(p.@dur[0]): 0;
 						
@@ -153,8 +161,10 @@ package vn.karaokeplayer.utils {
 						
 						end = parseTimeAttribute(nextP, "begin", beginRequired);
 						if (!isNaN(end)) {
-							lyricBlock.duration = end - begin;
+							lyricBlock.duration = end - lineBegin;
 						}
+						lyricBlock.begin = blockBegin;
+						blockBegin += lyricBlock.duration; 
 						//trace( "lyricBlock: " + lyricBlock );
 						lineDur += lyricBlock.duration; 
 						//trace( "lyricBit.duration : " + lyricBit.duration );
@@ -162,9 +172,7 @@ package vn.karaokeplayer.utils {
 						
 					} //end p loop
 				}
-				if (!lyricLine.startTime) {
-					lyricLine.startTime = parseTimeAttribute(div, "begin", true);
-				}
+				
 				lyricLine.duration = lineDur; 
 				songLyrics.addLine(lyricLine);
 				

@@ -25,7 +25,7 @@ package vn.karaokeplayer.lyrics {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class LyricsPlayer extends Sprite implements ISeekable {
+	public class LyricsPlayer extends Sprite implements ILyricsPlayer {
 		public static const VERSION: String = Version.VERSION;
 		
 		public var data: SongLyrics;
@@ -186,5 +186,6 @@ package vn.karaokeplayer.lyrics {
 			if (contains(_l2)) removeChild(_l2);
 			_lines = null;
 		}
+		
 	}
 }

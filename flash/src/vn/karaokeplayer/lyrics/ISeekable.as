@@ -21,5 +21,8 @@ package vn.karaokeplayer.lyrics {
 	public interface ISeekable {
 		function get position(): Number;
 		function set position(value: Number): void;
+		function get begin(): Number;
+		function get duration(): Number;
+		function get end(): Number;
 	}
 }

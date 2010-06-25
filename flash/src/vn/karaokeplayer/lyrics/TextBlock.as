@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
+	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
-	import vn.karaokeplayer.karplayer_internal;
 	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.LyricStyle;
 
@@ -35,7 +35,7 @@ package vn.karaokeplayer.lyrics {
 	public class TextBlock extends Sprite implements ISeekable, IBlock {
 		public static const VERSION: String = Version.VERSION;
 		
-		public var next: TextBlock;
+		private var _next: IBlock;
 		public var textColor: uint = 0x8AD420;
 		public var strokeColor: uint = 0xFFFFFF;
 		public var syncTextColor: uint = 0xFF9600;
@@ -60,18 +60,11 @@ package vn.karaokeplayer.lyrics {
 		private var _spaceWidth: Number = 0;
 
 		public function TextBlock() {
-			_completed = new Signal(TextBlock);
+			_completed = new Signal(IBlock);
 		}
 
 		public function get text(): String { 
 			return _text; 
-		}
-
-		public function set text(value: String): void {
-			dispose();
-			_text = value;		
-			
-			render();
 		}
 		
 		public function setStyle(normalStyle: LyricStyle, syncStyle: LyricStyle): void {
@@ -82,10 +75,23 @@ package vn.karaokeplayer.lyrics {
 			font = normalStyle.font;
 			size = normalStyle.size;
 			embedFonts = normalStyle.embedFonts;
+			
+			//make this clear old text fields and rerender 
 			if(_text) {
-				//force dispose and re-render
-				text = _text;
+				var temp: String = _text;
+				dispose();
+				_text = temp; 
+				render();
 			}
+		}
+		
+		public function init(blockInfo: BlockInfo): void {
+			dispose();
+			_text = blockInfo.text;
+			_begin = blockInfo.begin;
+			_dur = blockInfo.duration;
+			validateTimeValues();
+			render();
 		}
 
 		private function render(): void {
@@ -172,7 +178,7 @@ package vn.karaokeplayer.lyrics {
 			else return super.width; 
 		}
 
-		karplayer_internal function get noSpaceWidth(): Number { 
+		public function get noSpaceWidth(): Number { 
 			if (_normalText) return _normalText.width - 2; //2 is normally padding of text within textfield
 			else return super.width; 
 		}
@@ -227,24 +233,6 @@ package vn.karaokeplayer.lyrics {
 			_pos = value;
 		}
 		
-		public function set begin(value: Number): void {
-			_begin = value;
-		}
-		
-		public function set duration(value: Number): void {
-			_dur = value;
-			
-		}
-
-		public function set end(value: Number): void {
-			if(_begin) {
-				_dur = value - _begin;
-			} else {
-				_begin = value - _dur;
-			}
-			validateTimeValues();
-		}
-		
 		private function validateTimeValues(): void {
 			if(isNaN(_begin) || isNaN(_dur) || _begin < 0 || _dur < 0) {
 				throw new KarPlayerError(KarPlayerError.INITALIZATION_ERROR,'Text block has invalid "begin": ' + _begin + ', or "duration":' + _dur);
@@ -265,6 +253,14 @@ package vn.karaokeplayer.lyrics {
 		
 		public function get completed(): Signal {
 			return _completed;
+		}
+		
+		public function get next(): IBlock {
+			return _next;
+		}
+		
+		public function set next(value: IBlock): void {
+			this._next = value;
 		}
 	}
 }

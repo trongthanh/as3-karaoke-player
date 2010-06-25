@@ -19,7 +19,8 @@ package vn.karaokeplayer.data {
 	 * @author Thanh Tran
 	 */
 	public class BlockInfo {
-		public var duration: uint = 0;
+		public var begin: Number = 0;
+		public var duration: Number = 0;
 		public var text: String = "";
 		
 		public function toString(): String {
