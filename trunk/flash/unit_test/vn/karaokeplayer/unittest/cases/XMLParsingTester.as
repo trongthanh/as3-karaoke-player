@@ -168,7 +168,7 @@ package vn.karaokeplayer.unittest.cases {
 				
 				var blocks: Array = line1.lyricBlocks;
 					
-				Assert.assertEquals(21260, line1.startTime);
+				Assert.assertEquals(21260, line1.begin);
 				
 				Assert.assertEquals("* * *", BlockInfo(blocks[0]).text);
 				Assert.assertEquals(2520, BlockInfo(blocks[0]).duration);
@@ -186,7 +186,7 @@ package vn.karaokeplayer.unittest.cases {
 				
 				blocks = line2.lyricBlocks;
 				
-				Assert.assertEquals(25780, line2.startTime);
+				Assert.assertEquals(25780, line2.begin);
 				
 				Assert.assertEquals("ấm áp trong tay", BlockInfo(blocks[0]).text);
 				Assert.assertEquals(1720, BlockInfo(blocks[0]).duration);
@@ -200,7 +200,7 @@ package vn.karaokeplayer.unittest.cases {
 				
 				blocks = line10.lyricBlocks;
 				
-				Assert.assertEquals(47060, line10.startTime);
+				Assert.assertEquals(47060, line10.begin);
 				
 				Assert.assertEquals("để", BlockInfo(blocks[0]).text);
 				Assert.assertEquals(280, BlockInfo(blocks[0]).duration);
@@ -230,7 +230,7 @@ package vn.karaokeplayer.unittest.cases {
 				
 				blocks = line17.lyricBlocks;
 				
-				Assert.assertEquals(219350, line17.startTime);
+				Assert.assertEquals(219350, line17.begin);
 				
 				Assert.assertEquals("từng", BlockInfo(blocks[0]).text);
 				Assert.assertEquals(280, BlockInfo(blocks[0]).duration);
@@ -260,7 +260,7 @@ package vn.karaokeplayer.unittest.cases {
 				
 				blocks = line21.lyricBlocks;
 				
-				Assert.assertEquals(260710, line21.startTime);
+				Assert.assertEquals(260710, line21.begin);
 				
 				Assert.assertEquals("phút", BlockInfo(blocks[0]).text);
 				Assert.assertEquals(360, BlockInfo(blocks[0]).duration);
@@ -288,13 +288,25 @@ package vn.karaokeplayer.unittest.cases {
 			//} catch (err:Error){
 				//Assert.fail("songLyrics parse failed: \n" + StringUtil.truncate(err.getStackTrace(), 1000));
 			//}
-			
-			
-			
 		}
 		
-		
-		
+		[Test(order=6, description="Test the new begin time in each block")]
+		public function testParseBlockBeginTime(): void {
+			
+			parser.parseSongLyrics(xml.body[0], songInfo);
+			
+			var songLyrics: SongLyrics = songInfo.lyrics;
+			
+			for (var i : int = 0; i < songLyrics.lyricLines.length; i++) {
+				var line: LineInfo = songLyrics.lyricLines[0];
+				var begin: Number = line.begin;
+				for (var j : int = 0; j < line.lyricBlocks.length; j++) {
+					Assert.assertEquals(begin,line.lyricBlocks[j].begin);
+					begin += line.lyricBlocks[j].duration;
+				}
+				
+			}	
+		}
 	}
 		
 }

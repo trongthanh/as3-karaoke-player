@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.karplayer_internal;
 	import vn.karaokeplayer.Version;
-	import vn.karaokeplayer.data.LyricStyle;
-	import org.osflash.signals.Signal;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LineInfo;
+	import vn.karaokeplayer.data.LyricStyle;
+
+	import org.osflash.signals.Signal;
+
 	import flash.display.Sprite;
+
 	/**
 	 * A line of text
 	 * @author Thanh Tran
@@ -56,30 +58,27 @@ package vn.karaokeplayer.lyrics {
 			this._data = data;
 			checkStyle();
 			_len = data.lyricBlocks.length;
-			_begin = data.startTime;
+			_begin = data.begin;
 			_dur = data.duration;
 			
 			blocks = new Array();
 			var blockInfo: BlockInfo;
-			var block: TextBlock;
+			var block: IBlock;
 			var lastX: Number = 0;
-			var begin: Number = data.startTime;
+			
 			for (var i : int = 0; i < _len; i++) {
 				blockInfo = data.lyricBlocks[i];
 				block = new TextBlock();
 				block.setStyle(normalStyle, syncStyle);
-				block.begin = begin;
-				block.duration = blockInfo.duration;
-				begin += blockInfo.duration; 
-				block.text = blockInfo.text;
+				block.init(blockInfo);
 				block.completed.add(textBitCompleteHandler);
 				blocks.push(block);
 				if(i > 0) {
-					TextBlock(blocks[i - 1]).next = block;
+					IBlock(blocks[i - 1]).next = block;
 				}
 				//render
 				block.x = lastX;
-				addChild(block);
+				addChild(Sprite(block));
 				lastX += block.width;
 			}
 			
@@ -100,7 +99,7 @@ package vn.karaokeplayer.lyrics {
 			}
 		}
 		
-		private function textBitCompleteHandler(tb: TextBlock): void {
+		private function textBitCompleteHandler(tb: IBlock): void {
 //			trace('text bit ' + tb.text + ' complete, next:  ' + (tb.next));
 			if(tb.next) {
 				//tb.next.play();
@@ -146,8 +145,8 @@ package vn.karaokeplayer.lyrics {
 		
 		override public function get width(): Number { 
 			if (blocks && blocks.length) {
-				var lastBlock: TextBlock = blocks[blocks.length - 1];
-				return (lastBlock.x + lastBlock.karplayer_internal::noSpaceWidth);
+				var lastBlock: IBlock = blocks[blocks.length - 1];
+				return (lastBlock.x + lastBlock.noSpaceWidth);
 			} else {
 				return super.width; 
 			}

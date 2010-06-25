@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import org.osflash.signals.Signal;
+	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LyricStyle;
+
+	import org.osflash.signals.Signal;
 
 	/**
 	 * @author Thanh Tran
 	 */
 	public interface IBlock {
-		function dispose(): void;
-		function get width(): Number;
-		function get height(): Number;
-		function get text(): String;
-		function set text(value: String): void;
+		function init(blockInfo: BlockInfo): void;
 		function setStyle(normalStyle: LyricStyle, syncStyle: LyricStyle): void;
+		function dispose(): void;
+		function get next(): IBlock;
+		function set next(value: IBlock): void;
+		function get width(): Number;
+		function get noSpaceWidth(): Number;
+		function get height(): Number;
+		function get x(): Number;
+		function set x(value: Number): void;
+		function get text(): String;
 		function reset(): void;
 		function get completed(): Signal;
-		function get begin(): Number;
-		function set begin(value: Number): void;
-		function get duration(): Number;
-		function set duration(value: Number): void;
-		function get end(): Number;
-		function set end(value: Number): void;
 	}
 }

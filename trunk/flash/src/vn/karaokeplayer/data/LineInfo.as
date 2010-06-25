@@ -20,8 +20,8 @@ package vn.karaokeplayer.data {
 	 */
 	public class LineInfo {
 		public var songLyrics: SongLyrics; //reference back to songInfo
-		public var startTime: Number = 0; //milliseconds from start
-		public var duration: uint;
+		public var begin: Number = 0; //milliseconds from start
+		public var duration: Number = 0;
 		public var lyricBlocks: Array = [];
 		public var styleName: String = "b"; //"b", "f", "m"
 	}
