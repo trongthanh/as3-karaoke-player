@@ -22,7 +22,7 @@ package vn.karaokeplayer.lyrics {
 	/**
 	 * @author Thanh Tran
 	 */
-	public interface IBlock {
+	public interface IBlock extends ISeekable {
 		function init(blockInfo: BlockInfo): void;
 		function setStyle(normalStyle: LyricStyle, syncStyle: LyricStyle): void;
 		function dispose(): void;

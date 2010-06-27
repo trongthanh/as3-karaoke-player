@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package {
+	import flash.display.MovieClip;
+	import com.realeyes.osmfplayer.controls.ToggleButton;
 	import flash.media.SoundTransform;
 	import fl.controls.Button;
 	import flash.display.Bitmap;
@@ -39,7 +41,7 @@ package {
 	import flash.utils.getTimer;
 
 	/**
-	 * ...
+	 * To test different components of KarPlayer  
 	 * @author Thanh Tran
 	 */
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
@@ -98,6 +100,12 @@ package {
 			//testTextBlock();
 			//testTextLine();
 			testLyricPlayer();
+			
+			testControlBar();
+		}
+
+		private function testControlBar(): void {
+			
 		}
 
 		private function testLyricPlayer(): void {
@@ -145,10 +153,13 @@ package {
 		 * test text bit:
 		 */
 		public function testTextBlock(): void {
+			var blockInfo: BlockInfo = new BlockInfo();
+			blockInfo.text ="Tran Trong Thanh"; 
+			blockInfo.begin = 0;
+			blockInfo.duration = 5000;
+			
 			block = new TextBlock();
-			block.text = "Tran Trong Thanh";
-			block.begin = 1;
-			block.duration = 5000;
+			block.init(blockInfo);
 			block.completed.add(blockCompleteHandler);
 			addChild(block);
 		}

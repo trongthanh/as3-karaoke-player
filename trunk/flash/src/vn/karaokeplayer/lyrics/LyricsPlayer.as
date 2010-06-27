@@ -71,7 +71,7 @@ package vn.karaokeplayer.lyrics {
 				lineInfo = data.lyricLines[i];
 				textLine = new TextLine();
 				textLine.init(lineInfo);
-				textLine.completed.add(lineCompleteHandler);
+				//textLine.completed.add(lineCompleteHandler);
 				textLine.index = i;
 				//position all lines
 				if(i % 2 == 0) {
@@ -86,15 +86,17 @@ package vn.karaokeplayer.lyrics {
 				_lines.push(textLine);
 			}
 			
-			_pos = 0;
-			_idx1 = 0;
-			_l1 = _lines[_idx1];
-			_idx2 = 1;
-			_l2 = _lines[_idx2];
-			addChild(_l1);
-			addChild(_l2);	
+			//_pos = 0;
+			//_idx1 = 0;
+			//_l1 = _lines[_idx1];
+			//_idx2 = 1;
+			//_l2 = _lines[_idx2];
+			//addChild(_l1);
+			//addChild(_l2);
+			position = 0;
 		}
-
+		
+		/*
 		private function lineCompleteHandler(textLine: TextLine): void {
 			if(_pos == 0) return;
 			var nextLine: TextLine;
@@ -125,6 +127,7 @@ package vn.karaokeplayer.lyrics {
 				lyricsCompleted.dispatch(data);
 			}
 		}
+		 */
 		
 		public function lineFadeOutCompleteHandler(tween: GTween): void {
 			var lastLine: TextLine = TextLine(tween.data.last);
@@ -148,30 +151,41 @@ package vn.karaokeplayer.lyrics {
 		 */
 		public function set position(position: Number): void {
 			_pos = position;
-			if(_pos == 0) {
-				trace("reset position");
-				if(contains(_l1)) removeChild(_l1); 				if(contains(_l2)) removeChild(_l2);
-				for (var i : int = 0; i < _len; i++) {
-					_lines[i].reset();
+			var i: int;
+			var line: TextLine;
+			//determine current lines:
+			if(_l1 && _l1.begin < _pos && _l1.end > _pos) {
+				_l1.position = _pos;	
+			} else {
+				if(_l1 && contains(_l1)) removeChild(_l1);
+				//search for first line:
+				for(i=0; i < _len; i += 2) {
+					line = _lines[i];
+					if(line.end > _pos) {
+						_l1 = line;
+						break;
+					}
 				}
-				_idx1 = 0;
-				_l1 = _lines[_idx1];
-				_idx2 = 1;
-				_l2 = _lines[_idx2];
-				_l1.alpha = 1;
-				_l2.alpha = 1;
-				addChild(_l1);
-				addChild(_l2);
-				return;
-			}
-			
-			
-			if(_pos > _l1.begin && !_l1.playing && !_l1.complete) {
 				_l1.position = _pos;
+				addChild(_l1);
 			}
-			if(_pos > _l2.begin && !_l2.playing && !_l2.complete) {
+			
+			if(_l2 && _l2.begin < _pos && _l2.end > _pos) {
+				_l2.position = _pos;	
+			} else {
+				if(_l2 && contains(_l2)) removeChild(_l2);
+				//search for second line:
+				for(i=1; i < _len; i += 2) {
+					line = _lines[i];
+					if(line.end > _pos) {
+						_l2 = line;
+						break;
+					}
+				}
 				_l2.position = _pos;
-			}	
+				addChild(_l2);
+			}
+
 		}
 		
 		/**
@@ -186,6 +200,5 @@ package vn.karaokeplayer.lyrics {
 			if (contains(_l2)) removeChild(_l2);
 			_lines = null;
 		}
-		
 	}
 }
