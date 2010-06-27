@@ -23,7 +23,7 @@ package {
 	/**
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
+	[SWF(backgroundColor="#000000", frameRate="31", width="600", height="400")]
 	public class Main extends Sprite {
 		public var stats: Stats;
 		[Embed(source = '/../assets/images/simplygreen.jpg')]
@@ -40,7 +40,7 @@ package {
 			player = new SampleGUIPlayer();
 			addChild(player);
 			
-			player.load("xml/song1.xml");
+			player.load("xml/song3.xml");
 			
 			stats = new Stats();
 			addChild(stats);

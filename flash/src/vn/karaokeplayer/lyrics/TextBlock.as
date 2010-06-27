@@ -220,7 +220,8 @@ package vn.karaokeplayer.lyrics {
 		
 		public function set position(value: Number): void {
 			if(value < begin) {
-				updateMaskPosition(0);
+				//avoid update too many times before really enter its session
+				if(_pos > begin) updateMaskPosition(0);
 			} else if (value > end) {
 				updateMaskPosition(1);
 				if(_pos <= end) {

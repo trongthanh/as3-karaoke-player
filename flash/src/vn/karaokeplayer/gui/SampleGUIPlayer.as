@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.gui {
+	import flash.geom.Rectangle;
+	import flash.events.Event;
 	import flash.media.SoundTransform;
 	import flash.media.SoundMixer;
 	import flash.display.StageDisplayState;
@@ -52,7 +54,11 @@ package vn.karaokeplayer.gui {
 		
 		public function SampleGUIPlayer() {
 			Font.registerFont(fontClass);
-			
+			addEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+		}
+
+		private function addToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
 			initControlBar();
 			initKarPlayer();
 			addChild(karPlayer);
@@ -68,8 +74,7 @@ package vn.karaokeplayer.gui {
 			karOptions.basicLyricStyle.embedFonts = true;
 			
 			karPlayer = new KarPlayer(karOptions);
-			
-			
+
 			karPlayer.ready.add(playerReadyHandler);
 			karPlayer.playProgress.add(playProgressHandler);
 			karPlayer.loadProgress.add(loadProgressHandler);
@@ -78,6 +83,7 @@ package vn.karaokeplayer.gui {
 
 		private function loadProgressHandler(percent: Number, bytesLoaded: uint, bytesTotal: uint ): void {
 			controlBar.setLoadBarPercent(percent);
+			controlBar.duration = int(karPlayer.length * 0.001);
 		}
 
 		private function audioCompleteHandler(): void {
@@ -106,6 +112,8 @@ package vn.karaokeplayer.gui {
 			
 			controlBar.playPause_mc.enabled = false;
 			controlBar.mouseChildren = false;
+			//enabled hard ware render in FS:
+			stage.fullScreenSourceRect = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 		}
 
 		private function volumeSetHandler(vol: Number): void {
@@ -171,7 +179,6 @@ package vn.karaokeplayer.gui {
 			//controlBar.progress_mc.isLive = true;
 			controlBar.playPause_mc.enabled = true;
 			controlBar.mouseChildren = true;
-			controlBar.duration = int(karPlayer.length * 0.001);
 		}
 
 		public function load(songURL: String): void {
