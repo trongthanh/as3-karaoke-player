@@ -49,6 +49,7 @@ package vn.karaokeplayer {
 		 * arguments (percent: Number, byteLoaded: uint, byteTotal: uint)
 		 */
 		public var loadProgress: Signal;
+		public var loadCompleted: Signal;
 		
 		public var audioCompleted: Signal;
 		
@@ -82,6 +83,9 @@ package vn.karaokeplayer {
 			_lyricPlayer.y = _options.paddingRight;
 			_lyricPlayer.alpha = 0;
 			_beatPlayer = new AudioPlayer();
+			_beatPlayer.ready.add(audioReadyHandler);
+			_beatPlayer.loadProgress.add(audioLoadingProgressHandler);
+			loadCompleted = _beatPlayer.loadCompleted;
 			addChild(_lyricPlayer);
 			
 			ready = new Signal();
@@ -115,22 +119,24 @@ package vn.karaokeplayer {
 			//trace('_songInfo.beatURL: ' + (_songInfo.beatURL));
 			//trace('_songInfo.title: ' + (_songInfo.title));
 			//continue to load audio:
-			var audioLoader: AssetLoader = new AssetLoader();
-			audioLoader.progress.add(audioLoadingProgressHandler);
-			audioLoader.completed.add(audioLoadHandler);
-			audioLoader.load(_songInfo.beatURL);
+			//var audioLoader: AssetLoader = new AssetLoader();
+			//audioLoader.progress.add(audioLoadingProgressHandler);
+			//audioLoader.completed.add(audioLoadHandler);
+			//audioLoader.load(_songInfo.beatURL);
+			beatPlayer.open(_songInfo.beatURL);
 		}
 
-		private function audioLoadingProgressHandler(audioLoader: AssetLoader, percent: Number, bytesLoaded: uint, bytesTotal: uint): void {
-			loadProgress.dispatch(percent, bytesLoaded, bytesTotal);	
+		private function audioLoadingProgressHandler(bytesLoaded: uint, bytesTotal: uint): void {
+			loadProgress.dispatch(bytesLoaded / bytesTotal, bytesLoaded, bytesTotal);	
 		}
-
-		private function audioLoadHandler(audioLoader: AssetLoader): void {
-			trace("audio loaded: " + audioLoader.url);
-			_songInfo.beatSound = Sound(audioLoader.data);
+		
+		private function audioReadyHandler(): void {
+			//we don't need to init beat player if we open the sound with URL 
+			//_songInfo.beatSound = beatPlayer;
+			//_beatPlayer.init(_songInfo.beatSound);
 			_lyricPlayer.init(_songInfo.lyrics);
-			_beatPlayer.init(_songInfo.beatSound);
 			_songReady = true;
+			
 			ready.dispatch();
 		}
 		
@@ -169,10 +175,11 @@ package vn.karaokeplayer {
 		 * 
 		 */
 		public function seek(pos: Number): void {
-			_position = pos; 
-			_beatPlayer.seek(_position);
-			_startTime = getTimer() - _position;
-			_lyricPlayer.position = pos;
+			if(_beatPlayer.seek(pos)) {
+				_position = pos;
+				_startTime = getTimer() - _position;
+				_lyricPlayer.position = pos;	
+			}
 		}
 
 		public function stop(): void {

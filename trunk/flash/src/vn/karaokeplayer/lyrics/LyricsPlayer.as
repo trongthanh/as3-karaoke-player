@@ -147,7 +147,7 @@ package vn.karaokeplayer.lyrics {
 		}
 		
 		/**
-		 * TODO: enble seeking, user can seek to any position
+		 * TODO: add entrance and exit fading effect for text line (part of its timeline)
 		 */
 		public function set position(position: Number): void {
 			_pos = position;
@@ -157,33 +157,53 @@ package vn.karaokeplayer.lyrics {
 			if(_l1 && _l1.begin < _pos && _l1.end > _pos) {
 				_l1.position = _pos;	
 			} else {
-				if(_l1 && contains(_l1)) removeChild(_l1);
+				/*if(_l1 && _l1.end < _pos && contains(_l1)) {
+					trace("remove _l1");
+					removeChild(_l1);
+				}*/
 				//search for first line:
 				for(i=0; i < _len; i += 2) {
 					line = _lines[i];
 					if(line.end > _pos) {
-						_l1 = line;
 						break;
 					}
 				}
+				if(_l1 != line) {
+					if(_l1 && contains(_l1)) {
+						//trace("remove _l1: " + _l1);
+						removeChild(_l1);
+					}
+					_l1 = line;
+					addChild(_l1);
+				}
 				_l1.position = _pos;
-				addChild(_l1);
 			}
 			
 			if(_l2 && _l2.begin < _pos && _l2.end > _pos) {
 				_l2.position = _pos;	
 			} else {
-				if(_l2 && contains(_l2)) removeChild(_l2);
+				/*
+				if(_l2 && _l2.end < _pos && contains(_l2)) {
+					trace("remove _l2");
+					removeChild(_l2);
+				}*/
 				//search for second line:
 				for(i=1; i < _len; i += 2) {
 					line = _lines[i];
 					if(line.end > _pos) {
-						_l2 = line;
 						break;
 					}
 				}
+				if(_l2 != line) {
+					if(_l2 && contains(_l2)) {
+						//trace("remove _l2: " + _l2);
+						removeChild(_l2);
+					}
+					_l2 = line;
+					addChild(_l2);
+				}
 				_l2.position = _pos;
-				addChild(_l2);
+				
 			}
 
 		}

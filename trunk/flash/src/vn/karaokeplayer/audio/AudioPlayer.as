@@ -1,4 +1,5 @@
 package vn.karaokeplayer.audio {
+	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
 	import flash.events.IOErrorEvent;
 	import flash.media.SoundLoaderContext;
@@ -16,13 +17,15 @@ package vn.karaokeplayer.audio {
 		
 		public var audioCompleted: Signal;
 		public var ready: Signal;
+		public var loadProgress: Signal;
+		public var loadCompleted: Signal;
 		
 		private var _sound: Sound;
 		private var _channel: SoundChannel;
 		private var _position: Number;
 		private var _playing: Boolean;
 		private var _pausing: Boolean;
-		private var _sOpened: Boolean;
+		private var _soundOpened: Boolean;
 		private var _autoPlay: Boolean;
 		private var _bytesLoaded: uint;
 		private var _bytesTotal: uint;
@@ -31,33 +34,49 @@ package vn.karaokeplayer.audio {
 		public function AudioPlayer() {
 			audioCompleted = new Signal();
 			ready = new Signal();
-		}
-
-		public function init(sound: Sound): void {
-			_sound = sound;	
+			loadProgress = new Signal(uint, uint);
+			loadCompleted = new Signal();
 		}
 		
+		/**
+		 * TODO: create test case to test this flow
+		 */
+		public function init(sound: Sound): void {
+			_sound = sound;
+			_soundOpened = true;
+		}
+
 		public function open(soundURL: String): void {
 			var request:URLRequest = new URLRequest(soundURL);
 			_sound = new Sound();
 			_sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			_sound.addEventListener(Event.OPEN, soundOpenHandler);
-			_sound
+			_sound.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
+			_sound.addEventListener(Event.COMPLETE, loadCompleteHandler);
 			//_sound.addEventListener(Event.ID3, id3Handler);
 			//IMPORTANT: must turn on checkPolicyFile flag in the SoundLoaderContext for crossdomain ID3 and spectrum process
 			_sound.load(request, new SoundLoaderContext(1000, true));
 			
-			if (_sOpened) {
-				_sOpened = false;
+			if (_soundOpened) {
+				_soundOpened = false;
 				stop();
 			}
+		}
+
+		private function loadCompleteHandler(event: Event): void {
+			loadCompleted.dispatch();
+		}
+
+		private function loadProgressHandler(event: ProgressEvent): void {
+			checkSoundStatus();
+			loadProgress.dispatch(_bytesLoaded, _bytesTotal);
 		}
 
 		private function ioErrorHandler(event: IOErrorEvent): void {
 		}
 
 		private function soundOpenHandler(event: Event): void {
-			_sOpened = true;
+			_soundOpened = true;
 			ready.dispatch();
 			if(_autoPlay) play();
 		}
@@ -90,15 +109,19 @@ package vn.karaokeplayer.audio {
 			_position = 0;
 		}
 		
-		public function seek(pos: Number): void {
-			disposeOfChannel();
-			_position = pos;
-			if (!_pausing && _playing) {
-				//continue playing, need to reassign
-				_channel = _sound.play(pos);
-				_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);	
+		public function seek(pos: Number): Boolean {
+			if(pos > _sound.length)  {
+				return false;
+			} else {
+				disposeOfChannel();
+				_position = pos;
+				if (!_pausing && _playing) {
+					//continue playing, need to reassign
+					_channel = _sound.play(pos);
+					_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);	
+				}	
+				return true;
 			}
-			
 		}
 		
 		/**
@@ -110,7 +133,7 @@ package vn.karaokeplayer.audio {
 			
 			_bytesLoaded = s.bytesLoaded;
 			_bytesTotal = s.bytesTotal;
-			var loadPercent: Number = _bytesLoaded / _bytesTotal;
+			//var loadPercent: Number = _bytesLoaded / _bytesTotal;
 			//length in millisecond of the loaded parts ONLY:
 			var duration: Number = s.length;
 			//estimate the full length of the song:
@@ -118,9 +141,9 @@ package vn.karaokeplayer.audio {
 
 			
 			
-			if (!_playing || _pausing ) return; //avoid error
-			_position = ch.position;
-			var playPercent: Number = _position / _estDur;
+			//if (!_playing || _pausing ) return; //avoid error
+			//_position = ch.position;
+			//var playPercent: Number = _position / _estDur;
 			/*if (playPercent >= 1) {
 				trace("Stop");
 				stop();
@@ -148,9 +171,9 @@ package vn.karaokeplayer.audio {
 		}
 
 		public function get length(): Number {
-			return _sound.length;
+			return _estDur;
 		}
-		
+
 		public function get playing(): Boolean { return _playing; }
 		
 		public function get pausing(): Boolean { return _pausing; 

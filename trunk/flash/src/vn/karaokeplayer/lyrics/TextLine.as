@@ -71,7 +71,7 @@ package vn.karaokeplayer.lyrics {
 				block = new TextBlock();
 				block.setStyle(normalStyle, syncStyle);
 				block.init(blockInfo);
-				block.completed.add(textBitCompleteHandler);
+				block.completed.add(textBlockCompleteHandler);
 				blocks.push(block);
 				if(i > 0) {
 					IBlock(blocks[i - 1]).next = block;
@@ -99,7 +99,7 @@ package vn.karaokeplayer.lyrics {
 			}
 		}
 		
-		private function textBitCompleteHandler(tb: IBlock): void {
+		private function textBlockCompleteHandler(tb: IBlock): void {
 //			trace('text bit ' + tb.text + ' complete, next:  ' + (tb.next));
 			if(tb.next) {
 				//tb.next.play();
