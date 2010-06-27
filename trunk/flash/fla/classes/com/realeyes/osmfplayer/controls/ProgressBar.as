@@ -37,6 +37,8 @@ package com.realeyes.osmfplayer.controls
 		public var live_mc:MovieClip;
 		
 		public var bg_mc:MovieClip;
+		//moving shadow when progressbar is resized
+		public var rightShadowMovie: MovieClip;
 		
 		protected var _currentPercent:Number;
 		protected var _currentLoadPercent:Number;
@@ -49,6 +51,9 @@ package com.realeyes.osmfplayer.controls
 		protected var _isLive:Boolean;
 		
 		protected var _anchor:String = "both";
+		
+		//check for Boolean instead of: if (scrubber_mc)  
+		protected var _hasScrubber: Boolean;
 		
 		/////////////////////////////////////////////
 		//  CONSTRUCTOR
@@ -63,7 +68,9 @@ package com.realeyes.osmfplayer.controls
 			//trace(current_mc);
 			//trace(loaded_mc);
 			//trace(scrubber_mc);
-			live_mc.visible = false;
+			//will not add live MC until it is really used
+			//live_mc.visible = false;
+			removeChild(live_mc);
 			
 			current_mc.scaleX = 0;
 			loaded_mc.width = 0;
@@ -72,6 +79,7 @@ package com.realeyes.osmfplayer.controls
 			{
 				_scrubberWidth = scrubber_mc.width;
 				scrubber_mc.toggle = false;
+				_hasScrubber = true;
 			}
 			
 			_scrubberPadding = _scrubberWidth / 2;
@@ -97,7 +105,7 @@ package com.realeyes.osmfplayer.controls
 		{
 			addEventListener( MouseEvent.CLICK, _onClick );
 			
-			if( scrubber_mc )
+			if( _hasScrubber )
 			{
 				scrubber_mc.addEventListener( MouseEvent.MOUSE_DOWN, _onScrubberMouseDown );
 				scrubber_mc.addEventListener( MouseEvent.MOUSE_UP, _onScrubberMouseUp );
@@ -116,13 +124,15 @@ package com.realeyes.osmfplayer.controls
 			//trace("current percent: " + (p_value) );
 			if( !_dragging )
 			{
-				current_mc.width = Math.round( _scrubberWidth + _activeRange * p_value );
+				//current_mc.width = Math.round( _scrubberWidth + _activeRange * p_value );
+				current_mc.width = int( _scrubberWidth + _activeRange * p_value );
 				//trace("setCurrentBarPercent: " + p_value);
 				//current_mc.scaleX = p_value;
 				
-				if( scrubber_mc )
+				if( _hasScrubber )
 				{
-					scrubber_mc.x = Math.round( current_mc.width - _scrubberWidth );
+					//scrubber_mc.x = Math.round( current_mc.width - _scrubberWidth );
+					scrubber_mc.x = int( current_mc.width - _scrubberWidth );
 				}
 			}
 			
@@ -202,7 +212,8 @@ package com.realeyes.osmfplayer.controls
 				current_mc.visible = false;
 				loaded_mc.visible = false;
 				
-				live_mc.visible = true;
+				//live_mc.visible = true;
+				addChildAt(live_mc, getChildIndex(bg_mc));
 			}
 			else
 			{
@@ -213,13 +224,15 @@ package com.realeyes.osmfplayer.controls
 				current_mc.visible = true;
 				loaded_mc.visible = true;
 				
-				live_mc.visible = false;
+				//live_mc.visible = false;
+				if(contains(live_mc)) removeChild(live_mc);
 			}
 		}
 		
 		public override function set width( value:Number ):void
 		{
 			bg_mc.width = value;
+			rightShadowMovie.x = value;
 			_activeRange = value - _scrubberWidth;
 			
 			setCurrentBarPercent( _currentPercent );

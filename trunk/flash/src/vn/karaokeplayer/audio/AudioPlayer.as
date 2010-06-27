@@ -92,7 +92,8 @@ package vn.karaokeplayer.audio {
 		
 		public function seek(pos: Number): void {
 			disposeOfChannel();
-			if (!_pausing) {
+			_position = pos;
+			if (!_pausing && _playing) {
 				//continue playing, need to reassign
 				_channel = _sound.play(pos);
 				_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);	

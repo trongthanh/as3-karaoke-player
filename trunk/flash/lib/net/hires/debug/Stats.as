@@ -13,6 +13,7 @@
 
 package net.hires.debug {
 	
+	import vn.karaokeplayer.utils.EnterFrameManager;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -94,7 +95,8 @@ package net.hires.debug {
 			graphics.drawRect(0, 50, WIDTH, HEIGHT - 50);
 			
 			addEventListener(MouseEvent.CLICK, onClick);
-			addEventListener(Event.ENTER_FRAME, update);
+			//addEventListener(Event.ENTER_FRAME, update);
+			EnterFrameManager.instance.enterFrame.add(update);
 			
 		}
 
@@ -108,11 +110,11 @@ package net.hires.debug {
 			graph.dispose();
 			
 			removeEventListener(MouseEvent.CLICK, onClick);
-			removeEventListener(Event.ENTER_FRAME, update);
-			
+			//removeEventListener(Event.ENTER_FRAME, update);
+			EnterFrameManager.instance.enterFrame.remove(update);	
 		}
 
-		private function update(e : Event) : void {
+		private function update(e : Event = null) : void {
 			
 			timer = getTimer();
 			
