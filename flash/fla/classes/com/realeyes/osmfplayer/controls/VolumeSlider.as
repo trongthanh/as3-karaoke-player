@@ -30,6 +30,7 @@ package com.realeyes.osmfplayer.controls
 		//private var _displayBelow:Boolean = false;
 		private var _mouseDown:Boolean = false;
 		
+		private var _vol: Number;
 		
 		
 		/////////////////////////////////////////////
@@ -83,14 +84,14 @@ package com.realeyes.osmfplayer.controls
 			if( mouseY > _upperBound - 1 && mouseY < _activeRange + _upperBound )
 			{
 				var pixelValue:Number = height - mouseY - _lowerBound;
-				var volumeValue:Number = int( ( pixelValue / _activeRange ) * 100 ) / 100;
+				_vol = int( ( pixelValue / _activeRange ) * 100 ) / 100;
 				
 				//trace( "pixelValue: " + pixelValue + ", volumeValue: " + volumeValue );
 				
 				value_mc.height = pixelValue;
 				
 				//dispatchEvent( new ControlBarEvent( ControlBarEvent.VOLUME, volumeValue, 0, true ) );
-				volumeSet.dispatch(volumeValue);
+				volumeSet.dispatch(_vol);
 			}
 		}
 		
@@ -105,9 +106,17 @@ package com.realeyes.osmfplayer.controls
 			stage.addEventListener( MouseEvent.MOUSE_UP, _onStageMouseUp );
 		}
 		
+		public function set volume(value: Number): void {
+			_vol = value;
+			if(_vol < 0) _vol = 0;
+			if(_vol > 1) _vol = 1;
+			
+			value_mc.height = _vol * _activeRange; 			
+		}
 		
-		
-		
+		public function get volume(): Number {
+			return _vol;
+		}
 		
 		/////////////////////////////////////////////
 		//  HANDLERS

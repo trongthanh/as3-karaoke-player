@@ -43,12 +43,12 @@ package vn.karaokeplayer {
 		 * dispatch playing progress
 		 * arguments (position: Number, length: Number)  
 		 */
-		public var progress: Signal;
+		public var playProgress: Signal;
 		/**
 		 * dispatch loading progress
 		 * arguments (percent: Number, byteLoaded: uint, byteTotal: uint)
 		 */
-		public var loading: Signal;
+		public var loadProgress: Signal;
 		
 		public var audioCompleted: Signal;
 		
@@ -85,8 +85,8 @@ package vn.karaokeplayer {
 			addChild(_lyricPlayer);
 			
 			ready = new Signal();
-			progress = new Signal(Number, Number);
-			loading = new Signal(Number, Number, Number);
+			playProgress = new Signal(Number, Number);
+			loadProgress = new Signal(Number, Number, Number);
 			audioCompleted = _beatPlayer.audioCompleted;
 			audioCompleted.add(stop);
 		}
@@ -122,7 +122,7 @@ package vn.karaokeplayer {
 		}
 
 		private function audioLoadingProgressHandler(audioLoader: AssetLoader, percent: Number, bytesLoaded: uint, bytesTotal: uint): void {
-			loading.dispatch(percent, bytesLoaded, bytesTotal);	
+			loadProgress.dispatch(percent, bytesLoaded, bytesTotal);	
 		}
 
 		private function audioLoadHandler(audioLoader: AssetLoader): void {
@@ -166,10 +166,10 @@ package vn.karaokeplayer {
 		}
 		
 		/**
-		 * TODO: handle seek when pause
+		 * 
 		 */
 		public function seek(pos: Number): void {
-			_position = pos 
+			_position = pos; 
 			_beatPlayer.seek(_position);
 			_startTime = getTimer() - _position;
 			_lyricPlayer.position = pos;
@@ -191,7 +191,7 @@ package vn.karaokeplayer {
 			var elapsedTime: uint = getTimer() - _startTime;
 			_lyricPlayer.position = elapsedTime;
 			
-			progress.dispatch(_beatPlayer.position, _beatPlayer.length);
+			playProgress.dispatch(_beatPlayer.position, _beatPlayer.length);
 			//_lyricPlayer.position = _beatPlayer.position + 50;
 			 
 			//var diff: Number = (elapsedTime - _beatPlayer.position) - 50;

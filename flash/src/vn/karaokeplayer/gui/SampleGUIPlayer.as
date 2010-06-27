@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.gui {
+	import flash.media.SoundTransform;
+	import flash.media.SoundMixer;
 	import flash.display.StageDisplayState;
 	import vn.karaokeplayer.data.LyricStyle;
 	import flash.text.Font;
@@ -35,20 +37,26 @@ package vn.karaokeplayer.gui {
 		,fontName  ='ArialRegularVN'
 		,fontStyle   ='normal' // normal|italic
 		,fontWeight  ='normal' // normal|bold
-		,unicodeRange = 'U+0020-U+002F,U+0030-U+0039,U+003A-U+0040,U+0041-U+005A,U+005B-U+0060,U+0061-U+007A,U+007B-U+007E,U+00C0-U+00C3,U+00C8-U+00CA,U+00CC-U+00CD,U+00D0,U+00D2-U+00D5,U+00D9-U+00DA,U+00DD,U+00E0-U+00E3,U+00E8-U+00EA,U+00EC-U+00ED,U+00F2-U+00F5,U+00F9-U+00FA,U+00FD,U+0102-U+0103,U+0110-U+0111,U+0128-U+0129,U+0168-U+0169,U+01A0-U+01B0,U+1EA0-U+1EF9,U+02C6-U+0323',
-		mimeType='application/x-font'
-		//,embedAsCFF='false'
+		,unicodeRange = 'U+0020-U+002F,U+0030-U+0039,U+003A-U+0040,U+0041-U+005A,U+005B-U+0060,U+0061-U+007A,U+007B-U+007E,U+00C0-U+00C3,U+00C8-U+00CA,U+00CC-U+00CD,U+00D0,U+00D2-U+00D5,U+00D9-U+00DA,U+00DD,U+00E0-U+00E3,U+00E8-U+00EA,U+00EC-U+00ED,U+00F2-U+00F5,U+00F9-U+00FA,U+00FD,U+0102-U+0103,U+0110-U+0111,U+0128-U+0129,U+0168-U+0169,U+01A0-U+01B0,U+1EA0-U+1EF9,U+02C6-U+0323'
+		,mimeType='application/x-font'
+		,embedAsCFF='false'
 		)]
 		public static const fontClass:Class;
 		
 		public var karPlayer:KarPlayer;
 		public var controlBar: ControlBar;
 		
+		private var _vol: Number;
+		private var _mute: Boolean;
+		private var _lastPos: Number = 0;
+		
 		public function SampleGUIPlayer() {
 			Font.registerFont(fontClass);
-			initControlBar();
 			
+			initControlBar();
 			initKarPlayer();
+			addChild(karPlayer);
+			addChild(controlBar);
 		}
 
 		private function initKarPlayer(): void {
@@ -60,12 +68,22 @@ package vn.karaokeplayer.gui {
 			karOptions.basicLyricStyle.embedFonts = true;
 			
 			karPlayer = new KarPlayer(karOptions);
-			addChild(karPlayer);
+			
 			
 			karPlayer.ready.add(playerReadyHandler);
-			karPlayer.progress.add(playProgressHandler);
+			karPlayer.playProgress.add(playProgressHandler);
+			karPlayer.loadProgress.add(loadProgressHandler);
+			karPlayer.audioCompleted.add(audioCompleteHandler);
 		}
-		
+
+		private function loadProgressHandler(percent: Number, bytesLoaded: uint, bytesTotal: uint ): void {
+			controlBar.setLoadBarPercent(percent);
+		}
+
+		private function audioCompleteHandler(): void {
+			controlBar.playPause_mc.selected = true;
+		}
+
 		/**
 		 * TODO: optimize performance
 		 */
@@ -76,20 +94,39 @@ package vn.karaokeplayer.gui {
 			controlBar.played.add(controlBarUpdateHandler);
 			controlBar.paused.add(controlBarUpdateHandler);
 			controlBar.stopped.add(controlBarUpdateHandler);
-			controlBar.muted.add(controlBarUpdateHandler);
-			controlBar.fullScreen.add(controlBarUpdateHandler);
+			controlBar.muteToggled.add(controlBarUpdateHandler);
+			controlBar.fullScreenToggled.add(controlBarUpdateHandler);
+			controlBar.captionToggled.add(controlBarUpdateHandler);
 			controlBar.playPause_mc.selected = true;
 			controlBar.progress_mc.seeked.add(seekHandler);
-			addChild(controlBar);
+			controlBar.volumeSlider_mc.volumeSet.add(volumeSetHandler);
+			controlBar.volumeSlider_mc.volume = 0.5;
+			volumeSetHandler(0.5);
+			controlBar.closedCaption_mc.selected = true;
+			
+			controlBar.playPause_mc.enabled = false;
+			controlBar.mouseChildren = false;
+		}
+
+		private function volumeSetHandler(vol: Number): void {
+			_vol = vol;
+			updateVolume();
 		}
 
 		private function seekHandler(percent: Number): void {
 			var pos: Number = percent * karPlayer.length;
+			controlBar.setCurrentBarPercent(percent);
 			karPlayer.seek(pos);
 		}
 
 		private function playProgressHandler(pos: Number, len: Number): void {
-			controlBar.currentTime = int(pos / 1000);
+			//only update time text every second to reduce CPU hog
+			
+			if(Math.abs(pos - _lastPos) > 1000) {
+				controlBar.currentTime = pos * 0.001;
+				_lastPos = pos;		
+			}
+			
 			//trace('pos/ len: ' + (pos/ len));
 			controlBar.setCurrentBarPercent(pos / len);
 		}
@@ -102,22 +139,39 @@ package vn.karaokeplayer.gui {
 				case controlBar.paused:
 					karPlayer.pause();
 					break;
-				case controlBar.fullScreen:
+				case controlBar.fullScreenToggled:
 					if(toggleOn) {
 						stage.displayState = StageDisplayState.FULL_SCREEN;
 					} else {
 						stage.displayState = StageDisplayState.NORMAL;
 					}
-				
+					break;
+				case controlBar.muteToggled:
+					_mute = toggleOn;
+					updateVolume();
+					break;
+				case controlBar.captionToggled:
+					karPlayer.visible = toggleOn;				
+					break;
 				default:
+					break;
 			}
 			
+		}
+		
+		private function updateVolume(): void {
+			if(_mute) {
+				SoundMixer.soundTransform = new SoundTransform(0);
+			} else {
+				SoundMixer.soundTransform = new SoundTransform(_vol);
+			}
 		}
 
 		private function playerReadyHandler(): void {
 			//controlBar.progress_mc.isLive = true;
-			controlBar.setLoadBarPercent(1);
-			controlBar.duration = int(karPlayer.length / 1000);
+			controlBar.playPause_mc.enabled = true;
+			controlBar.mouseChildren = true;
+			controlBar.duration = int(karPlayer.length * 0.001);
 		}
 
 		public function load(songURL: String): void {

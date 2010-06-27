@@ -31,10 +31,9 @@ package com.realeyes.osmfplayer.controls
 		public var played: Signal;
 		public var paused: Signal;
 		public var stopped: Signal;
-		public var muted: Signal;
-		public var unmuted: Signal;
-		public var fullScreen: Signal;
-		public var restored: Signal;
+		public var muteToggled: Signal;
+		public var fullScreenToggled: Signal;
+		public var captionToggled: Signal;
 		
 		public var bg_mc:MovieClip;
 		
@@ -74,6 +73,9 @@ package com.realeyes.osmfplayer.controls
 		
 		private var _currentTime:Number;
 		private var _duration:Number;
+		private var _hasProgressBar: Boolean; //to avoid expression: if(progressbar_mc)
+		private var _hasCurrentTimeText: Boolean; 
+		
 		
 		// Added to account for settings in the config using the <element> sub-nodes in <skin>
 		private var _autoHide:Boolean;
@@ -95,11 +97,10 @@ package com.realeyes.osmfplayer.controls
 			played = new Signal(Signal); //return the signal itself so handling function know which signal is dispatching
 			paused = new Signal(Signal);
 			stopped = new Signal(Signal);
-			muted = new Signal(Signal, Boolean);
-			//unmuted = new Signal(Signal);
-			fullScreen = new Signal(Signal, Boolean);
-			//restored = new Signal(Signal);
-			
+			muteToggled = new Signal(Signal, Boolean);
+			fullScreenToggled = new Signal(Signal, Boolean);
+			captionToggled = new Signal(Signal, Boolean);
+						
 			if( _autoHideVolume )
 			{
 				_volumeSliderRolloutTolerance = new RollOutTolerance( volumeSlider_mc, volume_mc );
@@ -116,6 +117,7 @@ package com.realeyes.osmfplayer.controls
 			if( currentTime_txt )
 			{
 				currentTime_txt.mouseEnabled = false;
+				
 			}
 			
 			if( totalTime_txt )
@@ -217,6 +219,7 @@ package com.realeyes.osmfplayer.controls
 			if( currentTime_txt )
 			{ 
 				_initCurrentTimeText();
+				_hasCurrentTimeText = true;
 			}
 			
 			if( totalTime_txt )
@@ -333,6 +336,7 @@ package com.realeyes.osmfplayer.controls
 		
 		protected function _initProgressBar():void
 		{
+			_hasProgressBar = true;
 			_addControlItem( progress_mc );
 		}
 		
@@ -443,10 +447,10 @@ package com.realeyes.osmfplayer.controls
 		 */
 		protected function formatSecondsToString( p_time:Number ):String
 		{
-			var min:Number = Math.floor( p_time / 60 );
-			var sec:Number = p_time % 60;
+			var min:int = int( p_time / 60 );
+			var sec:int = p_time % 60;
 			
-			return min + ":" + ( sec.toString().length < 2 ? "0" + sec : sec );
+			return min + ":" + ( sec < 10 ? "0" + sec : sec );
 		}
 		
 		/**
@@ -458,7 +462,7 @@ package com.realeyes.osmfplayer.controls
 		 */
 		public function setCurrentBarPercent( p_value:Number ):void
 		{
-			if( progress_mc )
+			if( _hasProgressBar )
 			{
 				progress_mc.setCurrentBarPercent( p_value );
 			}
@@ -623,7 +627,7 @@ package com.realeyes.osmfplayer.controls
 		public function set currentTime( p_value:Number ):void
 		{
 			_currentTime = p_value;
-			if( currentTime_txt )
+			if( _hasCurrentTimeText )
 			{
 				currentTime_txt.text = formatSecondsToString( p_value );
 			}
@@ -780,7 +784,7 @@ package com.realeyes.osmfplayer.controls
 		 */
 		private function _onVolumeClick( /*p_evt:ToggleButtonEvent*/selected: Boolean ):void
 		{
-			muted.dispatch(muted, selected);
+			muteToggled.dispatch(muteToggled, selected);
 			if( selected)
 			{
 				//this.dispatchEvent( new ControlBarEvent( ControlBarEvent.MUTE ) );
@@ -827,7 +831,7 @@ package com.realeyes.osmfplayer.controls
 		 */
 		private function _onfullScreenClick( /*p_evt:ToggleButtonEvent*/selected: Boolean ):void 
 		{
-			fullScreen.dispatch(fullScreen, selected);
+			fullScreenToggled.dispatch(fullScreenToggled, selected);
 			if( selected)
 			{
 				//this.dispatchEvent( new ControlBarEvent( ControlBarEvent.FULLSCREEN ) );
@@ -864,6 +868,7 @@ package com.realeyes.osmfplayer.controls
 		 */
 		private function _onClosedCaptionClick( /*p_evt:ToggleButtonEvent*/selected: Boolean ):void
 		{
+			captionToggled.dispatch(captionToggled, selected);
 			if( selected)
 			{
 				//this.dispatchEvent( new ControlBarEvent( ControlBarEvent.SHOW_CLOSEDCAPTION ) );

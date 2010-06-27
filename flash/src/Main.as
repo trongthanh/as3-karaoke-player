@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package {
+	import net.hires.debug.Stats;
 	import vn.karaokeplayer.gui.SampleGUIPlayer;
 
 	import flash.display.Bitmap;
@@ -24,6 +25,7 @@ package {
 	 */
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
 	public class Main extends Sprite {
+		public var stats: Stats;
 		[Embed(source = '/../assets/images/simplygreen.jpg')]
 		public var BGClass: Class;
 
@@ -39,6 +41,9 @@ package {
 			addChild(player);
 			
 			player.load("xml/song1.xml");
+			
+			stats = new Stats();
+			addChild(stats);
 		}
 
 		
