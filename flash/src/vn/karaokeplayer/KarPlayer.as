@@ -24,7 +24,7 @@ package vn.karaokeplayer {
 	import vn.karaokeplayer.data.SongInfo;
 	import vn.karaokeplayer.utils.AssetLoader;
 	import vn.karaokeplayer.data.KarPlayerOptions;
-	import vn.karaokeplayer.audio.BeatPlayer;
+	import vn.karaokeplayer.audio.AudioPlayer;
 	import vn.karaokeplayer.lyrics.LyricsPlayer;
 	import vn.karaokeplayer.utils.EnterFrameManager;
 	import flash.display.Sprite;
@@ -57,7 +57,7 @@ package vn.karaokeplayer {
 		private var _songReady: Boolean;
 		
 		private var _lyricPlayer: LyricsPlayer;
-		private var _beatPlayer: BeatPlayer;
+		private var _beatPlayer: AudioPlayer;
 		
 		private var _options: KarPlayerOptions;
 		private var _songInfo: SongInfo;
@@ -81,7 +81,7 @@ package vn.karaokeplayer {
 			_lyricPlayer.x = _options.paddingLeft;
 			_lyricPlayer.y = _options.paddingRight;
 			_lyricPlayer.alpha = 0;
-			_beatPlayer = new BeatPlayer();
+			_beatPlayer = new AudioPlayer();
 			addChild(_lyricPlayer);
 			
 			ready = new Signal();
@@ -165,6 +165,16 @@ package vn.karaokeplayer {
 			_tickingManager.enterFrame.add(enterFrameHandler);
 		}
 		
+		/**
+		 * TODO: handle seek when pause
+		 */
+		public function seek(pos: Number): void {
+			_position = pos 
+			_beatPlayer.seek(_position);
+			_startTime = getTimer() - _position;
+			_lyricPlayer.position = pos;
+		}
+
 		public function stop(): void {
 			_tickingManager.enterFrame.remove(enterFrameHandler);
 			GTweener.to(_lyricPlayer, 0.2, {alpha:0}, {onComplete: lyricFadeCompleteHandler});
@@ -194,11 +204,7 @@ package vn.karaokeplayer {
 			//trace('timer: ' + (elapsedTime) + ' .pos: ' + (_beatPlayer.position) + " diff: " + diff);
 		}
 
-		/**
-		 * Play beat audio, lyrics and record at the same time 
-		 */
-		public function record(): void {
-		}
+		
 		
 		public function get songReady(): Boolean {
 			return _songReady;
@@ -216,7 +222,7 @@ package vn.karaokeplayer {
 			return _options.height;
 		}
 		
-		public function get beatPlayer(): BeatPlayer {
+		public function get beatPlayer(): AudioPlayer {
 			return _beatPlayer;
 		}
 		

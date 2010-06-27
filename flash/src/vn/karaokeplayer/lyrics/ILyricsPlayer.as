@@ -8,8 +8,9 @@ package vn.karaokeplayer.lyrics {
 		function init(lyrics: SongLyrics): void;
 		
 		/**
-		 * TODO: enble seeking, user can seek to any position
+		 * 
 		 */
+		function get position(): Number;
 		function set position(position: Number): void;
 		
 		/**

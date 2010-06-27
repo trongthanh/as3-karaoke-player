@@ -32,7 +32,7 @@ package vn.karaokeplayer.lyrics {
 	 * The smallest block of texts which share the same speed
 	 * @author Thanh Tran
 	 */
-	public class TextBlock extends Sprite implements ISeekable, IBlock {
+	public class TextBlock extends Sprite implements IBlock {
 		public static const VERSION: String = Version.VERSION;
 		
 		private var _next: IBlock;

@@ -20,7 +20,7 @@ package vn.karaokeplayer.lyrics {
 	/**
 	 * @author Thanh Tran
 	 */
-	public interface ILine {
+	public interface ILine extends ISeekable {
 		function init(data: LineInfo): void;
 		function reset(): void;
 		function dispose(): void;

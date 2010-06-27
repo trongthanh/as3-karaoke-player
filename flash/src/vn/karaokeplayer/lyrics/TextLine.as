@@ -28,7 +28,7 @@ package vn.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 * TODO: pass screen width from LyricPlayer and auto reduce font size if text line width exceed
 	 */
-	public class TextLine extends Sprite implements ISeekable, ILine {
+	public class TextLine extends Sprite implements ILine {
 		public static const VERSION: String = Version.VERSION;	
 		
 		private var _completed: Signal;
