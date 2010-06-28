@@ -1,0 +1,552 @@
+<tt xml:lang="vi" 
+	xmlns="http://www.w3.org/ns/ttml"
+    xmlns:tts="http://www.w3.org/ns/ttml#styling"
+    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"> 
+	<head>
+		<metadata>
+			<ttm:title><![CDATA[Love Story]]></ttm:title>
+			<ttm:desc><![CDATA[Singers: Taylor Swift]]></ttm:desc>
+			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
+			<audio>http://www.fileden.com/files/2009/8/2/2530043/music/love_story_beat.mp3</audio>
+		</metadata>
+	</head>
+	<body>
+		<div style="f">
+		<p begin="00:16.400">We</p>
+		<p begin="00:16.680">were</p>
+		<p begin="00:16.920">both</p>
+		<p begin="00:17.320">young</p>
+		</div>
+		<div style="f">
+		<p begin="00:18.120">when</p>
+		<p begin="00:18.400">I</p>
+		<p begin="00:18.720">first</p>
+		<p begin="00:19.160">saw</p>
+		<p begin="00:19.640">you.</p>
+		</div>
+		<div style="f">
+		<p begin="00:20.280">I</p>
+		<p begin="00:20.520">close</p>
+		<p begin="00:20.880">my</p>
+		<p begin="00:21.200">eyes</p>
+		</div>
+		<div style="f">
+		<p begin="00:22.240">and</p>
+		<p begin="00:22.440">the</p>
+		<p begin="00:22.720">flashback</p>
+		<p begin="00:23.160">starts:</p>
+		</div>
+		<div style="f">
+		<p begin="00:24.200">I'm</p>
+		<p begin="00:24.440">standing</p>
+		<p begin="00:24.680">there</p>
+		</div>
+		<div style="f">
+		<p begin="00:27.160">on</p>
+		<p begin="00:27.400">a</p>
+		<p begin="00:27.680">balcony</p>
+		<p begin="00:28.240">in</p>
+		<p begin="00:28.560">summer</p>
+		<p begin="00:28.920">air.</p>
+		</div>
+		<div style="f">
+		<p begin="00:32.560">See</p>
+		<p begin="00:32.800">the</p>
+		<p begin="00:33.080">lights,</p>
+		</div>
+		<div style="f">
+		<p begin="00:34.240">see</p>
+		<p begin="00:34.480">the</p>
+		<p begin="00:34.720">party,</p>
+		<p begin="00:35.120">the</p>
+		<p begin="00:35.360">ball</p>
+		<p begin="00:35.720">gowns.</p>
+		</div>
+		<div style="f">
+		<p begin="00:36.680">See</p>
+		<p begin="00:36.920">you</p>
+		<p begin="00:37.280">make</p>
+		<p begin="00:37.880">your</p>
+		<p begin="00:38.160">way</p>
+		</div>
+		<div style="f">
+		<p begin="00:38.600">through</p>
+		<p begin="00:38.920">the</p>
+		<p begin="00:39.320">crowd</p>
+		</div>
+		<div style="f">
+		<p begin="00:40.000">and</p>
+		<p begin="00:40.240">say</p>
+		<p begin="00:40.480">hello;</p>
+		</div>
+		<div style="f">
+		<p begin="00:43.800">Little</p>
+		<p begin="00:44.240">did</p>
+		<p begin="00:44.480">I</p>
+		<p begin="00:44.920">know</p>
+		</div>
+		<div style="f">
+		<p begin="00:48.600">That</p>
+		<p begin="00:48.840">you</p>
+		<p begin="00:49.120">were</p>
+		<p begin="00:49.440">Romeo;</p>
+		</div>
+		<div style="f">
+		<p begin="00:50.320">you</p>
+		<p begin="00:50.600">were</p>
+		<p begin="00:51.040">throwing</p>
+		<p begin="00:51.440">pebbles,</p>
+		</div>
+		<div style="f">
+		<p begin="00:52.440">And</p>
+		<p begin="00:52.680">my</p>
+		<p begin="00:52.960">daddy</p>
+		<p begin="00:53.280">said,</p>
+		</div>
+		<div style="f">
+		<p begin="00:53.800">"Stay</p>
+		<p begin="00:54.080">away</p>
+		<p begin="00:54.520">from</p>
+		<p begin="00:54.800">Juliet."</p>
+		</div>
+		<div style="f">
+		<p begin="00:56.120">And</p>
+		<p begin="00:56.360">I</p>
+		<p begin="00:56.600">was</p>
+		<p begin="00:56.880">crying</p>
+		<p begin="00:57.360">on</p>
+		<p begin="00:57.600">the</p>
+		<p begin="00:57.840">staircase,</p>
+		</div>
+		<div style="f">
+		<p begin="00:58.760">begging</p>
+		<p begin="00:59.280">you,</p>
+		<p begin="00:59.680">'Please,</p>
+		<p begin="00:59.920">don't</p>
+		<p begin="01:00.320">go.'</p>
+		</div>
+		<div style="f">
+		<p begin="01:03.400">And</p>
+		<p begin="01:03.640">I</p>
+		<p begin="01:03.880">said,</p>
+		</div>
+		<div style="f">
+		<p begin="01:04.760">"Romeo,</p>
+		<p begin="01:05.720">take</p>
+		<p begin="01:06.040">me</p>
+		<p begin="01:06.640">somewhere</p>
+		</div>
+		<div style="f">
+		<p begin="01:07.440">we</p>
+		<p begin="01:07.680">can</p>
+		<p begin="01:07.920">be</p>
+		<p begin="01:08.160">alone.</p>
+		</div>
+		<div style="f">
+		<p begin="01:08.920">I'll</p>
+		<p begin="01:09.160">be</p>
+		<p begin="01:09.800">waiting;</p>
+		</div>
+		<div style="f">
+		<p begin="01:10.840">all</p>
+		<p begin="01:11.200">there's</p>
+		<p begin="01:11.480">left</p>
+		<p begin="01:11.720">to</p>
+		<p begin="01:12.000">do</p>
+		<p begin="01:12.280">is</p>
+		<p begin="01:12.520">run.</p>
+		</div>
+		<div style="f">
+		<p begin="01:13.080">You'll</p>
+		<p begin="01:13.320">be</p>
+		<p begin="01:13.640">the</p>
+		<p begin="01:13.960">prince</p>
+		</div>
+		<div style="f">
+		<p begin="01:14.520">and</p>
+		<p begin="01:14.840">I'll</p>
+		<p begin="01:15.400">be</p>
+		<p begin="01:15.680">the</p>
+		<p begin="01:15.920">princess</p>
+		</div>
+		<div style="f">
+		<p begin="01:17.040">It's</p>
+		<p begin="01:17.280">a</p>
+		<p begin="01:17.520">love</p>
+		<p begin="01:17.920">story</p>
+		</div>
+		<div style="f">
+		<p begin="01:18.800">baby</p>
+		<p begin="01:19.400">just</p>
+		<p begin="01:19.880">say</p>
+		<p begin="01:20.360">'Yes.'</p>
+		</div>
+		<div style="f">
+		<p begin="01:24.920">So</p>
+		<p begin="01:25.160">I</p>
+		<p begin="01:25.400">sneak</p>
+		<p begin="01:25.760">out</p>
+		<p begin="01:26.520">to</p>
+		<p begin="01:26.760">the</p>
+		<p begin="01:27.000">garden</p>
+		</div>
+		<div style="f">
+		<p begin="01:27.800">to</p>
+		<p begin="01:28.040">see</p>
+		<p begin="01:28.280">you.</p>
+		</div>
+		<div style="f">
+		<p begin="01:29.160">We</p>
+		<p begin="01:29.400">keep</p>
+		<p begin="01:29.760">quiet</p>
+		<p begin="01:30.480">'cause</p>
+		</div>
+		<div style="f">
+		<p begin="01:30.960">we're</p>
+		<p begin="01:31.240">dead</p>
+		<p begin="01:31.520">if</p>
+		<p begin="01:31.760">they</p>
+		<p begin="01:32.000">knew.</p>
+		</div>
+		<div style="f">
+		<p begin="01:32.560">So</p>
+		<p begin="01:32.800">close</p>
+		<p begin="01:33.040">your</p>
+		<p begin="01:33.400">eyes;</p>
+		</div>
+		<div style="f">
+		<p begin="01:35.480">escape</p>
+		<p begin="01:35.800">this</p>
+		<p begin="01:36.080">town</p>
+		<p begin="01:36.320">for</p>
+		<p begin="01:36.640">a</p>
+		<p begin="01:36.920">little</p>
+		<p begin="01:37.480">while.</p>
+		</div>
+		<div style="f">
+		<p begin="01:41.120">'Cause</p>
+		<p begin="01:41.360">you</p>
+		<p begin="01:41.640">were</p>
+		<p begin="01:41.920">Romeo,</p>
+		</div>
+		<div style="f">
+		<p begin="01:42.800">I</p>
+		<p begin="01:43.000">was</p>
+		<p begin="01:43.240">a</p>
+		<p begin="01:43.480">scarlet</p>
+		<p begin="01:43.840">letter,</p>
+		</div>
+		<div style="f">
+		<p begin="01:45.040">And</p>
+		<p begin="01:45.280">my</p>
+		<p begin="01:45.520">daddy</p>
+		<p begin="01:45.800">said</p>
+		</div>
+		<div style="f">
+		<p begin="01:46.320">"Stay</p>
+		<p begin="01:46.560">away</p>
+		<p begin="01:47.000">from</p>
+		<p begin="01:47.240">Juliet,"</p>
+		</div>
+		<div style="f">
+		<p begin="01:48.560">But</p>
+		<p begin="01:48.800">you</p>
+		<p begin="01:49.040">were</p>
+		<p begin="01:49.320">everything</p>
+		<p begin="01:49.960">to</p>
+		<p begin="01:50.200">me</p>
+		</div>
+		<div style="f">
+		<p begin="01:50.840">I</p>
+		<p begin="01:51.080">was</p>
+		<p begin="01:51.440">begging</p>
+		<p begin="01:51.800">you,</p>
+		</div>
+		<div style="f">
+		<p begin="01:52.240">'Please,</p>
+		<p begin="01:52.520">don't</p>
+		<p begin="01:52.760">go,'</p>
+		</div>
+		<div style="f">
+		<p begin="01:55.840">And</p>
+		<p begin="01:56.120">I</p>
+		<p begin="01:56.560">said,</p>
+		</div>
+		<div style="f">
+		<p begin="01:57.280">"Romeo,</p>
+		<p begin="01:58.200">take</p>
+		<p begin="01:58.640">me</p>
+		<p begin="01:59.200">somewhere</p>
+		</div>
+		<div style="f">
+		<p begin="01:59.920">we</p>
+		<p begin="02:00.160">can</p>
+		<p begin="02:00.440">be</p>
+		<p begin="02:00.760">alone.</p>
+		</div>
+		<div style="f">
+		<p begin="02:01.400">I'll</p>
+		<p begin="02:01.680">be</p>
+		<p begin="02:02.200">waiting;</p>
+		</div>
+		<div style="f">
+		<p begin="02:03.280">all</p>
+		<p begin="02:03.560">there's</p>
+		<p begin="02:03.880">left</p>
+		<p begin="02:04.120">to</p>
+		<p begin="02:04.400">do</p>
+		<p begin="02:04.640">is</p>
+		<p begin="02:04.880">run.</p>
+		</div>
+		<div style="f">
+		<p begin="02:05.480">You'll</p>
+		<p begin="02:05.720">be</p>
+		<p begin="02:06.040">the</p>
+		<p begin="02:06.320">prince</p>
+		</div>
+		<div style="f">
+		<p begin="02:06.920">and</p>
+		<p begin="02:07.320">I'll</p>
+		<p begin="02:07.840">be</p>
+		<p begin="02:08.080">the</p>
+		<p begin="02:08.360">princess</p>
+		</div>
+		<div style="f">
+		<p begin="02:09.720">It's</p>
+		<p begin="02:09.920">a</p>
+		<p begin="02:10.160">love</p>
+		<p begin="02:10.480">story</p>
+		</div>
+		<div style="f">
+		<p begin="02:11.520">baby</p>
+		<p begin="02:11.880">just</p>
+		<p begin="02:12.360">say</p>
+		<p begin="02:12.800">'Yes.'</p>
+		</div>
+		<div style="f">
+		<p begin="02:13.520">Romeo</p>
+		<p begin="02:14.280">save</p>
+		<p begin="02:14.760">me;</p>
+		</div>
+		<div style="f">
+		<p begin="02:15.440">they're</p>
+		<p begin="02:15.720">tryin'</p>
+		<p begin="02:15.960">to</p>
+		<p begin="02:16.200">tell</p>
+		<p begin="02:16.440">me</p>
+		<p begin="02:16.680">how</p>
+		<p begin="02:16.920">to</p>
+		<p begin="02:17.160">feel.</p>
+		</div>
+		<div style="f">
+		<p begin="02:17.640">This</p>
+		<p begin="02:17.920">love</p>
+		<p begin="02:18.160">is</p>
+		<p begin="02:18.400">difficult,</p>
+		<p begin="02:19.200">but</p>
+		<p begin="02:19.640">it's</p>
+		<p begin="02:19.880">real.</p>
+		</div>
+		<div style="f">
+		<p begin="02:20.800">Don't</p>
+		<p begin="02:21.640">be</p>
+		<p begin="02:22.200">afraid;</p>
+		</div>
+		<div style="f">
+		<p begin="02:23.240">we'll</p>
+		<p begin="02:23.560">make</p>
+		<p begin="02:23.880">it</p>
+		<p begin="02:24.080">out</p>
+		<p begin="02:24.320">of</p>
+		<p begin="02:24.560">this</p>
+		<p begin="02:24.920">mess.</p>
+		</div>
+		<div style="f">
+		<p begin="02:25.720">It's</p>
+		<p begin="02:25.960">a</p>
+		<p begin="02:26.200">love</p>
+		<p begin="02:26.480">story</p>
+		</div>
+		<div style="f">
+		<p begin="02:27.480">baby</p>
+		<p begin="02:27.880">just</p>
+		<p begin="02:28.440">say</p>
+		<p begin="02:28.920" dur="2000">'Yes.'</p>
+		</div>
+		<div style="f">
+		<p begin="02:33.120" dur="5000">Oh.</p>
+		</div>
+		<div style="f">
+		<p begin="02:44.960">I</p>
+		<p begin="02:45.200">got</p>
+		<p begin="02:45.440">tired</p>
+		<p begin="02:45.680">of</p>
+		<p begin="02:45.880">waiting,</p>
+		</div>
+		<div style="f">
+		<p begin="02:48.840">Wondering</p>
+		<p begin="02:49.560">if</p>
+		<p begin="02:49.840">you</p>
+		<p begin="02:50.160">were</p>
+		<p begin="02:50.560">ever</p>
+		</div>
+		<div style="f">
+		<p begin="02:51.080">comin'</p>
+		<p begin="02:51.360">around.</p>
+		</div>
+		<div style="f">
+		<p begin="02:52.600">My</p>
+		<p begin="02:52.960">faith</p>
+		<p begin="02:53.200">in</p>
+		<p begin="02:53.440">you</p>
+		<p begin="02:53.760">was</p>
+		<p begin="02:54.040">fading</p>
+		</div>
+		<div style="f">
+		<p begin="02:57.360">When</p>
+		<p begin="02:57.600">I</p>
+		<p begin="02:57.840">met</p>
+		<p begin="02:58.120">you</p>
+		</div>
+		<div style="f">
+		<p begin="02:58.560">on</p>
+		<p begin="02:58.800">the</p>
+		<p begin="02:59.160">outskirts</p>
+		<p begin="02:59.560">of</p>
+		<p begin="02:59.800">town.</p>
+		</div>
+		<div style="f">
+		<p begin="03:00.800">And</p>
+		<p begin="03:01.080">I</p>
+		<p begin="03:01.360">said,</p>
+		</div>
+		<div style="f">
+		<p begin="03:01.960">"Romeo</p>
+		<p begin="03:02.320">save</p>
+		<p begin="03:03.080">me</p>
+		<p begin="03:03.760">I've</p>
+		<p begin="03:04.080">been</p>
+		</div>
+		<div style="f">
+		<p begin="03:04.600">feeling</p>
+		<p begin="03:04.840">so</p>
+		<p begin="03:05.240">alone.</p>
+		</div>
+		<div style="f">
+		<p begin="03:05.960">I</p>
+		<p begin="03:06.320">keep</p>
+		<p begin="03:06.760">waiting</p>
+		<p begin="03:07.760">for</p>
+		<p begin="03:08.120">you</p>
+		</div>
+		<div style="f">
+		<p begin="03:08.560">but</p>
+		<p begin="03:08.840">you</p>
+		<p begin="03:09.040">never</p>
+		<p begin="03:09.320">come.</p>
+		</div>
+		<div style="f">
+		<p begin="03:10.000">Is</p>
+		<p begin="03:10.240">this</p>
+		<p begin="03:10.600">in</p>
+		<p begin="03:10.840">my</p>
+		<p begin="03:11.080">head?</p>
+		</div>
+		<div style="f">
+		<p begin="03:11.680">I</p>
+		<p begin="03:11.920">don't</p>
+		<p begin="03:12.160">know</p>
+		<p begin="03:12.440">what</p>
+		<p begin="03:12.680">to</p>
+		<p begin="03:12.960">think-"</p>
+		</div>
+		<div style="f">
+		<p begin="03:13.600">He</p>
+		<p begin="03:13.960">knelt</p>
+		<p begin="03:14.360">to</p>
+		<p begin="03:14.640">the</p>
+		<p begin="03:14.880">ground</p>
+		</div>
+		<div style="f">
+		<p begin="03:15.560">and</p>
+		<p begin="03:15.960">pulled</p>
+		<p begin="03:16.360">out</p>
+		<p begin="03:16.640">a</p>
+		<p begin="03:16.920">ring</p>
+		<p begin="03:17.280">and</p>
+		<p begin="03:17.520">said,</p>
+		</div>
+		<div style="f">
+		<p begin="03:18.040">"Marry</p>
+		<p begin="03:18.400">me,</p>
+		<p begin="03:18.840">Juliet.</p>
+		</div>
+		<div style="f">
+		<p begin="03:19.760">you'll</p>
+		<p begin="03:20.000">never</p>
+		<p begin="03:20.400">have</p>
+		<p begin="03:20.680">to</p>
+		<p begin="03:20.920">be</p>
+		<p begin="03:21.160">alone.</p>
+		</div>
+		<div style="f">
+		<p begin="03:21.920">I</p>
+		<p begin="03:22.400">love</p>
+		<p begin="03:22.920">you</p>
+		</div>
+		<div style="f">
+		<p begin="03:23.560">and</p>
+		<p begin="03:23.960">that's</p>
+		<p begin="03:24.440">all</p>
+		<p begin="03:24.880">I</p>
+		<p begin="03:25.120">really</p>
+		<p begin="03:25.400">know.</p>
+		</div>
+		<div style="f">
+		<p begin="03:26.120">I</p>
+		<p begin="03:26.480">talked</p>
+		<p begin="03:26.760">to</p>
+		<p begin="03:27.000">your</p>
+		<p begin="03:27.240">dad,</p>
+		</div>
+		<div style="f">
+		<p begin="03:27.720">go</p>
+		<p begin="03:28.040">pick</p>
+		<p begin="03:28.520">out</p>
+		<p begin="03:28.800">a</p>
+		<p begin="03:29.040">white</p>
+		<p begin="03:29.440">dress;</p>
+		</div>
+		<div style="f">
+		<p begin="03:30.400">It's</p>
+		<p begin="03:30.640">a</p>
+		<p begin="03:30.840">love</p>
+		<p begin="03:31.280">story</p>
+		</div>
+		<div style="f">
+		<p begin="03:32.080">baby</p>
+		<p begin="03:32.520">just</p>
+		<p begin="03:32.960">say</p>
+		<p begin="03:33.800">'Yes.'</p>
+		</div>
+		<div style="f">
+		<p begin="03:37.600">Oh,</p>
+		<p begin="03:37.920">oh.</p>
+		<p begin="03:41.700">Oh,</p>
+		<p begin="03:42.600">oh.</p>
+		</div>
+		<div style="f">
+		<p begin="03:46.520">We</p>
+		<p begin="03:46.720">were</p>
+		<p begin="03:47.000">both</p>
+		<p begin="03:47.280">young</p>
+		</div>
+		<div style="f">
+		<p begin="03:47.720">when</p>
+		<p begin="03:47.960">I</p>
+		<p begin="03:48.200">first</p>
+		<p begin="03:48.480">saw</p>
+		<p begin="03:50.080" dur="2000">you...</p>
+		</div>
+	</body>
+</tt>
