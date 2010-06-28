@@ -96,6 +96,12 @@ package vn.karaokeplayer {
 		}
 
 		public function loadSong(urlOrSongInfo: Object): void {
+			if(playing) {
+				// hide lyric player to avoid flickering:
+				_lyricPlayer.alpha = 0;
+				_lyricPlayer.cleanUp();
+				audioCompleted.dispatch(); //dispatching this event also call the stop function 
+			}
 			if(urlOrSongInfo is SongInfo) {
 				acceptSongInfo(urlOrSongInfo as SongInfo);
 				_lyricPlayer.init(_songInfo.lyrics);

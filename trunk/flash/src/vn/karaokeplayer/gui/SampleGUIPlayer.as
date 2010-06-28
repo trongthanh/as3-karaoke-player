@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.gui {
+	import flash.filters.GlowFilter;
+	import com.gskinner.motion.GTweener;
+	import flash.text.TextFormat;
+	import flash.text.TextField;
 	import flash.geom.Rectangle;
 	import flash.events.Event;
 	import flash.media.SoundTransform;
@@ -47,6 +51,7 @@ package vn.karaokeplayer.gui {
 		
 		public var karPlayer:KarPlayer;
 		public var controlBar: ControlBar;
+		public var titleText: TextField;
 		
 		private var _vol: Number;
 		private var _mute: Boolean;
@@ -59,10 +64,24 @@ package vn.karaokeplayer.gui {
 
 		private function addToStageHandler(event: Event): void {
 			removeEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+			initTitleText();
 			initControlBar();
 			initKarPlayer();
 			addChild(karPlayer);
 			addChild(controlBar);
+			addChild(titleText);
+		}
+
+		private function initTitleText(): void {
+			titleText = new TextField();
+			titleText.autoSize = "left";
+			titleText.multiline = true;
+			titleText.embedFonts = true;
+			titleText.selectable = false;
+			var format: TextFormat = new TextFormat("ArialRegularVN", 30, 0xFF0000);
+			titleText.defaultTextFormat = format;
+			var strokeEffect: GlowFilter = new GlowFilter(0xFFFFFF, 1, 2, 2, 128, 2);
+			titleText.filters = [strokeEffect];
 		}
 
 		private function initKarPlayer(): void {
@@ -88,6 +107,8 @@ package vn.karaokeplayer.gui {
 
 		private function audioCompleteHandler(): void {
 			controlBar.playPause_mc.selected = true;
+			controlBar.setCurrentBarPercent(0);
+			GTweener.to(titleText, 0.5, {alpha: 1});
 		}
 
 		/**
@@ -143,6 +164,7 @@ package vn.karaokeplayer.gui {
 			switch(event){
 				case controlBar.played:
 					karPlayer.play();
+					GTweener.to(titleText, 0.5, {alpha: 0});
 					break;
 				case controlBar.paused:
 					karPlayer.pause();
@@ -179,10 +201,22 @@ package vn.karaokeplayer.gui {
 			//controlBar.progress_mc.isLive = true;
 			controlBar.playPause_mc.enabled = true;
 			controlBar.mouseChildren = true;
+			
+			titleText.alpha = 0;
+			setSongTitle(karPlayer.songInfo.title,karPlayer.songInfo.description);
+			
+			GTweener.to(titleText, 0.5, {alpha: 1});
 		}
 
 		public function load(songURL: String): void {
 			karPlayer.loadSong(songURL);
+		}
+		
+		private function setSongTitle(title: String, desc: String): void {
+			var html: String = title + '<br/><font size="20" color="#0000CC">' + desc + "</font>";
+			titleText.htmlText = html;
+			titleText.x = 10;
+			titleText.y = HEIGHT - titleText.height - 40;
 		}
 	}
 }

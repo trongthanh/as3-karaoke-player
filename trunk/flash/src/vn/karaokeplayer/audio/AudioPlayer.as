@@ -20,6 +20,7 @@ package vn.karaokeplayer.audio {
 		public var loadProgress: Signal;
 		public var loadCompleted: Signal;
 		
+		private var _soundURL: String;
 		private var _sound: Sound;
 		private var _channel: SoundChannel;
 		private var _position: Number;
@@ -42,11 +43,15 @@ package vn.karaokeplayer.audio {
 		 * TODO: create test case to test this flow
 		 */
 		public function init(sound: Sound): void {
+			dispose();
 			_sound = sound;
+			_soundURL = _sound.url;
 			_soundOpened = true;
 		}
 
 		public function open(soundURL: String): void {
+			dispose();
+			_soundURL = soundURL;
 			var request:URLRequest = new URLRequest(soundURL);
 			_sound = new Sound();
 			_sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
@@ -73,6 +78,7 @@ package vn.karaokeplayer.audio {
 		}
 
 		private function ioErrorHandler(event: IOErrorEvent): void {
+			trace("Cannot load audio: " + _soundURL);
 		}
 
 		private function soundOpenHandler(event: Event): void {
@@ -158,6 +164,20 @@ package vn.karaokeplayer.audio {
 				_channel.removeEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 				_channel = null;
 			}
+		}
+		
+		private function dispose(): void {
+			if(_sound) {
+				_sound.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+				_sound.removeEventListener(Event.OPEN, soundOpenHandler);
+				_sound.removeEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
+				_sound.removeEventListener(Event.COMPLETE, loadCompleteHandler);
+				_sound = null;
+			}
+			disposeOfChannel();
+			_playing = false;
+			_pausing = false;
+			_position = 0;
 		}
 
 		private function soundCompleteHandler(event: Event): void {

@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package {
+	import flash.events.Event;
+	import fl.data.DataProvider;
+	import fl.controls.ComboBox;
 	import net.hires.debug.Stats;
 	import vn.karaokeplayer.gui.SampleGUIPlayer;
 
@@ -28,6 +31,7 @@ package {
 		public var stats: Stats;
 		[Embed(source = '/../assets/images/simplygreen.jpg')]
 		public var BGClass: Class;
+		public var combobox: ComboBox;
 
 		
 		public var player: SampleGUIPlayer; 
@@ -37,15 +41,39 @@ package {
 			var bg: Bitmap = new BGClass();
 			addChild(bg);
 			
+			stats = new Stats();
+			addChild(stats);
+						
 			player = new SampleGUIPlayer();
 			addChild(player);
 			
-			player.load("xml/song3.xml");
+			combobox = new ComboBox();
+			combobox.addItem({label: "-- Chọn bài hát --", data: ""});
+			combobox.width = 150;
+			//get data from flashvars:
+			var songList: String = loaderInfo.parameters["songList"];
 			
-			stats = new Stats();
-			addChild(stats);
+			if(!songList) {
+				songList = "Hạnh Phúc Bất Tận,xml/song1.xml;Cô Bé Mùa Đông,xml/song2.xml"
+				songList += ";Con Đường Tình Yêu,xml/song3.xml;Love Story,xml/song4.xml";				songList += ";Love To Be Loved By You,xml/song5.xml";
+			}
+			var songs: Array = songList.split(";");
+			
+			for (var i : int = 0; i < songs.length; i++) {
+				var songInfo: Array = String(songs[i]).split(",");
+				combobox.addItem({label: songInfo[0], data: songInfo[1]});
+			}
+			
+			combobox.x = stage.stageWidth - combobox.width;
+			combobox.addEventListener(Event.CHANGE, comboboxChangeHandler);
+			addChild(combobox);
 		}
 
-		
+		private function comboboxChangeHandler(event: Event): void {
+			var selectedItem: String = combobox.selectedItem.data;
+			if(selectedItem) {
+				player.load(selectedItem);
+			}
+		}
 	}
 }

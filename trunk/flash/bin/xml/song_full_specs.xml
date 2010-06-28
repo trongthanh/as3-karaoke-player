@@ -7,10 +7,7 @@
 			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
 			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
 			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
-			<audio>mp3/hanh_phuc_bat_tan.mp3</audio>
-			<width>800</width>
-			<height>600</height>
-			<numLines>2</numLines> 
+			<audio>mp3/hanh_phuc_bat_tan.mp3</audio> <!-- path to the audio file, this is not part of W3C's specs -->
 		</metadata>
 	<styling> <!-- custom styling is planned to be implemented later-->
 		<!--- basic style, must equals 'b' 
@@ -32,11 +29,12 @@
 		<style xml:id="s" tts:color="#FF37BF" tts:textOutline="0xFFFFFF"/>
 	</styling> 
       
-  </head> 
+  </head>
+  <!-- I'm choosing <div> (as lines) and <p> (as words) instead of <p> and <span> to reduce the file size --> 
   <body>
 	<div style="f"> <!-- only support style and begin; timeContainer is seq (sequence) by default-->
-		<p begin="00:00:21.256">* * *</p> <!-- support begin, the coloring will appear sequentially; the begin param at containing div will be ignored -->
-		<p begin="00:00:22.456">Thắp nến đêm nay </p>
+		<p begin="00:00:21.256">* * *</p> <!-- support begin and dur, the coloring will appear sequentially;-->
+		<p begin="00:00:22.456">Thắp nến đêm nay </p> <!-- the begin param at containing div will be ignored -->
 	</div>
 	<div style="f">
 		<p begin="00:00:25.780">ấm áp trong tay</p>
