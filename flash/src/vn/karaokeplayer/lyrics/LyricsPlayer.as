@@ -38,9 +38,9 @@ package vn.karaokeplayer.lyrics {
 		private var _len: int;
 		private var _pos: Number;
 		private var _l1: TextLine;
-		private var _idx1: int;
+		//private var _idx1: int;
 		private var _l2: TextLine;
-		private var _idx2: int;
+		//private var _idx2: int;
 		
 		public function LyricsPlayer(w: Number, h: Number, align: String = "bottom") {
 			_w = w;
@@ -58,7 +58,7 @@ package vn.karaokeplayer.lyrics {
 		}
 
 		/**
-		 * TODO: create exactly number of line 
+		 * TODO: optimization: create exactly number of lines 
 		 * @param	lyrics
 		 */
 		public function init(lyrics: SongLyrics): void {

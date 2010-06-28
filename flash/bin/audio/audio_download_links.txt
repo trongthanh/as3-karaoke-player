@@ -9,3 +9,11 @@
 [song3]
 - With vocal: http://www.fileden.com/files/2009/8/2/2530043/music/con_duong_tinh_yeu.mp3
 - Beat: http://www.fileden.com/files/2009/8/2/2530043/music/con_duong_tinh_yeu_beat.mp3
+
+[song4]
+- With vocal: 
+- Beat: http://www.fileden.com/files/2009/8/2/2530043/music/love_story_beat.mp3
+
+[song5]
+- With vocal: 
+- Beat: http://www.fileden.com/files/2009/8/2/2530043/music/love_to_be_loved_by_you_beat.mp3
