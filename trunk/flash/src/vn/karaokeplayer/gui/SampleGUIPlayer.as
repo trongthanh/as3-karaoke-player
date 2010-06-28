@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.gui {
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	import flash.events.ContextMenuEvent;
+	import flash.ui.ContextMenuItem;
+	import flash.ui.ContextMenu;
 	import flash.filters.GlowFilter;
 	import com.gskinner.motion.GTweener;
 	import flash.text.TextFormat;
@@ -64,12 +69,30 @@ package vn.karaokeplayer.gui {
 
 		private function addToStageHandler(event: Event): void {
 			removeEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+			createVersionContextMenu();
 			initTitleText();
 			initControlBar();
 			initKarPlayer();
 			addChild(karPlayer);
 			addChild(controlBar);
 			addChild(titleText);
+		}
+		
+		private function createVersionContextMenu():void{
+			var contextMenu: ContextMenu;
+			if (parent.contextMenu) contextMenu = stage.contextMenu;
+			else contextMenu = new ContextMenu();
+			contextMenu.hideBuiltInItems();
+			//version info
+			var copyMenuItem: ContextMenuItem = new ContextMenuItem("AS3 Karaoke Player " + KarPlayer.VERSION,false);
+			copyMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, copyRightMenuSelectHandler);
+			contextMenu.customItems.push(copyMenuItem);
+			
+			parent.contextMenu = contextMenu;
+		}
+
+		private function copyRightMenuSelectHandler(event: ContextMenuEvent): void {
+			navigateToURL(new URLRequest("http://code.google.com/p/as3-karaoke-player/"), "_blank");
 		}
 
 		private function initTitleText(): void {
@@ -209,6 +232,7 @@ package vn.karaokeplayer.gui {
 		}
 
 		public function load(songURL: String): void {
+			titleText.text = "";
 			karPlayer.loadSong(songURL);
 		}
 		

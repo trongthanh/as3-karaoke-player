@@ -196,7 +196,7 @@ package vn.karaokeplayer {
 		}
 		
 		private function lyricFadeCompleteHandler(tween: GTween): void {
-			_lyricPlayer.position = 0;
+//			_lyricPlayer.position = 0;
 		}
 
 		private function enterFrameHandler(): void {
