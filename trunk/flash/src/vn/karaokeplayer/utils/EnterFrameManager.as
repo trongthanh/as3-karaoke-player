@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.utils {
+	import flash.display.Shape;
+	import flash.events.Event;
 	import org.osflash.signals.Signal;
 	/**
 	 * A single manager which centralizes all enter-frame handler
 	 * @author Thanh Tran
 	 */
-	public class EnterFrameManager extends TwoFrameMovie {
+	public class EnterFrameManager extends Shape {
 		private static var _instance: EnterFrameManager;
 
 		private var _enterFrame: Signal; 
@@ -29,11 +31,13 @@ package vn.karaokeplayer.utils {
 				throw new Error("EnterFrameManager - Singleton exception");
 			}
 			_enterFrame = new Signal();
-			addFrameScript(0, enterFrameHandler, 1, enterFrameHandler);
-			//addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			//addFrameScript(0, enterFrameHandler, 1, enterFrameHandler);
+			//my experiment has revealed that using a single enterframe event make no different
+			//with 2-frame movie. So I decided to replace the 2-frame movie for simplicity
+			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
-		private function enterFrameHandler(/*event: Event = null*/): void {
+		private function enterFrameHandler(event: Event = null): void {
 			enterFrame.dispatch();
 		}
 		

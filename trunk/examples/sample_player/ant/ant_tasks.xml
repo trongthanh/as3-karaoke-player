@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- set your own path to Flex SDK home folder -->
 <project name="AS3 Karaoke Sample Player Ant Builder" basedir=".">
-    <property name="FLEX_HOME" value="C:/flex_sdk"/>
+    <property name="FLEX_HOME" value="/home/thanh/flex_sdk"/>
     <taskdef resource="flexTasks.tasks"
         classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 	<property name="SRC" value="../src"/>
