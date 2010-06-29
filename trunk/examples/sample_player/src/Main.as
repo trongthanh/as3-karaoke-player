@@ -64,7 +64,7 @@ package {
 			combobox.defaultLabel = "-- Chọn bài hát --";
 			combobox.alternateRows = true;
 			//combobox.addItem({label: , data: ""});
-			combobox.width = 200;
+			combobox.width = 220;
 			//get data from flashvars:
 			var songList: String = loaderInfo.parameters["songList"];
 			
