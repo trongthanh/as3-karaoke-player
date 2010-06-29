@@ -4,15 +4,19 @@
     <property name="FLEX_HOME" value="/home/thanh/flex_sdk"/>
     <taskdef resource="flexTasks.tasks"
         classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
-	<property name="SRC" value="../src"/>
-	<property name="OUTPUT" value="../bin"/>
-	<property name="SWC_OUTPUT" value="../../bin"/>
-	<property name="DOC_OUTPUT" value="../../doc"/>
+	<property name="SRC" value="${basedir}/../src"/>
+	<property name="OUTPUT" value="${basedir}/../bin"/>
 	<target name="build">
-		<mxmlc file="${SRC}/Main.as"
+		<mxmlc file="${SRC}/AppDoc.as"
 			   output="${OUTPUT}/main.swf" >
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
 			<load-config filename="${basedir}/build_config.xml" />
+			<frame label="start" classname="Main" />
 		</mxmlc>
+	</target>
+	<target name="run" depends="build">
+		<exec executable="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+			<arg line="${OUTPUT}/main.swf" />
+		</exec>
 	</target>
 </project>

@@ -18,8 +18,10 @@
   <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
+  <!-- leave default size for [SWF] tag and specific mxmlc argument -->
   <default-size>
     <width>800</width>
     <height>600</height>
   </default-size>
+   
 </flex-config>

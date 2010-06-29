@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 package {
-	import net.hires.debug.Stats;
-	import flash.display.MovieClip;
-	import com.realeyes.osmfplayer.controls.ToggleButton;
-	import flash.media.SoundTransform;
-	import fl.controls.Button;
-	import flash.display.Bitmap;
-	import flash.text.Font;
-	import vn.karaokeplayer.data.SongLyrics;
-	import vn.karaokeplayer.utils.EnterFrameManager;
+	import thanhtran.stats.StatsButton;
 
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.data.SongLyrics;
 	import vn.karaokeplayer.lyrics.LyricsPlayer;
 	import vn.karaokeplayer.lyrics.TextBlock;
 	import vn.karaokeplayer.lyrics.TextLine;
+	import vn.karaokeplayer.utils.EnterFrameManager;
 	import vn.karaokeplayer.utils.TimedTextParser;
 
+	import com.bit101.components.PushButton;
+
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -39,6 +36,8 @@ package {
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	import flash.text.Font;
 	import flash.utils.getTimer;
 
 	/**
@@ -47,8 +46,8 @@ package {
 	 */
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
 	public class Demo extends Sprite {
-		public var stats: Stats;
-		public var playButton: Button;
+		public var stats: StatsButton;
+		public var playButton: PushButton;
 		private var block:TextBlock;
 		private var line: TextLine;
 		
@@ -92,7 +91,7 @@ package {
 			var bg: Bitmap = new BGClass();
 			addChild(bg);
 			
-			playButton = new Button();
+			playButton = new PushButton();
 			playButton.label = "Start";
 			playButton.x = stage.stageWidth - playButton.width;
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClickHandler);
@@ -105,7 +104,7 @@ package {
 			
 			testControlBar();
 			
-			stats = new Stats();
+			stats = new StatsButton();
 			addChild(stats);
 		}
 
