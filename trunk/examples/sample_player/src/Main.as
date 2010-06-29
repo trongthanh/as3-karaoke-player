@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 package {
+	import thanhtran.stats.StatsButton;
 	import com.bit101.components.ComboBox;
 	import com.bit101.components.Style;
 	import flash.events.Event;
-	import net.hires.debug.Stats;
 	import vn.karaokeplayer.guiplayer.FontLib;
 	import vn.karaokeplayer.guiplayer.SampleGUIPlayer;
 
@@ -28,7 +28,7 @@ package {
 	 * @author Thanh Tran
 	 */
 	public class Main extends Sprite {
-		public var stats: Stats;
+		public var stats: StatsButton;
 		[Embed(source = '/../assets/images/bg-sapa-vietnam.jpg')]
 		public var BGClass: Class;
 		public var combobox: ComboBox;
@@ -49,7 +49,7 @@ package {
 			bg.height = stage.stageHeight;
 			addChild(bg);
 			
-			stats = new Stats();
+			stats = new StatsButton();
 			addChild(stats);
 						
 			player = new SampleGUIPlayer();

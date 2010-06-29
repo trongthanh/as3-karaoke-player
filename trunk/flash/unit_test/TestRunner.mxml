@@ -67,7 +67,7 @@
 		]]>
 	</mx:Script>
 	<mx:Style>
-		Application {
+		.flexUnitApplication {
 			   backgroundColor: #3872b2;
 			   backgroundGradientColors: #3872b2, #0c1a3d;
 			   backgroundGradientAlphas: 1, 1;
