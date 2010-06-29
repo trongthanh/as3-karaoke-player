@@ -78,7 +78,7 @@ package {
 		public var startTime: int;
 		public var enterFrameManager: EnterFrameManager;
 		
-		public function ComponentDemo():void {
+		public function Demo():void {
 			Font.registerFont(fontClass);
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);

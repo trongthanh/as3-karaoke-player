@@ -8,7 +8,6 @@
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/FlexUnit4.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/FlexUnit4UIListener.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/UserInterface.swc</AS3Classpath>
-    <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">assets/swc/two_frame_movie.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">assets/swc/control_bar.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">playerglobal.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">flex.swc</AS3Classpath>
