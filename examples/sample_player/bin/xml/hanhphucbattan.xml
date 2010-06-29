@@ -1,0 +1,472 @@
+<tt xml:lang="vi" 
+	xmlns="http://www.w3.org/ns/ttml"
+    xmlns:tts="http://www.w3.org/ns/ttml#styling"
+    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"> 
+	<head>
+		<metadata>
+			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
+			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
+			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
+			<audio>http://www.fileden.com/files/2009/8/2/2530043/music/hanh_phuc_bat_tan_beat.mp3</audio>
+		</metadata>
+	</head>
+	<body>
+		<div style="f">
+			<p begin="00:00:21.260">* * *</p> <!-- this first version will only support sequential begin -->
+			<p begin="00:00:23.580">Thắp nến</p>
+			<p begin="00:00:24.590">đêm nay</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:25.560">ấm áp</p>
+			<p begin="00:00:26.390">trong tay</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:27.480">của người</p>
+			<p begin="00:00:28.250">yêu dấu</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:29.320">xiết bao</p>
+			<p begin="00:00:30.170">ngọt ngào</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:31.790">vu vơ</p>
+			<p begin="00:00:32.270">mơ về</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:33.300">một ngày</p>
+			<p begin="00:00:34.110">của nhau</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:36.360">hạnh phúc</p>
+			<p begin="00:00:37.110">lứa đôi</p>
+			<p begin="00:00:38.090">tràn</p>
+			<p begin="00:00:38.490" dur="3000">dâng</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:42.870">Hãy nói</p>
+			<p begin="00:00:43.860">đi em</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:44.850">tiếng</p>
+			<p begin="00:00:45.180">nói</p>
+			<p begin="00:00:45.650">con tim</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:46.830">để rồi</p>
+			<p begin="00:00:47.470">khoảnh khắc</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:48.470">ước mơ</p>
+			<p begin="00:00:49.450">nhiệm màu</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:51.180">ôm nhau</p>
+			<p begin="00:00:51.640">dịu dàng</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:52.440">siết em</p>
+			<p begin="00:00:53.770">vào</p>
+			<p begin="00:00:53.990">lòng</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:55.620">hạnh phúc</p>
+			<p begin="00:00:56.420">dường như</p>
+		</div>
+		<div style="m">
+			<p begin="00:00:57.200">bất</p>
+			<p begin="00:00:57.990">tận</p>
+		</div>
+		<div style="f">
+			<p begin="00:00:59.100">Khi đã</p>
+			<p begin="00:00:59.700">yêu</p>			
+		</div>
+		<div style="f">
+			<p begin="00:01:00.320">em trao</p>
+			<p begin="00:01:01.200">rất</p>
+			<p begin="00:01:01.650">nhiều</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:02.950">khi đã</p>
+			<p begin="00:01:03.580">yêu</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:04.270">em yêu</p>
+			<p begin="00:01:05.140">thật</p>
+			<p begin="00:01:05.590">lòng</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:06.820">Khi đã</p>
+			<p begin="00:01:07.400">yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:08.100">anh say giấc</p>
+			<p begin="00:01:09.340">mộng</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:10.690">khi đã</p>
+			<p begin="00:01:11.290">yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:11.910">là dành tất</p>
+			<p begin="00:01:13.230">cả</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:13.920">cuộc đời cho</p>
+			<p begin="00:01:15.200">em</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:17.700">Bao</p>
+			<p begin="00:01:18.030">nhiêu</p>
+			<p begin="00:01:18.460">yêu</p>
+			<p begin="00:01:19.000">thương</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:19.700">bao</p>
+			<p begin="00:01:20.000">nhiêu</p>
+			<p begin="00:01:20.250">diệu</p>
+			<p begin="00:01:20.880">kì</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:21.610">bao</p>
+			<p begin="00:01:21.880">nhiêu</p>
+			<p begin="00:01:22.390">tin</p>
+			<p begin="00:01:22.790">yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:23.360">suốt</p>
+			<p begin="00:01:23.860">cả</p>
+			<p begin="00:01:24.370">cuộc</p>
+			<p begin="00:01:24.800">đời</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:26.220">chỉ</p>
+			<p begin="00:01:26.520">để</p>
+			<p begin="00:01:26.680" dur="1300">dành</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:27.160">(chỉ</p>
+			<p begin="00:01:27.550">để</p>
+			<p begin="00:01:27.780" dur="900">dành)</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:28.080">riêng</p>
+			<p begin="00:01:28.390">em</p>
+			<p begin="00:01:28.690" dur="1300">thôi</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:29.030">(riêng</p>
+			<p begin="00:01:29.340">em</p>
+			<p begin="00:01:29.610" dur="900">thôi)</p>
+		</div>
+		<div style="m">
+			<p begin="00:01:30.030">chỉ</p>
+			<p begin="00:01:30.330">một</p>
+			<p begin="00:01:30.560">người</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:33.210">Đêm nay</p>
+			<p begin="00:01:34.000">môi</p>
+			<p begin="00:01:34.340">hôn</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:35.090">trao nhau</p>
+			<p begin="00:01:35.880">ngọt</p>
+			<p begin="00:01:36.410">ngào</p> 
+		</div>
+		<div style="f">
+			<p begin="00:01:37.140">đêm nay</p>
+			<p begin="00:01:37.880">ta đã</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:39.000">có nhau</p>
+			<p begin="00:01:39.880">trong</p>
+			<p begin="00:01:40.330">đời</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:41.550">Phút giây</p>
+			<p begin="00:01:42.250">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:43.570">thuộc</p>
+			<p begin="00:01:43.820">về</p>
+			<p begin="00:01:44.130">nhau</p>
+		</div>
+		<div style="f">
+			<p begin="00:01:45.520">phút</p>
+			<p begin="00:01:46.180">giây</p>
+			<p begin="00:01:46.990" dur="4200">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:05.030">* * *</p>
+			<p begin="00:02:08.090">Thắp nến</p>
+			<p begin="00:02:09.020">đêm nay</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:10.060">ấm áp</p>
+			<p begin="00:02:10.900">trong tay</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:11.960">của người</p>
+			<p begin="00:02:12.730">yêu</p>
+			<p begin="00:02:13.050">dấu</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:13.860">siết bao</p>
+			<p begin="00:02:14.640">ngọt</p>
+			<p begin="00:02:15.090">ngào</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:16.360">vu vơ mơ</p>
+			<p begin="00:02:17.080">về</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:17.690">một ngày</p>
+			<p begin="00:02:18.700">của</p>
+			<p begin="00:02:19.050">nhau</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:20.800">hạnh phúc</p>
+			<p begin="00:02:21.520">lứa</p>
+			<p begin="00:02:21.900">đôi</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:22.720">tràn</p>
+			<p begin="00:02:23.320" dur="3000">dâng</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:27.400">Hãy nói</p>
+			<p begin="00:02:28.450">đi em</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:29.370">tiếng</p>
+			<p begin="00:02:29.580">nói</p>
+			<p begin="00:02:30.140">con tim</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:31.320">để rồi</p>
+			<p begin="00:02:31.940">khoảnh khắc</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:33.300">ước mơ</p>
+			<p begin="00:02:34.000">nhiệm</p>
+			<p begin="00:02:34.420">màu</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:35.680">ôm nhau dịu</p>
+			<p begin="00:02:36.340">dàng</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:36.900">siết em vào</p>
+			<p begin="00:02:38.480">lòng</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:40.090">hạnh phúc</p>
+			<p begin="00:02:40.870">dường như</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:41.740">bất</p>
+			<p begin="00:02:42.390">tận</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:43.600">Khi đã</p>
+			<p begin="00:02:44.230">yêu</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:44.790">em trao</p>
+			<p begin="00:02:45.730">rất</p>
+			<p begin="00:02:46.150">nhiều</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:47.420">khi đã</p>
+			<p begin="00:02:48.070">yêu</p>
+		</div>
+		<div style="f">
+			<p begin="00:02:48.950">em yêu</p>
+			<p begin="00:02:49.550">thật</p>
+			<p begin="00:02:50.250">lòng</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:51.310">Khi đã</p>
+			<p begin="00:02:51.920">yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:52.580">anh say</p>
+			<p begin="00:02:53.320">giấc</p>
+			<p begin="00:02:53.880">mộng</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:55.210">khi đã</p>
+			<p begin="00:02:55.790">yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:56.400">là dành</p>
+			<p begin="00:02:57.270">tất</p>
+			<p begin="00:02:57.720">cả</p>
+		</div>
+		<div style="m">
+			<p begin="00:02:58.460">cuộc đời</p>
+			<p begin="00:02:59.100">cho</p>
+			<p begin="00:02:59.650">em</p>
+			<p begin="00:03:01.150" dur="2000">thôi</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:02.150">Bao nhiêu</p>
+			<p begin="00:03:03.020">yêu thương</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:04.150">bao nhiêu</p>
+			<p begin="00:03:04.900">diệu kì</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:06.110">bao nhiêu</p>
+			<p begin="00:03:06.910">tin yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:07.980">suốt cả cuộc</p>
+			<p begin="00:03:09.250">đời</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:10.730">chỉ để</p>
+			<p begin="00:03:11.200" dur="1300">dành</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:11.710">(chỉ để</p>
+			<p begin="00:03:12.150" dur="900">dành)</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:12.630">riêng</p>
+			<p begin="00:03:12.900">em</p>
+			<p begin="00:03:13.140" dur="1300">thôi</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:13.550">(riêng</p>
+			<p begin="00:03:13.900">em</p>
+			<p begin="00:03:14.140" dur="900">thôi)</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:14.560">chỉ một</p>
+			<p begin="00:03:15.050" dur="2200">người</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:17.730">Đêm nay</p>
+			<p begin="00:03:18.520">môi hôn</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:19.630">trao nhau</p>
+			<p begin="00:03:20.430">ngọt ngào</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:21.700">đêm nay</p>
+			<p begin="00:03:22.440">ta đã</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:23.500">có nhau trong</p>
+			<p begin="00:03:24.820">đời</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:26.030">Phút giây</p>
+			<p begin="00:03:26.720" dur="1000">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:28.180">thuộc</p>
+			<p begin="00:03:28.420">về</p>
+			<p begin="00:03:28.700">nhau</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:29.980">phút giây</p>
+			<p begin="00:03:30.610" dur="2200">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:03:33.210">Hãy</p>
+			<p begin="00:03:33.410">giữ</p>
+			<p begin="00:03:34.290">mãi mãi</p>
+			<p begin="00:03:35.130">nghe</p>
+			<p begin="00:03:35.420">anh</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:37.050">Hãy</p>
+			<p begin="00:03:37.330">giữ</p>
+			<p begin="00:03:38.100">ấm áp</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:38.880">từng giây</p>
+			<p begin="00:03:39.330">phút</p>
+		</div>
+		<div style="b">
+			<p begin="00:03:39.960">Để mãi mãi</p>
+			<p begin="00:03:40.830">trong</p>
+			<p begin="00:03:41.200">đời</p>
+		</div>
+		<div style="b">
+			<p begin="00:03:42.340">phút giây này</p>
+		</div>
+		<div style="b">
+			<p begin="00:03:43.680">vẹn</p>
+			<p begin="00:03:44.350">nguyên,</p>
+			<p begin="00:03:46.250" dur="3900">ohhh</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:50.660">Bao nhiêu</p>
+			<p begin="00:03:51.450">yêu thương</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:52.600">bao nhiêu</p>
+			<p begin="00:03:53.260">diệu kì</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:54.500">bao nhiêu</p>
+			<p begin="00:03:55.260">tin yêu</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:56.270">suốt cả cuộc</p>
+			<p begin="00:03:57.690">đời</p>
+		</div>
+		<div style="m">
+			<p begin="00:03:59.130">chỉ để</p>
+			<p begin="00:03:59.610">dành</p>
+			<p begin="00:04:00.990">riêng</p>
+			<p begin="00:04:01.310">em</p>
+			<p begin="00:04:01.570">thôi</p>
+		</div>
+		<div style="m">
+			<p begin="00:04:02.970">chỉ một</p>
+			<p begin="00:04:03.460">người</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:06.140">Đêm nay</p>
+			<p begin="00:04:06.970">môi hôn</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:08.010">trao nhau</p>
+			<p begin="00:04:08.790">ngọt ngào</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:10.050">đêm nay</p>
+			<p begin="00:04:10.810">ta đã</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:11.980">có</p>
+			<p begin="00:04:12.250">nhau</p>
+			<p begin="00:04:12.880">trong</p>
+			<p begin="00:04:13.460" dur="1300">đời</p>
+		</div>
+		<div style="m">
+			<p begin="00:04:14.590">Phút giây</p>
+			<p begin="00:04:15.200">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:16.480">thuộc</p>
+			<p begin="00:04:16.810">về</p>
+			<p begin="00:04:17.060">nhau</p>
+		</div>
+		<div style="b">
+			<p begin="00:04:18.330">phút giây</p>
+			<p begin="00:04:19.130" dur="4000">này</p>
+		</div>
+		<div style="f">
+			<p begin="00:04:24.000">thuộc</p>
+			<p begin="00:04:24.320">về</p>
+			<p begin="00:04:25.050" dur="5000">nhau</p>
+		</div>
+	</body>
+</tt>

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 package {
+	import com.bit101.components.ComboBox;
+	import com.bit101.components.Style;
 	import flash.events.Event;
-	import fl.data.DataProvider;
-	import fl.controls.ComboBox;
 	import net.hires.debug.Stats;
-	import vn.karaokeplayer.gui.SampleGUIPlayer;
+	import vn.karaokeplayer.guiplayer.FontLib;
+	import vn.karaokeplayer.guiplayer.SampleGUIPlayer;
 
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -26,10 +27,9 @@ package {
 	/**
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#000000", frameRate="31", width="600", height="400")]
 	public class Main extends Sprite {
 		public var stats: Stats;
-		[Embed(source = '/../assets/images/simplygreen.jpg')]
+		[Embed(source = '/../assets/images/bg-sapa-vietnam.jpg')]
 		public var BGClass: Class;
 		public var combobox: ComboBox;
 
@@ -37,8 +37,16 @@ package {
 		public var player: SampleGUIPlayer; 
 		
 		public function Main() {
+			addEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
+		}
+		
+		private function addToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addToStageHandler);
 			
 			var bg: Bitmap = new BGClass();
+			bg.smoothing = true;
+			bg.width = stage.stageWidth;
+			bg.height = stage.stageHeight;
 			addChild(bg);
 			
 			stats = new Stats();
@@ -47,15 +55,23 @@ package {
 			player = new SampleGUIPlayer();
 			addChild(player);
 			
+			//change minimalcomp style
+			Style.fontName = FontLib.FONT_NAME;
+			Style.fontSize = 13;
+			Style.LABEL_TEXT = 0x000000;
+			
 			combobox = new ComboBox();
-			combobox.addItem({label: "-- Chọn bài hát --", data: ""});
-			combobox.width = 150;
+			combobox.defaultLabel = "-- Chọn bài hát --";
+			combobox.alternateRows = true;
+			//combobox.addItem({label: , data: ""});
+			combobox.width = 200;
 			//get data from flashvars:
 			var songList: String = loaderInfo.parameters["songList"];
 			
 			if(!songList) {
-				songList = "Hạnh Phúc Bất Tận,xml/song1.xml;Cô Bé Mùa Đông,xml/song2.xml"
-				songList += ";Con Đường Tình Yêu,xml/song3.xml;Love Story,xml/song4.xml";				songList += ";Love To Be Loved By You,xml/song5.xml";
+				songList = "Hạnh Phúc Bất Tận,xml/hanhphucbattan.xml;Cô Bé Mùa Đông,xml/cobemuadong.xml"
+				songList += ";Con Đường Tình Yêu,xml/conduongtinhyeu.xml;Love Story,xml/lovestory.xml";
+				songList += ";Love To Be Loved By You,xml/lovetobelovedbyyou.xml";
 			}
 			var songs: Array = songList.split(";");
 			
@@ -65,7 +81,7 @@ package {
 			}
 			
 			combobox.x = stage.stageWidth - combobox.width;
-			combobox.addEventListener(Event.CHANGE, comboboxChangeHandler);
+			combobox.addEventListener(Event.SELECT, comboboxChangeHandler);
 			addChild(combobox);
 		}
 
