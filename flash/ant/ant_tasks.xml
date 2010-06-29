@@ -4,26 +4,26 @@
     <property name="FLEX_HOME" value="C:/flex_sdk"/>
     <taskdef resource="flexTasks.tasks"
         classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
-	<property name="SRC" value="../src"/>
-	<property name="OUTPUT" value="../bin"/>
-	<property name="SWC_OUTPUT" value="../../bin"/>
-	<property name="DOC_OUTPUT" value="../../doc"/>
+	<property name="SRC" value="${basedir}/../src"/>
+	<property name="OUTPUT" value="${basedir}/../bin"/>
+	<property name="SWC_OUTPUT" value="${basedir}/../../bin"/>
+	<property name="DOC_OUTPUT" value="${basedir}/../../doc"/>
 	<target name="build">
 		<mxmlc file="${SRC}/Demo.as"
 			   output="${OUTPUT}/main.swf" >
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
-			<load-config filename="build_config.xml" />
+			<load-config filename="${basedir}/build_config.xml" />
 		</mxmlc>
 	</target>
 	<target name="gen_swc">
 		<compc output="${SWC_OUTPUT}/karplayer.swc">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
-			<load-config filename="compc_config.xml" />
+			<load-config filename="${basedir}/compc_config.xml" />
 		</compc>
 	</target>
 	<target name="gen_doc">
-		<exec executable="${FLEX_HOME}/bin/asdoc" spawn="no">
-			<arg line="-load-config+=asdoc_config.xml" />
+		<exec executable="${FLEX_HOME}/bin/asdoc.exe" spawn="no">
+			<arg line="-load-config+=${basedir}/asdoc_config.xml" />
 		</exec>
 	</target>
 </project>

@@ -15,7 +15,7 @@
 	<class>br.com.stimuli.string.printf</class>
   </exclude-classes -->
   <doc-sources>
-	<path-element>../src/thanhtran</path-element>
+	<path-element>../src/vn</path-element>
   </doc-sources>
   <!-- templates-path>asdoc\templates</templates-path -->
   <window-title>AS3 Karaoke Player</window-title>
@@ -23,15 +23,15 @@
   <footer>&#169; 2010 Tran Trong Thanh - trongthanh@gmail.com</footer>
   <packages>
 	<package>
-		<string>thanhtran.karaokeplayer.lyrics</string>
+		<string>vn.karaokeplayer.lyrics</string>
 		<string>Lyric text rendering classes</string>
 	</package>
 	<package>
-		<string>thanhtran.karaokeplayer.data</string>
+		<string>vn.karaokeplayer.data</string>
 		<string>Data classes</string>
 	</package>
 	<package>
-		<string>thanhtran.karaokeplayer</string>
+		<string>vn.karaokeplayer</string>
 		<string>Contains core classes</string>
 	</package>
   </packages>

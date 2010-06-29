@@ -12,7 +12,7 @@
 		<mxmlc file="${SRC}/Main.as"
 			   output="${OUTPUT}/main.swf" >
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
-			<load-config filename="build_config.xml" />
+			<load-config filename="${basedir}/build_config.xml" />
 		</mxmlc>
 	</target>
 </project>
