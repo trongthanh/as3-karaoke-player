@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
+	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
-	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.LyricStyle;
 
 	import org.osflash.signals.Signal;

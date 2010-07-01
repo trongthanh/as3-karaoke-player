@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.utils {
-	import flash.media.Sound;
-	import flash.display.LoaderInfo;
-	import flash.events.IOErrorEvent;
-	import flash.net.URLLoader;
-	import flash.system.LoaderContext;
-	import flash.net.URLRequest;
-	import flash.events.Event;
-	import flash.events.ProgressEvent;
-	import flash.display.Loader;
 	import org.osflash.signals.Signal;
+
+	import flash.display.Loader;
+	import flash.display.LoaderInfo;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
+	import flash.media.Sound;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.system.LoaderContext;
 
 	/**
 	 * Simple loader to load different assets

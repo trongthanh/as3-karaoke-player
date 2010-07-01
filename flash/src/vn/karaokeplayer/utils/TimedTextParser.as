@@ -16,10 +16,10 @@
 package vn.karaokeplayer.utils {
 	import vn.karaokeplayer.Version;
 	import vn.karaokeplayer.data.BlockInfo;
+	import vn.karaokeplayer.data.KarPlayerError;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongInfo;
 	import vn.karaokeplayer.data.SongLyrics;
-	import vn.karaokeplayer.data.KarPlayerError;
 	import vn.karaokeplayer.karplayer_internal;
 	
 	use namespace karplayer_internal;

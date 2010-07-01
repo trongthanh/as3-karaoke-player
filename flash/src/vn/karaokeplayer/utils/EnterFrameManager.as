@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.utils {
+	import org.osflash.signals.Signal;
+
 	import flash.display.Shape;
 	import flash.events.Event;
-	import org.osflash.signals.Signal;
+
 	/**
 	 * A single manager which centralizes all enter-frame handler
 	 * @author Thanh Tran

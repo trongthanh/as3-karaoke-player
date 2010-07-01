@@ -1,13 +1,15 @@
 package vn.karaokeplayer.audio {
-	import flash.events.ProgressEvent;
-	import flash.net.URLRequest;
-	import flash.events.IOErrorEvent;
-	import flash.media.SoundLoaderContext;
-	import org.osflash.signals.Signal;
-	import flash.events.Event;
-	import flash.media.SoundChannel;
 	import vn.karaokeplayer.Version;
+
+	import org.osflash.signals.Signal;
+
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundLoaderContext;
+	import flash.net.URLRequest;
 
 	/**
 	 * @author Thanh Tran
@@ -135,7 +137,7 @@ package vn.karaokeplayer.audio {
 		 */
 		private function checkSoundStatus(): void {
 			var s: Sound = _sound;
-			var ch: SoundChannel = _channel;
+			//var ch: SoundChannel = _channel;
 			
 			_bytesLoaded = s.bytesLoaded;
 			_bytesTotal = s.bytesTotal;

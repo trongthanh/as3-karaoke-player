@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import org.osflash.signals.Signal;
 	import vn.karaokeplayer.data.LineInfo;
+
+	import org.osflash.signals.Signal;
 
 	/**
 	 * @author Thanh Tran

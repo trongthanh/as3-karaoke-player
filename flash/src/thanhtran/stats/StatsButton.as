@@ -23,6 +23,7 @@ package thanhtran.stats {
 	import flash.events.MouseEvent;
 
 	/**
+	 * This will wrap the Stats panel into a retractable button. It can be show/hide  
 	 * @author Thanh Tran
 	 */
 	public class StatsButton extends Sprite {
@@ -32,18 +33,18 @@ package thanhtran.stats {
 		public var stats: Stats;
 		public var showButton: PushButton;
 		
-		public function StatsButton() {
+		public function StatsButton(defaultShow: Boolean = false) {
 			stats = new Stats();
 			addChild(stats);
 			
 			showButton = new PushButton();
-			showButton.label = "Show Stats";
+			showButton.label = (defaultShow)? "Hide Stats":"Show Stats";
 			showButton.width = STATS_WIDTH;
 			showButton.y = STATS_HEIGHT;
 			showButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			addChild(showButton);
 			
-			this.y = -STATS_HEIGHT;
+			this.y = (defaultShow)? 0 : -STATS_HEIGHT;
 		}
 
 		private function buttonClickHandler(event: MouseEvent): void {
