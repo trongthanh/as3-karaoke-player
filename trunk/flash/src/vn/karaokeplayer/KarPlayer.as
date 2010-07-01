@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 package vn.karaokeplayer {
-	import com.gskinner.motion.GTween;
-	import flash.utils.getTimer;
-	import com.gskinner.motion.GTweener;
-	import vn.karaokeplayer.data.SongLyrics;
-	import flash.media.Sound;
-	import vn.karaokeplayer.utils.TimedTextParser;
-	import org.osflash.signals.Signal;
-	import vn.karaokeplayer.data.SongInfo;
-	import vn.karaokeplayer.utils.AssetLoader;
-	import vn.karaokeplayer.data.KarPlayerOptions;
 	import vn.karaokeplayer.audio.AudioPlayer;
+	import vn.karaokeplayer.data.KarPlayerOptions;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.data.SongLyrics;
 	import vn.karaokeplayer.lyrics.LyricsPlayer;
+	import vn.karaokeplayer.utils.AssetLoader;
 	import vn.karaokeplayer.utils.EnterFrameManager;
+	import vn.karaokeplayer.utils.TimedTextParser;
+
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
+
+	import org.osflash.signals.Signal;
+
 	import flash.display.Sprite;
+	import flash.utils.getTimer;
 
 	/**
 	 * @author Thanh Tran
@@ -103,6 +105,7 @@ package vn.karaokeplayer {
 				audioCompleted.dispatch(); //dispatching this event also call the stop function 
 			}
 			if(urlOrSongInfo is SongInfo) {
+				//TODO: load beatsound if beatsound is not loaded at this flow
 				acceptSongInfo(urlOrSongInfo as SongInfo);
 				_lyricPlayer.init(_songInfo.lyrics);
 				_beatPlayer.init(_songInfo.beatSound);

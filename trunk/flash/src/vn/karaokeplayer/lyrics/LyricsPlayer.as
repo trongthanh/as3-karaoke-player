@@ -15,11 +15,14 @@
  */
 package vn.karaokeplayer.lyrics {
 	import vn.karaokeplayer.Version;
-	import com.gskinner.motion.GTween;
-	import com.gskinner.motion.GTweener;
-	import org.osflash.signals.Signal;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongLyrics;
+
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
+
+	import org.osflash.signals.Signal;
+
 	import flash.display.Sprite;
 
 	/**
@@ -52,7 +55,7 @@ package vn.karaokeplayer.lyrics {
 //			debug();
 		}
 
-		private function debug(): void {
+		public function debug(): void {
 			graphics.lineStyle(1, 0x00FF00, 0.8);
 			graphics.drawRect(0, 0, _w, _h);				
 		}

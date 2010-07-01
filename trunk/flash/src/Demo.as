@@ -104,7 +104,7 @@ package {
 			
 			testControlBar();
 			
-			stats = new StatsButton();
+			stats = new StatsButton(true);
 			addChild(stats);
 		}
 
