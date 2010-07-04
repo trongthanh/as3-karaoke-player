@@ -25,6 +25,7 @@ package {
 	import flash.display.Sprite;
 
 	/**
+	 * Compile this class in as frame 2 in the compiler options  
 	 * @author Thanh Tran
 	 */
 	public class Main extends Sprite {

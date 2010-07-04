@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.guiplayer {
+	import vn.karaokeplayer.KarPlayer;
+	import vn.karaokeplayer.data.KarPlayerOptions;
+	import vn.karaokeplayer.data.LyricStyle;
+
+	import com.gskinner.motion.GTweener;
+	import com.realeyes.osmfplayer.controls.ControlBar;
+
+	import org.osflash.signals.Signal;
+
+	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
+	import flash.events.ContextMenuEvent;
+	import flash.events.Event;
+	import flash.filters.GlowFilter;
+	import flash.geom.Rectangle;
+	import flash.media.SoundMixer;
+	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
-	import flash.events.ContextMenuEvent;
-	import flash.ui.ContextMenuItem;
-	import flash.ui.ContextMenu;
-	import flash.filters.GlowFilter;
-	import com.gskinner.motion.GTweener;
-	import flash.text.TextFormat;
 	import flash.text.TextField;
-	import flash.geom.Rectangle;
-	import flash.events.Event;
-	import flash.media.SoundTransform;
-	import flash.media.SoundMixer;
-	import flash.display.StageDisplayState;
-	import vn.karaokeplayer.data.LyricStyle;
-	import flash.text.Font;
-	import org.osflash.signals.Signal;
-	import com.realeyes.osmfplayer.controls.ControlBar;
-	import vn.karaokeplayer.data.KarPlayerOptions;
-	import vn.karaokeplayer.KarPlayer;
-	import flash.display.Sprite;
+	import flash.text.TextFormat;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 
 	/**
 	 * @author Thanh Tran
