@@ -22,6 +22,6 @@ package vn.karaokeplayer {
 		/**
 		 * major.minor.svnrevision
 		 */
-		public static const VERSION: String = "0.5.52";
+		public static const VERSION: String = "0.5.54";
 	}
 }

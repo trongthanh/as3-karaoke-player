@@ -307,6 +307,14 @@ package vn.karaokeplayer.unittest.cases {
 				
 			}	
 		}
+		
+		[Test(order=7, description="Test get extra metadata such as song id ")]
+		public function testGetExtraMetadata(): void {
+			
+			var id: String = parser.getExtraMetadata(xml, "id");
+			
+			Assert.assertEquals("Check get id value from metadata", "0001", id);
+		}
 	}
 		
 }

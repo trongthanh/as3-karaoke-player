@@ -20,6 +20,8 @@ package vn.karaokeplayer.data {
 	 * @author Thanh Tran
 	 */
 	public class SongInfo {
+		/** original XML for later extension */
+		public var songXML: XML;
 		public var title: String = "";
 		public var description: String = "";
 		public var copyright: String = "";
