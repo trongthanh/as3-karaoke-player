@@ -63,6 +63,8 @@ package vn.karaokeplayer.utils {
 				throw new KarPlayerError(KarPlayerError.INVALID_XML, "<body> tag is missing from this xml");
 			}
 			
+			songInfo.songXML = xml;
+			
 			return songInfo;
 		}
 		
@@ -251,6 +253,19 @@ package vn.karaokeplayer.utils {
 			} else {
 				return valueSet[0];
 			}
+		}
+		
+		public function getExtraMetadata(xml: XML, elementName: String): String {
+			var data: String = null;
+			var ns: Namespace;
+			if(xml) {
+				//support later version of TimedText
+				ns = xml.namespace();
+				data = xml.ns::head.ns::metadata.ns::[elementName][0];
+			}
+			
+			//trace('data: ' + (data));
+			return data;
 		}
 	}
 }
