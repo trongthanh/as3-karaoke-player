@@ -1,16 +1,38 @@
 <tt xml:lang="vi"
     xmlns="http://www.w3.org/ns/ttml"
     xmlns:tts="http://www.w3.org/ns/ttml#styling"
-    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"> 
+    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"
+    xmlns:kar="http://code.google.com/p/as3-karaoke-player">     
 	<head>
 		<metadata>
+			<!-- make use of metadata supported by TimedText -->
 			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
 			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
 			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
-			<audio>mp3/hanh_phuc_bat_tan.mp3</audio> <!-- path to the audio file, this is not part of W3C's specs -->
+			
+			<!-- below are extra metadata proposed by Karplayer -->
+			<kar:id>0001</kar:id> <!-- unique id for back-end identification or recording purposes -->
+			<kar:composer>Nguyễn Đức Thuận</kar:composer> <!-- for info only -->
+			<kar:styleof>Hồ Ngọc Hà ft. V.Music Band</kar:styleof> <!-- for info only; meaning the beat audio is in the style of singer/band/  -->
+			<kar:genre>pop</kar:genre> <!-- for info only -->
+			<kar:mood>love</kar:mood> <!-- mood of the some, for switching to correct background photo slideshow or video -->
+			<kar:audio>mp3/hanh_phuc_bat_tan.mp3</kar:audio> <!-- path to the audio file -->
+			
+			<!-- below are extra metadata without explicit Karplayer namespace (not recommended, 
+				 they will be misunderstood to belong to default namespace, 
+				 will be overwritten if there are items with proper namespace) -->
+			<id>0001</id>
+			<composer>Nguyễn Đức Thuận</composer>
+			<styleof>Hồ Ngọc Hà ft. V.Music Band</styleof>
+			<genre>pop</genre>
+			<mood>love</mood>
+			<audio>mp3/hanh_phuc_bat_tan.mp3</audio>
+			
+			<!-- to add your own metadata, create new element in namespace 'kar' or default namespace 
+				 use TimedTextParser.getExtraMetadata() to get these items -->
 		</metadata>
 	<styling> <!-- custom styling is planned to be implemented later-->
-		<!--- basic style, must equals 'b' 
+		<!--- basic style, must equal 'b' 
 			font size values: only support absolute pixel (assumed)
 			textOutline: only support color
 		-->
@@ -19,13 +41,13 @@
 			tts:fontSize="50" tts:fontStyle="normal" tts:fontWeight="normal" 
 			tts:textOutline="0xFFFFFF"
 		/>
-		<!-- style for male lyrics, ID must equals 'm'
+		<!-- style for male lyrics, ID must equal 'm'
 			for singer specific styling, only accept color & textOutline
 		-->
 		<style xml:id="m" tts:color="#00CCFF" tts:textOutline="0xFFFFFF"/>
-		<!-- style for female lyrics, ID must equals 'f' -->
+		<!-- style for female lyrics, ID must equal 'f' -->
 		<style xml:id="f" tts:color="#FF37BF" tts:textOutline="0xFFFFFF"/>
-		<!-- style for synced (overlayed) lyrics, ID must equals 's' -->
+		<!-- style for synced (overlayed) lyrics, ID must equal 's' -->
 		<style xml:id="s" tts:color="#FF37BF" tts:textOutline="0xFFFFFF"/>
 	</styling> 
       

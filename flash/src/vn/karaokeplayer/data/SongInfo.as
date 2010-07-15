@@ -25,7 +25,13 @@ package vn.karaokeplayer.data {
 		public var title: String = "";
 		public var description: String = "";
 		public var copyright: String = "";
-		public var beatURL: String = "";
+		public var beatURL: String;
+		public var id: String;
+		public var composer: String;
+		public var styleof: String;
+		public var genre: String;
+		public var mood: String;
+		
 		public var lyrics: SongLyrics;
 		
 		/** used to store reference of Sound object for this song */

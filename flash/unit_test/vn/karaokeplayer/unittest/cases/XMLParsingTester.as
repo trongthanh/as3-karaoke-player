@@ -34,6 +34,13 @@ package vn.karaokeplayer.unittest.cases {
 			parser = new TimedTextParser();
 		}
 		
+		[After]
+		public function tearDown(): void {
+			songInfo = null;
+			xml = null;
+			parser = null;
+		}
+		
 		[Test(async, order=1, description="Test Load XML")]
 		public function loadXML(): void {
 			trace('xmlPath: ' + (xmlPath));
@@ -60,7 +67,7 @@ package vn.karaokeplayer.unittest.cases {
 			
 		}
 		
-		[Test(order=2, description="Test get song header")]
+		[Test(order=2, description="Test parse song header, extra metadata has namespace")]
 		public function testParseSongHeader(): void {
 			
 			parser.parseSongHead(xml.head[0], songInfo);
@@ -69,6 +76,78 @@ package vn.karaokeplayer.unittest.cases {
 			Assert.assertEquals("Verifying desc", "Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band", songInfo.description);
 			Assert.assertEquals("Verifying desc", "Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com", songInfo.copyright);
 			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.beatURL);
+			Assert.assertEquals("Veryfying id", "0001", songInfo.id);			Assert.assertEquals("Veryfying composer", "Nguyễn Đức Thuận", songInfo.composer);
+			Assert.assertEquals("Veryfying styleof", "Hồ Ngọc Hà ft. V.Music Band", songInfo.styleof);			Assert.assertEquals("Veryfying genre", "pop", songInfo.genre);			Assert.assertEquals("Veryfying mood", "love", songInfo.mood);
+		}
+		
+		[Test(order=2, description="Test parse song metadata, extra metadata has no namespace")]
+		public function testParseMetadataNoNamespace(): void {
+			var metadataXML: XML = 
+			<metadata xml:lang="vi"
+			    xmlns="http://www.w3.org/ns/ttml"
+			    xmlns:tts="http://www.w3.org/ns/ttml#styling"
+			    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"
+			    xmlns:kar="http://code.google.com/p/as3-karaoke-player">
+			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
+			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
+			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
+			<id>0002</id>
+			<composer>Nguyễn Đức Thuận</composer>
+			<styleof>Hồ Ngọc Hà ft. V.Music Band</styleof>
+			<mood>love</mood>
+			<genre>pop</genre>
+			<audio>mp3/hanh_phuc_bat_tan.mp3</audio>
+			</metadata>;
+			
+			parser.parseMetadata(metadataXML, songInfo);
+			
+			Assert.assertEquals("Verifying title", "Hạnh Phúc Bất Tận", songInfo.title);
+			Assert.assertEquals("Verifying desc", "Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band", songInfo.description);
+			Assert.assertEquals("Verifying desc", "Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com", songInfo.copyright);
+			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.beatURL);
+			Assert.assertEquals("Veryfying id", "0002", songInfo.id);
+			Assert.assertEquals("Veryfying composer", "Nguyễn Đức Thuận", songInfo.composer);
+			Assert.assertEquals("Veryfying styleof", "Hồ Ngọc Hà ft. V.Music Band",  songInfo.styleof);
+			Assert.assertEquals("Veryfying genre", "pop", songInfo.genre);
+			Assert.assertEquals("Veryfying mood", "love", songInfo.mood);
+		}
+		
+		[Test(order=2, description="Test parse song metadata, metadata with namespace overwrite no namespace")]
+		public function testParseMetadataNamespaceOverwrite(): void {
+			var metadataXML: XML = 
+			<metadata xml:lang="vi"
+			    xmlns="http://www.w3.org/ns/ttml"
+			    xmlns:tts="http://www.w3.org/ns/ttml#styling"
+			    xmlns:ttm="http://www.w3.org/ns/ttml#metadata"
+			    xmlns:kar="http://code.google.com/p/as3-karaoke-player">
+			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
+			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
+			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
+			<kar:id>0003</kar:id>
+			<kar:composer>Nguyễn Đức Thuận</kar:composer>
+			<kar:styleof>Hồ Ngọc Hà ft. V.Music Band</kar:styleof>
+			<kar:genre>pop</kar:genre>
+			<kar:mood>love</kar:mood>
+			<kar:audio>mp3/hanh_phuc_bat_tan.mp3</kar:audio>
+			<id>0003_overwritten</id>
+			<composer>Nguyễn Đức Thuận_overwritten</composer>
+			<styleof>Hồ Ngọc Hà ft. V.Music Band_overwritten</styleof>
+			<mood>love_overwritten</mood>
+			<genre>pop_overwritten</genre>
+			<audio>mp3/hanh_phuc_bat_tan.mp3_overwritten</audio>
+			</metadata>;
+			
+			parser.parseMetadata(metadataXML, songInfo);
+			
+			Assert.assertEquals("Verifying title", "Hạnh Phúc Bất Tận", songInfo.title);
+			Assert.assertEquals("Verifying desc", "Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band", songInfo.description);
+			Assert.assertEquals("Verifying desc", "Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com", songInfo.copyright);
+			Assert.assertEquals("Verifying audio", "mp3/hanh_phuc_bat_tan.mp3", songInfo.beatURL);
+			Assert.assertEquals("Veryfying id", "0003", songInfo.id);
+			Assert.assertEquals("Veryfying composer", "Nguyễn Đức Thuận", songInfo.composer);
+			Assert.assertEquals("Veryfying styleof", "Hồ Ngọc Hà ft. V.Music Band", songInfo.styleof);
+			Assert.assertEquals("Veryfying genre", "pop", songInfo.genre);
+			Assert.assertEquals("Veryfying mood", "love", songInfo.mood);
 		}
 		
 		[Test(order=3, description="Test getValueFromSet function")]
@@ -310,10 +389,10 @@ package vn.karaokeplayer.unittest.cases {
 		
 		[Test(order=7, description="Test get extra metadata such as song id ")]
 		public function testGetExtraMetadata(): void {
-			
-			var id: String = parser.getExtraMetadata(xml, "id");
-			
-			Assert.assertEquals("Check get id value from metadata", "0001", id);
+			Assert.assertEquals("Check get id", "0001", parser.getExtraMetadata(xml, "id"));
+			Assert.assertEquals("Check get extra 1", "my data 1", parser.getExtraMetadata(xml, "extra1"));
+			Assert.assertEquals("Check get extra 2", "my data 2", parser.getExtraMetadata(xml, "extra2"));
+			Assert.assertEquals("Check get extra 3", "my data 3", parser.getExtraMetadata(xml, "extra3"));
 		}
 	}
 		

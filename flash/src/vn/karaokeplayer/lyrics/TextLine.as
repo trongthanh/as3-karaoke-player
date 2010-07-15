@@ -109,15 +109,7 @@ package vn.karaokeplayer.lyrics {
 				_completed.dispatch(this);
 			}
 		}
-		/*
-		public function play(): void {
-			for (var i : int = 0; i < _len; i++) {
-				blocks[i].reset();
-			}
-			blocks[0].play();
-			_playing = true;
-		}
-		*/
+
 		public function reset(): void {
 			for (var i : int = 0; i < _len; i++) {
 				blocks[i].reset();
