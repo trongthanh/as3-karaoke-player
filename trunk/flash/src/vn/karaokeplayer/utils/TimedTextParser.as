@@ -32,9 +32,14 @@ package vn.karaokeplayer.utils {
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");
 		public var tts: Namespace = new Namespace("http://www.w3.org/ns/ttml#styling");
 		public var ttm: Namespace = new Namespace("http://www.w3.org/ns/ttml#metadata");
+		public var kar:Namespace = new Namespace("http://code.google.com/p/as3-karaoke-player");
 		
 		private static const STYLES: Array = ["b", "m", "f"];
 		
+		/**
+		 * parse the TimedText XML data into SongInfo
+		 * @param xml	TimedText xml data
+		 */
 		public function parseXML(xml: XML): SongInfo {
 			if(xml) {
 				//support later version of TimedText
@@ -69,15 +74,30 @@ package vn.karaokeplayer.utils {
 		}
 		
 		/**
-		 * 
+		 * parse head part of song XML
 		 * @param	head
 		 * @param	songInfo
 		 */
 		karplayer_internal function parseSongHead(head: XML, songInfo: SongInfo): void {
-			songInfo.title = head.metadata.ttm::title[0];
-			songInfo.description = head.metadata.ttm::desc[0];
-			songInfo.copyright = head.metadata.ttm::copyright[0];
-			songInfo.beatURL = head.metadata.audio;
+			parseMetadata(head.metadata[0], songInfo);
+			//TODO: to parse custom styling
+		}
+		
+		/**
+		 * parse metadata part of song XML
+		 * @param metadata	metadata part of the XML
+		 * @param songInfo	value object to put data to
+		 */
+		karplayer_internal function parseMetadata(metadata: XML, songInfo: SongInfo): void {
+			songInfo.title = metadata.ttm::title[0];
+			songInfo.description = metadata.ttm::desc[0];
+			songInfo.copyright = metadata.ttm::copyright[0];
+			//get extra metadata:
+			songInfo.id = (metadata.kar::id[0]) ? metadata.kar::id[0] : metadata.tt::id[0];
+			songInfo.composer = (metadata.kar::composer[0]) ? metadata.kar::composer[0] : metadata.tt::composer[0];			songInfo.styleof = (metadata.kar::styleof[0]) ? metadata.kar::styleof[0] : metadata.tt::styleof[0];
+			songInfo.genre = (metadata.kar::genre[0]) ? metadata.kar::genre[0] : metadata.tt::genre[0];
+			songInfo.mood = (metadata.kar::mood[0]) ? metadata.kar::mood[0] : metadata.tt::mood[0];
+			songInfo.beatURL = (metadata.kar::audio[0]) ? metadata.kar::audio[0] : metadata.tt::audio[0];
 		}
 		
 		/**
@@ -257,11 +277,12 @@ package vn.karaokeplayer.utils {
 		
 		public function getExtraMetadata(xml: XML, elementName: String): String {
 			var data: String = null;
-			var ns: Namespace;
+			var tt: Namespace;
 			if(xml) {
 				//support later version of TimedText
-				ns = xml.namespace();
-				data = xml.ns::head.ns::metadata.ns::[elementName][0];
+				tt = xml.namespace();
+				var metadata: XML = xml.tt::head.tt::metadata[0]; 
+				data = (metadata.kar::[elementName][0]) ? metadata.kar::[elementName][0] : metadata.tt::[elementName][0];
 			}
 			
 			//trace('data: ' + (data));
