@@ -78,6 +78,10 @@ package vn.karaokeplayer {
 			init();	
 		}
 		
+		karplayer_internal function prepareDebug(): void {
+			
+		}
+		
 		private function init(): void {
 			var lyricScreenW: Number = _options.width - (_options.paddingLeft + _options.paddingRight);
 			var lyricScreenH: Number = _options.height - (_options.paddingTop + _options.paddingBottom);
@@ -121,7 +125,7 @@ package vn.karaokeplayer {
 		}
 
 		private function xmlLoadHandler(xmlLoader: AssetLoader): void {
-			trace("xml Loaded: " + xmlLoader.url);
+			trace("KarPlayer - xml Loaded: " + xmlLoader.url);
 			_parser = new TimedTextParser();
 			var xml: XML = new XML(xmlLoader.data);
 			acceptSongInfo(_parser.parseXML(xml));
@@ -146,7 +150,7 @@ package vn.karaokeplayer {
 			//_beatPlayer.init(_songInfo.beatSound);
 			_lyricPlayer.init(_songInfo.lyrics);
 			_songReady = true;
-			
+			trace("KarPlayer - audio ready: " + _songInfo.beatURL);
 			ready.dispatch();
 		}
 		
@@ -175,6 +179,7 @@ package vn.karaokeplayer {
 		 * Play the audio and lyric without recording
 		 */
 		public function play(): void {
+			GTweener.removeTweens(_lyricPlayer);
 			GTweener.to(_lyricPlayer, 1, {alpha:1});
 			_beatPlayer.play(_position);
 			_startTime = getTimer() - _position;
@@ -194,24 +199,25 @@ package vn.karaokeplayer {
 
 		public function stop(): void {
 			_tickingManager.enterFrame.remove(enterFrameHandler);
-			GTweener.to(_lyricPlayer, 0.2, {alpha:0}, {onComplete: lyricFadeCompleteHandler});
+			GTweener.to(_lyricPlayer, 0.2, {alpha:0} /*, {onComplete: lyricFadeCompleteHandler}*/);
 			_position = 0;
 			_beatPlayer.stop();
 		}
-		
+		/*
 		private function lyricFadeCompleteHandler(tween: GTween): void {
 //			_lyricPlayer.position = 0;
 		}
+		 */
 
 		private function enterFrameHandler(): void {
 			//getTimer() is more precise than get position of audio  
-			var elapsedTime: uint = getTimer() - _startTime;
+			var elapsedTime: uint = _beatPlayer.position; /*getTimer() - _startTime - 50*/;
 			_lyricPlayer.position = elapsedTime;
 			
 			playProgress.dispatch(_beatPlayer.position, _beatPlayer.length);
 			//_lyricPlayer.position = _beatPlayer.position + 50;
 			 
-			//var diff: Number = (elapsedTime - _beatPlayer.position) - 50;
+			//var diff: Number = (elapsedTime - _beatPlayer.position);
 //			_diffArray.push(diff);
 //			var sum: Number = 0;
 //			for (var i : int = 0; i < _diffArray.length; i++) {
@@ -221,7 +227,9 @@ package vn.karaokeplayer {
 			//trace('timer: ' + (elapsedTime) + ' .pos: ' + (_beatPlayer.position) + " diff: " + diff);
 		}
 
-		
+		karplayer_internal function debug(): void {
+			
+		}
 		
 		public function get songReady(): Boolean {
 			return _songReady;
