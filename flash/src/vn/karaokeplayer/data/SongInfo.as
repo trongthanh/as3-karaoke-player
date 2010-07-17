@@ -16,6 +16,9 @@
 package vn.karaokeplayer.data {
 	import flash.media.Sound;
 
+	import vn.karaokeplayer.karplayer_internal;
+	
+	use namespace karplayer_internal;
 	/**
 	 * @author Thanh Tran
 	 */
@@ -36,5 +39,12 @@ package vn.karaokeplayer.data {
 		
 		/** used to store reference of Sound object for this song */
 		public var beatSound: Sound;
+		
+		karplayer_internal var extra: Object = {};
+		
+		public function getExtra(id: String): String {
+			if(extra) return extra[id];
+			else return null;
+		}
 	}
 }

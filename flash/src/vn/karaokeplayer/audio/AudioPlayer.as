@@ -1,5 +1,5 @@
 package vn.karaokeplayer.audio {
-	import vn.karaokeplayer.Version;
+	import vn.karaokeplayer.utils.Version;
 
 	import org.osflash.signals.Signal;
 

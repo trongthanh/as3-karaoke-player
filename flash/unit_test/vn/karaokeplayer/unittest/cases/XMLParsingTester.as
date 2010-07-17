@@ -387,12 +387,12 @@ package vn.karaokeplayer.unittest.cases {
 			}	
 		}
 		
-		[Test(order=7, description="Test get extra metadata such as song id ")]
+		[Test(order=7, description="Test get extra metadata ")]
 		public function testGetExtraMetadata(): void {
-			Assert.assertEquals("Check get id", "0001", parser.getExtraMetadata(xml, "id"));
-			Assert.assertEquals("Check get extra 1", "my data 1", parser.getExtraMetadata(xml, "extra1"));
-			Assert.assertEquals("Check get extra 2", "my data 2", parser.getExtraMetadata(xml, "extra2"));
-			Assert.assertEquals("Check get extra 3", "my data 3", parser.getExtraMetadata(xml, "extra3"));
+			var songInfo: SongInfo = parser.parseXML(xml);
+			
+			Assert.assertEquals("Checking extra data 1", "extra item 1", songInfo.getExtra("extraItem1"));			Assert.assertEquals("Checking extra data 2 (overwrite)", "extra item 2", songInfo.getExtra("extraItem2"));			Assert.assertEquals("Checking extra data 3 (default namespace)", "extra item 3", songInfo.getExtra("extraItem3"));
+			
 		}
 	}
 		

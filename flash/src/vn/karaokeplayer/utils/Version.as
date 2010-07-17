@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vn.karaokeplayer {
+package vn.karaokeplayer.utils {
 	/**
 	 * This class manages version of this library
 	 *  
@@ -22,6 +22,14 @@ package vn.karaokeplayer {
 		/**
 		 * major.minor.svnrevision
 		 */
-		public static const VERSION: String = "0.6.55";
+		public static const VERSION: String = "0.6.56";
+		/**
+		 * URL to library project
+		 */
+		public static const LIBRARY_URL: String = "http://code.google.com/p/as3-karaoke-player/";
+		/**
+		 * Copyright
+		 */
+		public static const COPYRIGHT: String = "© 2010 Thanh Tran - trongthanh@gmail.com";
 	}
 }

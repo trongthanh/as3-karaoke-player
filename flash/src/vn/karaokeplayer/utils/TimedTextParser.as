@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.utils {
-	import vn.karaokeplayer.Version;
+	
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
 	import vn.karaokeplayer.data.LineInfo;
@@ -98,8 +98,9 @@ package vn.karaokeplayer.utils {
 			songInfo.genre = (metadata.kar::genre[0]) ? metadata.kar::genre[0] : metadata.tt::genre[0];
 			songInfo.mood = (metadata.kar::mood[0]) ? metadata.kar::mood[0] : metadata.tt::mood[0];
 			songInfo.beatURL = (metadata.kar::audio[0]) ? metadata.kar::audio[0] : metadata.tt::audio[0];
+			songInfo.extra = getExtraMetadata(metadata);
 		}
-		
+
 		/**
 		 * 
 		 *
@@ -275,14 +276,18 @@ package vn.karaokeplayer.utils {
 			}
 		}
 		
-		public function getExtraMetadata(xml: XML, elementName: String): String {
-			var data: String = null;
-			var tt: Namespace;
-			if(xml) {
-				//support later version of TimedText
-				tt = xml.namespace();
-				var metadata: XML = xml.tt::head.tt::metadata[0]; 
-				data = (metadata.kar::[elementName][0]) ? metadata.kar::[elementName][0] : metadata.tt::[elementName][0];
+		karplayer_internal function getExtraMetadata(metadata: XML): Object {
+			var data: Object = {};
+			var i : XML;
+			var extraList: XMLList = metadata.tt::extra;
+			//get data from default namespace
+			for each (i in extraList) {
+				data[i.@id[0]] = i.toString();
+			}
+			//get data from kar namespace (will overwrite default)
+			extraList = metadata.kar::extra;
+			for each (i in extraList) {
+				data[i.@id[0]] = i.toString();
 			}
 			
 			//trace('data: ' + (data));

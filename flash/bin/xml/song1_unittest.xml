@@ -14,10 +14,10 @@
 			<kar:mood>love</kar:mood>
 			<kar:genre>pop</kar:genre>
 			<kar:audio>mp3/hanh_phuc_bat_tan.mp3</kar:audio>
-			<kar:extra1>my data 1</kar:extra1>
-			<extra2>my data 2</extra2>
-			<kar:extra3>my data 3</kar:extra3>
-			<extra3>my data 3_overwritten</extra3>
+			<kar:extra id="extraItem1">extra item 1</kar:extra>
+			<kar:extra id="extraItem2">extra item 2</kar:extra>
+			<extra id="extraItem3">extra item 3</extra>
+			<extra id="extraItem1">extra item 1 overwritten</extra>
 		</metadata>
 	</head>
 	<body>
