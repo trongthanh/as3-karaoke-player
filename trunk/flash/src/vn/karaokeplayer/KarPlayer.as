@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package vn.karaokeplayer {
+	import vn.karaokeplayer.utils.Version;
 	import vn.karaokeplayer.audio.AudioPlayer;
 	import vn.karaokeplayer.data.KarPlayerOptions;
 	import vn.karaokeplayer.data.SongInfo;
