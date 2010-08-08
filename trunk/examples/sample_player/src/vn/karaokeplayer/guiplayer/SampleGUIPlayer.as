@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.guiplayer {
+	import com.realeyes.osmfplayer.controls.LoadingIndicator;
 	import vn.karaokeplayer.KarPlayer;
 	import vn.karaokeplayer.data.KarPlayerOptions;
 	import vn.karaokeplayer.data.LyricStyle;
@@ -50,6 +51,7 @@ package vn.karaokeplayer.guiplayer {
 		public var karPlayer:KarPlayer;
 		public var controlBar: ControlBar;
 		public var titleText: TextField;
+		public var loadingIndicator: LoadingIndicator;
 		
 		private var _vol: Number;
 		private var _mute: Boolean;
@@ -68,8 +70,9 @@ package vn.karaokeplayer.guiplayer {
 			addChild(karPlayer);
 			addChild(controlBar);
 			addChild(titleText);
+			addChild(loadingIndicator);
 		}
-		
+
 		private function createVersionContextMenu():void{
 			var contextMenu: ContextMenu;
 			if (parent.contextMenu) contextMenu = stage.contextMenu;
@@ -106,6 +109,8 @@ package vn.karaokeplayer.guiplayer {
 			karOptions.basicLyricStyle = LyricStyle.DEFAULT_BASIC_STYLE;
 			karOptions.basicLyricStyle.font = "ArialRegularVN";
 			karOptions.basicLyricStyle.embedFonts = true;
+			karOptions.syncLyricStyle = LyricStyle.DEFAULT_SYNC_STYLE;
+			karOptions.syncLyricStyle.strokeColor = 0xFFFFFF;
 			
 			karPlayer = new KarPlayer(karOptions);
 
@@ -148,6 +153,12 @@ package vn.karaokeplayer.guiplayer {
 			
 			controlBar.playPause_mc.enabled = false;
 			controlBar.mouseChildren = false;
+			
+			loadingIndicator = new LoadingIndicator();
+			loadingIndicator.x = WIDTH / 2;
+			loadingIndicator.y = HEIGHT / 2 - 20;
+			loadingIndicator.visible = false;
+			
 			//enabled hard ware render in FS:
 			stage.fullScreenSourceRect = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 		}
@@ -216,6 +227,7 @@ package vn.karaokeplayer.guiplayer {
 			//controlBar.progress_mc.isLive = true;
 			controlBar.playPause_mc.enabled = true;
 			controlBar.mouseChildren = true;
+			loadingIndicator.visible = false;
 			
 			titleText.alpha = 0;
 			setSongTitle(karPlayer.songInfo.title,karPlayer.songInfo.description);
@@ -226,8 +238,9 @@ package vn.karaokeplayer.guiplayer {
 		public function load(songURL: String): void {
 			titleText.text = "";
 			karPlayer.loadSong(songURL);
+			loadingIndicator.visible = true;
 		}
-		
+
 		private function setSongTitle(title: String, desc: String): void {
 			var html: String = title + '<br/><font size="20" color="#0000CC">' + desc + "</font>";
 			titleText.htmlText = html;

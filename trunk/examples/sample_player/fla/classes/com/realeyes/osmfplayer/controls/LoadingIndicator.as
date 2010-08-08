@@ -46,6 +46,16 @@ package com.realeyes.osmfplayer.controls
 		//  GETTER/SETTERS
 		/////////////////////////////////////////////
 		
+		override public function set visible(value: Boolean): void {
+			super.visible = value;
+			if(value) {
+				play();
+			} else {
+				stop();
+			}
+			
+		} 
+		
 		/**
 		 * label
 		 * The text to display in the loading indicator
