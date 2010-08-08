@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package {
-	import thanhtran.stats.StatsButton;
 	import com.bit101.components.ComboBox;
 	import com.bit101.components.Style;
 	import flash.events.Event;
@@ -29,7 +28,6 @@ package {
 	 * @author Thanh Tran
 	 */
 	public class Main extends Sprite {
-		public var stats: StatsButton;
 		[Embed(source = '/../assets/images/bg-sapa-vietnam.jpg')]
 		public var BGClass: Class;
 		public var combobox: ComboBox;
@@ -49,9 +47,6 @@ package {
 			bg.width = stage.stageWidth;
 			bg.height = stage.stageHeight;
 			addChild(bg);
-			
-			stats = new StatsButton();
-			addChild(stats);
 						
 			player = new SampleGUIPlayer();
 			addChild(player);
