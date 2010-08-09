@@ -22,7 +22,7 @@ package vn.karaokeplayer.utils {
 		/**
 		 * major.minor.svnrevision
 		 */
-		public static const VERSION: String = "0.7.59";
+		public static const VERSION: String = "0.7.61";
 		/**
 		 * URL to library project
 		 */
