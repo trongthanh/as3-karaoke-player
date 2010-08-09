@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.IKarFactory;
+	import org.osflash.signals.ISignal;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.LyricStyle;
+	import vn.karaokeplayer.utils.Version;
 
 	import org.osflash.signals.Signal;
 
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 
 	/**
@@ -29,15 +32,13 @@ package vn.karaokeplayer.lyrics {
 	 * TODO: pass screen width from LyricPlayer and auto reduce font size if text line width exceed
 	 */
 	public class TextLine extends Sprite implements ILine {
-		public static const VERSION: String = Version.VERSION;	
-		
+		public static const VERSION: String = Version.VERSION;
+		private var _factory: IKarFactory;	
 		private var _completed: Signal;
-		public var blocks: Array;
-		public var index: int;
+		private var _blocks: Array;
 		// these style are set from SongLyrics
-		public var normalStyle: LyricStyle;
-		public var syncStyle: LyricStyle;
-		
+		private var _normalStyle: LyricStyle;
+		private var _syncStyle: LyricStyle;
 		private var _data: LineInfo;
 		/* number of blocks */
 		private var _len: uint;
@@ -50,7 +51,8 @@ package vn.karaokeplayer.lyrics {
 		/** milliseconds */
 		private var _pos: Number;
 
-		public function TextLine() {
+		public function TextLine(factory: IKarFactory) {
+			_factory = factory;
 			_completed = new Signal(TextLine);
 		}
 
@@ -61,46 +63,45 @@ package vn.karaokeplayer.lyrics {
 			_begin = data.begin;
 			_dur = data.duration;
 			
-			blocks = new Array();
+			_blocks = new Array();
 			var blockInfo: BlockInfo;
 			var block: IBlock;
 			var lastX: Number = 0;
 			
-			for (var i : int = 0; i < _len; i++) {
+			for (var i: int = 0;i < _len;i++) {
 				blockInfo = data.lyricBlocks[i];
-				block = new TextBlock();
-				block.setStyle(normalStyle, syncStyle);
+				block = _factory.createTextBlock();
+				block.setStyle(_normalStyle, _syncStyle);
 				block.init(blockInfo);
 				block.completed.add(textBlockCompleteHandler);
-				blocks.push(block);
+				_blocks.push(block);
 				if(i > 0) {
-					IBlock(blocks[i - 1]).next = block;
+					IBlock(_blocks[i - 1]).next = block;
 				}
 				//render
 				block.x = lastX;
-				addChild(Sprite(block));
+				addChild(DisplayObject(block));
 				lastX += block.width;
 			}
-			
 		}
-		
+
 		private function checkStyle(): void {
-			syncStyle = _data.songLyrics.syncLyricStyle;
+			_syncStyle = _data.songLyrics.syncLyricStyle;
 			switch(_data.styleName) {
 				case LyricStyle.MALE:
-					normalStyle = _data.songLyrics.maleLyricStyle;
+					_normalStyle = _data.songLyrics.maleLyricStyle;
 					break;
 				case LyricStyle.FEMALE:
-					normalStyle = _data.songLyrics.femaleLyricStyle;
+					_normalStyle = _data.songLyrics.femaleLyricStyle;
 					break;
 				case LyricStyle.BASIC:
 				default:
-					normalStyle = _data.songLyrics.basicLyricStyle;
+					_normalStyle = _data.songLyrics.basicLyricStyle;
 			}
 		}
-		
+
 		private function textBlockCompleteHandler(tb: IBlock): void {
-//			trace('text bit ' + tb.text + ' complete, next:  ' + (tb.next));
+			//			trace('text bit ' + tb.text + ' complete, next:  ' + (tb.next));
 			if(tb.next) {
 				//tb.next.play();
 			} else {
@@ -111,76 +112,76 @@ package vn.karaokeplayer.lyrics {
 		}
 
 		public function reset(): void {
-			for (var i : int = 0; i < _len; i++) {
-				blocks[i].reset();
+			for (var i: int = 0;i < _len;i++) {
+				_blocks[i].reset();
 			}
 		}
 
 		public function dispose(): void {
-			for (var i : int = 0; i < _len; i++) {
-				blocks[i].dispose();
-				removeChild(blocks[i]);
+			for (var i: int = 0;i < _len;i++) {
+				_blocks[i].dispose();
+				removeChild(_blocks[i]);
 			}
-			blocks = null;
+			_blocks = null;
 			_playing = false;
 			_complete = true;
 		}
-		
-		
+
 		public function get playing(): Boolean {
 			return _playing;
 		}
-		
+
 		public function get complete(): Boolean {
 			return _complete;
 		}
-		
+
 		override public function get width(): Number { 
-			if (blocks && blocks.length) {
-				var lastBlock: IBlock = blocks[blocks.length - 1];
+			if (_blocks && _blocks.length) {
+				var lastBlock: IBlock = _blocks[_blocks.length - 1];
 				return (lastBlock.x + lastBlock.noSpaceWidth);
 			} else {
 				return super.width; 
 			}
 		}
-		
+
 		override public function set width(value: Number): void {
 			//super.width = value;
 			trace("this component has read-only width");
 		}
-		
+
 		override public function toString(): String {
 			var str: String = "Line {";
-			for (var i : int = 0; i < _len; i++) {
-				str += blocks[i].text;
+			for (var i: int = 0;i < _len;i++) {
+				str += _blocks[i].text;
 			}
 			return str + "}";
 		}
-		
+
 		public function get position(): Number {
 			return _pos;
 		}
-				
+
 		public function set position(value: Number): void {
 			_pos = value;
-			for (var i : int = 0; i < _len; i++) {
-				blocks[i].position = _pos;
+			for (var i: int = 0;i < _len;i++) {
+				_blocks[i].position = _pos;
 			}
 		}
+
 		public function get begin(): Number {
 			return _begin;
 		}
-		
+
 		public function get duration(): Number {
 			return _dur;
 		}
-		
+
 		public function get end(): Number {
 			return _begin + _dur;
 		}
-		
+
 		/* complete event, param: TextLine */
-		public function get completed(): Signal {
+		public function get completed(): ISignal {
 			return _completed;
 		}
 	}

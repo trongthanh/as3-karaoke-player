@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
+	import flash.display.IBitmapDrawable;
 
 	/**
 	 * @author Thanh Tran
 	 */
-	public interface ISeekable {
+	public interface ISeekable extends IBitmapDrawable {
 		function get position(): Number;
 		function set position(value: Number): void;
 		function get begin(): Number;

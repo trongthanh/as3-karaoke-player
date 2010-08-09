@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
+	import org.osflash.signals.ISignal;
+	import flash.display.IBitmapDrawable;
 	import vn.karaokeplayer.utils.Version;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
@@ -32,7 +34,7 @@ package vn.karaokeplayer.lyrics {
 	 * The smallest block of texts which share the same speed
 	 * @author Thanh Tran
 	 */
-	public class TextBlock extends Sprite implements IBlock {
+	public class TextBlock extends Sprite implements IBlock, IBitmapDrawable {
 		public static const VERSION: String = Version.VERSION;
 		
 		private var _next: IBlock;
@@ -252,7 +254,7 @@ package vn.karaokeplayer.lyrics {
 			_text = ""; 
 		}
 		
-		public function get completed(): Signal {
+		public function get completed(): ISignal {
 			return _completed;
 		}
 		

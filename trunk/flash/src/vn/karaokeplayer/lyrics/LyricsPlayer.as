@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.IKarFactory;
+	import org.osflash.signals.ISignal;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongLyrics;
-
-	import com.gskinner.motion.GTween;
-	import com.gskinner.motion.GTweener;
+	import vn.karaokeplayer.utils.Version;
 
 	import org.osflash.signals.Signal;
 
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 
 	/**
@@ -31,8 +31,9 @@ package vn.karaokeplayer.lyrics {
 	public class LyricsPlayer extends Sprite implements ILyricsPlayer {
 		public static const VERSION: String = Version.VERSION;
 		
-		public var data: SongLyrics;
-		public var lyricsCompleted: Signal;
+		private var _factory: IKarFactory;
+		private var data: SongLyrics;
+		private var _lyricsCompleted: Signal;
 		
 		private var _w: Number; //screen width
 		private var _h: Number; // screen height
@@ -40,16 +41,17 @@ package vn.karaokeplayer.lyrics {
 		private var _lines: Array;
 		private var _len: int;
 		private var _pos: Number;
-		private var _l1: TextLine;
+		private var _l1: ILine;
 		//private var _idx1: int;
-		private var _l2: TextLine;
+		private var _l2: ILine;
 		//private var _idx2: int;
 		
-		public function LyricsPlayer(w: Number, h: Number, align: String = "bottom") {
+		public function LyricsPlayer(factory: IKarFactory, w: Number, h: Number, align: String = "bottom") {
+			_factory = factory;
 			_w = w;
 			_h = h;				
 			_align = align;
-			lyricsCompleted = new Signal(SongLyrics);
+			_lyricsCompleted = new Signal(SongLyrics);
 			
 			//comment me 
 //			debug();
@@ -68,14 +70,14 @@ package vn.karaokeplayer.lyrics {
 			data = lyrics;	
 			_lines = new Array();
 			_len = data.lyricLines.length;
-			var textLine: TextLine;
+			var textLine: ILine;
 			var lineInfo: LineInfo;
 			for (var i : int = 0; i < _len; i++) {
 				lineInfo = data.lyricLines[i];
-				textLine = new TextLine();
+				textLine = _factory.createTextLine();
 				textLine.init(lineInfo);
 				//textLine.completed.add(lineCompleteHandler);
-				textLine.index = i;
+				//textLine.index = i;
 				//position all lines
 				if(i % 2 == 0) {
 					textLine.y = _h - (textLine.height * 2);
@@ -131,20 +133,19 @@ package vn.karaokeplayer.lyrics {
 			}
 		}
 		 */
-		
+		/*
 		public function lineFadeOutCompleteHandler(tween: GTween): void {
-			var lastLine: TextLine = TextLine(tween.data.last);
-			var nextLine: TextLine = TextLine(tween.data.next);
+			var lastLine: ILine = ILine(tween.data.last);
+			var nextLine: ILine = ILine(tween.data.next);
 			
 			//remove line
-			if(contains(lastLine)) {
-				removeChild(lastLine);
-			}
+			removeIfContains(lastLine);
 			//fade in next line
 			GTweener.to(nextLine, 0.1, {alpha:1});
 			
 		}
-
+		*/
+		
 		public function get position(): Number {
 			return _pos;
 		}
@@ -172,12 +173,9 @@ package vn.karaokeplayer.lyrics {
 					}
 				}
 				if(_l1 != line) {
-					if(_l1 && contains(_l1)) {
-						//trace("remove _l1: " + _l1);
-						removeChild(_l1);
-					}
+					removeIfContains(_l1);
 					_l1 = line;
-					addChild(_l1);
+					add(_l1);
 				}
 				_l1.position = _pos;
 			}
@@ -198,12 +196,9 @@ package vn.karaokeplayer.lyrics {
 					}
 				}
 				if(_l2 != line) {
-					if(_l2 && contains(_l2)) {
-						//trace("remove _l2: " + _l2);
-						removeChild(_l2);
-					}
+					removeIfContains(_l2);
 					_l2 = line;
-					addChild(_l2);
+					add(_l2);
 				}
 				_l2.position = _pos;
 				
@@ -219,9 +214,26 @@ package vn.karaokeplayer.lyrics {
 			for (var i : int = 0; i < _len; i++) {
 				_lines[i].dispose();
 			}
-			if (contains(_l1)) removeChild(_l1);
-			if (contains(_l2)) removeChild(_l2);
+			//if (contains(_l1)) removeChild(_l1);
+			removeIfContains(_l1);
+			//if (contains(_l2)) removeChild(_l2);
+			removeIfContains(_l2);
 			_lines = null;
+		}
+		
+		private function removeIfContains(line: ILine): void {
+			var l: DisplayObject = line as DisplayObject;
+			if(l && contains(l)) {
+				removeChild(l);
+			}			
+		}
+		
+		private function add(line: ILine): void {
+			addChild(DisplayObject(line));
+		}
+		
+		public function get lyricsCompleted(): ISignal {
+			return _lyricsCompleted;
 		}
 	}
 }

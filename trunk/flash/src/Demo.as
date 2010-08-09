@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package {
+	import vn.karaokeplayer.audio.AudioPlayer;
+	import vn.karaokeplayer.utils.KarFactory;
+	import vn.karaokeplayer.utils.IKarFactory;
 	import thanhtran.stats.StatsButton;
 
 	import vn.karaokeplayer.data.BlockInfo;
@@ -24,7 +27,7 @@ package {
 	import vn.karaokeplayer.lyrics.TextBlock;
 	import vn.karaokeplayer.lyrics.TextLine;
 	import vn.karaokeplayer.utils.EnterFrameManager;
-	import vn.karaokeplayer.utils.TimedTextParser;
+	import vn.karaokeplayer.parsers.TimedTextParser;
 
 	import com.bit101.components.PushButton;
 
@@ -77,6 +80,8 @@ package {
 		public var startTime: int;
 		public var enterFrameManager: EnterFrameManager;
 		
+		public var factory: IKarFactory;
+		
 		public function Demo():void {
 			Font.registerFont(fontClass);
 			if (stage) init();
@@ -90,6 +95,8 @@ package {
 			
 			var bg: Bitmap = new BGClass();
 			addChild(bg);
+			
+			factory = new KarFactory(TimedTextParser, LyricsPlayer, TextLine, TextBlock, AudioPlayer);
 			
 			playButton = new PushButton();
 			playButton.label = "Start";
@@ -117,7 +124,7 @@ package {
 			sound = new SongAudio();
 			var lyricParser: TimedTextParser = new TimedTextParser();
 			var songInfo: SongInfo = lyricParser.parseXML(xml);
-			lyricPlayer = new LyricsPlayer(500, 360);
+			lyricPlayer = new LyricsPlayer(factory, 500, 360);
 			lyricPlayer.y = 20;
 			lyricPlayer.x = 50;
 			trace("karPlayer version: " + LyricsPlayer.VERSION);
@@ -195,7 +202,7 @@ package {
 			
 			lb.lyricBlocks.push(lbit3);
 			
-			line = new TextLine();
+			line = new TextLine(factory);
 			line.init(lb);
 			line.completed.add(textLineCompleteHandler);
 			

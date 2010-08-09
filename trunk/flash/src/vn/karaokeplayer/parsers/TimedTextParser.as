@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vn.karaokeplayer.utils {
+package vn.karaokeplayer.parsers {
+	import vn.karaokeplayer.utils.Version;
 	
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
@@ -26,7 +27,7 @@ package vn.karaokeplayer.utils {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class TimedTextParser {
+	public class TimedTextParser implements ILyricsParser {
 		public static const VERSION: String = Version.VERSION;
 		
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");

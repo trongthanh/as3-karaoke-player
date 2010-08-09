@@ -17,7 +17,7 @@ package vn.karaokeplayer.lyrics {
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LyricStyle;
 
-	import org.osflash.signals.Signal;
+	import org.osflash.signals.ISignal;
 
 	/**
 	 * @author Thanh Tran
@@ -28,13 +28,16 @@ package vn.karaokeplayer.lyrics {
 		function dispose(): void;
 		function get next(): IBlock;
 		function set next(value: IBlock): void;
-		function get width(): Number;
 		function get noSpaceWidth(): Number;
+		function get text(): String;
+		function reset(): void;
+		function get completed(): ISignal;
+		
+		//some display object interfaces
+		function get width(): Number;
 		function get height(): Number;
 		function get x(): Number;
 		function set x(value: Number): void;
-		function get text(): String;
-		function reset(): void;
-		function get completed(): Signal;
+		
 	}
 }
