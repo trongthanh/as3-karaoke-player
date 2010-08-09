@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.data.LineInfo;
-
-	import org.osflash.signals.ISignal;
+package vn.karaokeplayer.utils {
+	import vn.karaokeplayer.audio.IAudioPlayer;
+	import vn.karaokeplayer.lyrics.ILine;
+	import vn.karaokeplayer.lyrics.IBlock;
+	import vn.karaokeplayer.lyrics.ILyricsPlayer;
+	import vn.karaokeplayer.parsers.ILyricsParser;
 
 	/**
+	 * A factory to encapsulate and separate objects creation
 	 * @author Thanh Tran
 	 */
-	public interface ILine extends ISeekable {
-		function init(data: LineInfo): void;
-		function reset(): void;
-		function dispose(): void;
-		function get playing(): Boolean;
-		function get complete(): Boolean;
-		function toString(): String;
-		function get completed(): ISignal;
+	public interface IKarFactory {
 		
-		//some display object interfaces
-		function get height(): Number;
-		function get width(): Number;
-		function get x(): Number;
-		function set x(value: Number): void;
-		function get y(): Number;
-		function set y(value: Number): void;
+		function createLyricsParser(): ILyricsParser;
+		function createLyricsPlayer(w: Number, h: Number, align: String = "bottom"): ILyricsPlayer;
+		function createTextLine(): ILine;
+		function createTextBlock(): IBlock;
+		function createAudioPlayer(): IAudioPlayer; 
+		
 	}
 }

@@ -1,4 +1,5 @@
 package vn.karaokeplayer.audio {
+	import org.osflash.signals.ISignal;
 	import vn.karaokeplayer.utils.Version;
 
 	import org.osflash.signals.Signal;
@@ -14,13 +15,13 @@ package vn.karaokeplayer.audio {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class AudioPlayer {
+	public class AudioPlayer implements IAudioPlayer {
 		public static const VERSION: String = Version.VERSION;
 		
-		public var audioCompleted: Signal;
-		public var ready: Signal;
-		public var loadProgress: Signal;
-		public var loadCompleted: Signal;
+		public var _audioCompleted: Signal;
+		public var _ready: Signal;
+		public var _loadProgress: Signal;
+		public var _loadCompleted: Signal;
 		
 		private var _soundURL: String;
 		private var _sound: Sound;
@@ -35,10 +36,10 @@ package vn.karaokeplayer.audio {
 		private var _estDur: uint;
 		
 		public function AudioPlayer() {
-			audioCompleted = new Signal();
-			ready = new Signal();
-			loadProgress = new Signal(uint, uint);
-			loadCompleted = new Signal();
+			_audioCompleted = new Signal();
+			_ready = new Signal();
+			_loadProgress = new Signal(uint, uint);
+			_loadCompleted = new Signal();
 		}
 		
 		/**
@@ -71,12 +72,12 @@ package vn.karaokeplayer.audio {
 		}
 
 		private function loadCompleteHandler(event: Event): void {
-			loadCompleted.dispatch();
+			_loadCompleted.dispatch();
 		}
 
 		private function loadProgressHandler(event: ProgressEvent): void {
 			checkSoundStatus();
-			loadProgress.dispatch(_bytesLoaded, _bytesTotal);
+			_loadProgress.dispatch(_bytesLoaded, _bytesTotal);
 		}
 
 		private function ioErrorHandler(event: IOErrorEvent): void {
@@ -85,7 +86,7 @@ package vn.karaokeplayer.audio {
 
 		private function soundOpenHandler(event: Event): void {
 			_soundOpened = true;
-			ready.dispatch();
+			_ready.dispatch();
 			if(_autoPlay) play();
 		}
 
@@ -184,7 +185,7 @@ package vn.karaokeplayer.audio {
 
 		private function soundCompleteHandler(event: Event): void {
 			stop();
-			audioCompleted.dispatch();
+			_audioCompleted.dispatch();
 		}
 		
 		public function get position(): Number {
@@ -207,6 +208,22 @@ package vn.karaokeplayer.audio {
 		
 		public function set autoPlay(autoPlay: Boolean): void {
 			_autoPlay = autoPlay;
+		}
+		
+		public function get audioCompleted(): ISignal {
+			return _audioCompleted;
+		}
+		
+		public function get ready(): ISignal {
+			return _ready;
+		}
+		
+		public function get loadProgress(): ISignal {
+			return _loadProgress;
+		}
+		
+		public function get loadCompleted(): ISignal {
+			return _loadCompleted;
 		}
 	}
 }

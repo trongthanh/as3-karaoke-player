@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- BUILT WITH FLEX SDK 4.1 -->
 <!-- set your own path to Flex SDK home folder -->
 <project name="AS3 Karaoke Engine Ant Builder" basedir=".">
-    <property name="FLEX_HOME" value="/home/thanh/flex_sdk"/>
+    <property name="FLEX_HOME" value="/home/thanh/flex_sdk_4.1"/>
     <taskdef resource="flexTasks.tasks"
         classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 	<property name="SRC" value="${basedir}/../src"/>
@@ -15,9 +16,14 @@
 			<load-config filename="${basedir}/build_config.xml" />
 		</mxmlc>
 	</target>
+	<target name="run" depends="build">
+			<exec executable="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+				<arg line="${OUTPUT}/main.swf" />
+			</exec>
+		</target>
 	<target name="run-tests">
 		<mxmlc file="${basedir}/../unit_test/TestRunner.mxml"
-			   output="${OUTPUT}/TestRunner.swf" >
+			output="${OUTPUT}/TestRunner.swf" >	
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
 			<load-config filename="${basedir}/build_config.xml" />
 			<default-size width="1024" height="768" />

@@ -8,7 +8,7 @@ package vn.karaokeplayer.unittest.cases {
 	import vn.karaokeplayer.data.SongInfo;
 	import vn.karaokeplayer.data.SongLyrics;
 	import vn.karaokeplayer.karplayer_internal;
-	import vn.karaokeplayer.utils.TimedTextParser;
+	import vn.karaokeplayer.parsers.TimedTextParser;
 
 	import flash.events.Event;
 	import flash.net.URLLoader;
