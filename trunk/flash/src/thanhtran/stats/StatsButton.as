@@ -16,11 +16,14 @@
 package thanhtran.stats {
 	import net.hires.debug.Stats;
 
-	import com.bit101.components.PushButton;
-	import com.gskinner.motion.GTweener;
-
+	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+
+	//import com.gskinner.motion.GTweener;
+
 
 	/**
 	 * This will wrap the Stats panel into a retractable button. It can be show/hide  
@@ -31,29 +34,60 @@ package thanhtran.stats {
 		public static const STATS_HEIGHT: int= 100;
 		
 		public var stats: Stats;
-		public var showButton: PushButton;
+		private var showButton: Sprite;
+		private var showButtonLabel: TextField;
+		
 		
 		public function StatsButton(defaultShow: Boolean = false) {
 			stats = new Stats();
 			addChild(stats);
 			
-			showButton = new PushButton();
-			showButton.label = (defaultShow)? "Hide Stats":"Show Stats";
-			showButton.width = STATS_WIDTH;
-			showButton.y = STATS_HEIGHT;
-			showButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
+			createStatButton(defaultShow);
 			addChild(showButton);
 			
 			this.y = (defaultShow)? 0 : -STATS_HEIGHT;
 		}
+		
+		private function createStatButton(defaultShow: Boolean): void {
+			showButton = new Sprite();
+			showButtonLabel = new TextField();
+			showButtonLabel.width = STATS_WIDTH;
+			showButtonLabel.autoSize = "center";
+			showButtonLabel.defaultTextFormat = new TextFormat("_sans", 10, 0xFFFFFF);
+			showButtonLabel.text = (defaultShow)? "Hide Stats":"Show Stats"
+			showButtonLabel.mouseEnabled = false;
+			
+			var g: Graphics = showButton.graphics;
+			g.beginFill(0x333333);
+			g.drawRect(0, 0, STATS_WIDTH, showButtonLabel.height);
+			g.endFill();
+			showButton.addChild(showButtonLabel);
+			showButton.y = STATS_HEIGHT;
+			showButton.buttonMode = true;
+			
+			showButton.addEventListener(MouseEvent.ROLL_OVER, buttonRollOverHandler);
+			showButton.addEventListener(MouseEvent.ROLL_OUT, buttonRollOutHandler);
+			showButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
+			
+		}
+
+		private function buttonRollOutHandler(event: MouseEvent): void {
+			showButtonLabel.textColor = 0xFFFFFF;
+		}
+
+		private function buttonRollOverHandler(event: MouseEvent): void {
+			showButtonLabel.textColor = 0xFFFF00;
+		}
 
 		private function buttonClickHandler(event: MouseEvent): void {
-			if(showButton.label == "Show Stats") {
-				GTweener.to(this, 0.3, {y:0});
-				showButton.label = "Hide Stats";
+			if(showButtonLabel.text == "Show Stats") {
+//				GTweener.to(this, 0.3, {y:0});
+				this.y = 0;
+				showButtonLabel.text = "Hide Stats";
 			} else {
-				GTweener.to(this, 0.3, {y:-STATS_HEIGHT});
-				showButton.label = "Show Stats";
+				this.y = -STATS_HEIGHT;
+				//GTweener.to(this, 0.3, {y:-STATS_HEIGHT});
+				showButtonLabel.text = "Show Stats";
 			}
 			
 		}
