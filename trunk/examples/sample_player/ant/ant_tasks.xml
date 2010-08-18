@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- set your own path to Flex SDK home folder -->
-<project name="AS3 Karaoke Sample Player Ant Builder" basedir=".">
-    <property name="FLEX_HOME" value="/home/thanh/flex_sdk"/>
-    <taskdef resource="flexTasks.tasks"
-        classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+<project name="AS3 Karaoke Sample Player Ant Builder" basedir="." default="run" >
+    <condition property="FLEX_HOME" value="C:\flex_sdk">
+		<os family="windows" />
+	</condition>
+	<condition property="FLEX_HOME" value="${user.home}/flex_sdk">
+		<os family="unix" />
+	</condition>
+	<condition property="FLASH_PLAYER" value="${FLEX_HOME}\runtimes\player\10\win\FlashPlayer.exe">
+		<os family="windows" />
+	</condition>
+	<condition property="FLASH_PLAYER" value="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+		<os family="unix" />
+	</condition>
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	
 	<property name="SRC" value="${basedir}/../src"/>
 	<property name="OUTPUT" value="${basedir}/../bin"/>
+	
 	<target name="build">
 		<mxmlc file="${SRC}/AppDoc.as"
 			   output="${OUTPUT}/main.swf" >
@@ -15,7 +27,7 @@
 		</mxmlc>
 	</target>
 	<target name="run" depends="build">
-		<exec executable="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+		<exec executable="${FLASH_PLAYER}">
 			<arg line="${OUTPUT}/main.swf" />
 		</exec>
 	</target>

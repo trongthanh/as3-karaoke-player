@@ -104,7 +104,7 @@ package {
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClickHandler);
 			addChild(playButton);
 			enterFrameManager = new EnterFrameManager();
-			
+			//
 			//testTextBlock();
 			//testTextLine();
 			testLyricPlayer();
