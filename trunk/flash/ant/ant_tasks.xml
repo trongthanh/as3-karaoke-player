@@ -40,7 +40,7 @@
 			<load-config filename="${basedir}/build_config.xml" />
 			<default-size width="1024" height="768" />
 		</mxmlc>
-		<exec executable="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+		<exec executable="${FLASH_PLAYER}">
 			<arg line="${OUTPUT}/TestRunner.swf" />
 		</exec>
 	</target>
