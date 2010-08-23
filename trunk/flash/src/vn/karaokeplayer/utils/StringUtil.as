@@ -98,11 +98,16 @@ package vn.karaokeplayer.utils {
 		 * @param	to		String is used to replace.
 		 * @return
 		 */
-		public static function replace(src: String, from: String, to: String): String {
-			var reg: RegExp = new RegExp(from, "g");
+		public static function replace(src: String, from: String, to: String, caseSensitive: Boolean = false): String {
+			var flag: String = "g";
+			if(!caseSensitive) flag += "i";
+			var reg: RegExp = new RegExp(from, flag);
 			return src.replace(reg, to);
 		}
 		
+		/**
+		 * Old approach using Array's join and split
+		 */
 		public static function replace2(source: String, findingChar: String, replaceChar: String): String {
 			return source.split(findingChar).join(replaceChar);
 		}
@@ -132,6 +137,15 @@ package vn.karaokeplayer.utils {
 		public static function trimNewLine(src: String): String {
 			var newStr: String = replace(src, "\r\n", "\n");
 			return newStr;
+		}
+		
+		/**
+		 * Removes all new lines characters
+		 */
+		public static function removeNewLines(src: String): String {
+			var newStr: String = replace(src, "\r", "");
+			newStr = replace(newStr, "\n", "");
+			return newStr;	
 		}
 	}
 
