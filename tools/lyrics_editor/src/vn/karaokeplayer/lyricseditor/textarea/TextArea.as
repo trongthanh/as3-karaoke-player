@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
-	import flash.text.StyleSheet;
-	import flash.events.TextEvent;
-	import flash.text.TextFormat;
-	import flash.text.TextFieldType;
-	import flash.text.TextField;
 	import flash.display.Sprite;
+	import flash.events.TextEvent;
+	import flash.text.StyleSheet;
+	import flash.text.TextField;
+	import flash.text.TextFieldType;
 
 	/**
 	 * @author Thanh Tran
@@ -33,18 +32,20 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		.synced { color: #FF0000; }
 		]]>;
 		
+		private var _timePoints: Array;
+		
 		public function TextArea() {
 			init();
 		}
 
 		private function init(): void {
 			_txt = new TextField();
+			//TODO: more customization for text field
 			_txt.width = 600;
 			_txt.height = 400;
 			_txt.multiline = true;
 			_txt.wordWrap = true;
-			_txt.type = TextFieldType.INPUT;
-			_txt.defaultTextFormat = new TextFormat("_sans", 12);
+			//_txt.defaultTextFormat = new TextFormat("_sans", 12);
 			_txt.addEventListener(TextEvent.LINK, textLinkHandler);
 			_txt.addEventListener(TextEvent.TEXT_INPUT, textInputHandler);
 			
@@ -52,12 +53,14 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			styles.parseCSS(_css.toString());
 			
 			_txt.styleSheet = styles;
+			_txt.type = TextFieldType.INPUT;
 			
 			addChild(_txt);
 		}
 
 		public function set htmlText(value: String): void {
 			_txt.htmlText = value; 
+			_txt.type = TextFieldType.INPUT;
 		}
 		
 		public function get htmlText(): String {
