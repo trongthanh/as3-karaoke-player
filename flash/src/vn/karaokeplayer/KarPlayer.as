@@ -44,31 +44,36 @@ package vn.karaokeplayer {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class KarPlayer extends Sprite {
+	public class KarPlayer extends Sprite implements IKarPlayer {
 		public static const VERSION: String = Version.VERSION;
 		
 		/**
 		 * dispatch when data and sound are ready
+		 * @private
 		 */
-		public var ready: Signal;
+		private var _ready: Signal;
 		/**
 		 * dispatch playing progress
-		 * arguments (position: Number, length: Number)  
+		 * arguments (position: Number, length: Number)
+		 * @private  
 		 */
-		public var playProgress: Signal;
+		private var _playProgress: Signal;
 		/**
 		 * dispatch loading progress
 		 * arguments (percent: Number, byteLoaded: uint, byteTotal: uint)
+		 * @private
 		 */
-		public var loadProgress: Signal;
+		private var _loadProgress: Signal;
 		/**
 		 * dispatch when audio loading is completed
+		 * @private
 		 */
-		public var loadCompleted: Signal;
+		private var _loadCompleted: Signal;
 		/**
 		 * dispatch when audio completes playing
+		 * @private
 		 */
-		public var audioCompleted: Signal;
+		private var _audioCompleted: Signal;
 		
 		private var _factory: IKarFactory;
 		private var _tickingManager: EnterFrameManager = EnterFrameManager.instance;
@@ -97,6 +102,7 @@ package vn.karaokeplayer {
 
 		/**
 		 * Temporarily create all class references here.
+		 * @private
 		 */
 		private function createFactory(): void {
 			_factory = new KarFactory(TimedTextParser, LyricsPlayer, TextLine, TextBlock, AudioPlayer);
@@ -116,18 +122,18 @@ package vn.karaokeplayer {
 			_beatPlayer = _factory.createAudioPlayer();
 			_beatPlayer.ready.add(audioReadyHandler);
 			_beatPlayer.loadProgress.add(audioLoadingProgressHandler);
-			loadCompleted = Signal(_beatPlayer.loadCompleted);
+			_loadCompleted = Signal(_beatPlayer.loadCompleted);
 			addChild(DisplayObject(_lyricPlayer));
 			
-			ready = new Signal();
-			playProgress = new Signal(Number, Number);
-			loadProgress = new Signal(Number, Number, Number);
-			audioCompleted = Signal(_beatPlayer.audioCompleted);
-			audioCompleted.add(stop);
+			_ready = new Signal();
+			_playProgress = new Signal(Number, Number);
+			_loadProgress = new Signal(Number, Number, Number);
+			_audioCompleted = Signal(_beatPlayer.audioCompleted);
+			_audioCompleted.add(stop);
 		}
 
 		/**
-		 * load song data from URL or object SongInfo<br/>
+		 * Loads song data from URL or object SongInfo<br/>
 		 * Note: currently assuming that beat audio is loaded with SongInfo 
 		 * @param urlOrSongInfo	url of song lyrics XML or SongInfo 
 		 */
@@ -136,7 +142,7 @@ package vn.karaokeplayer {
 				// hide lyric player to avoid flickering:
 				_lyricPlayer.alpha = 0;
 				_lyricPlayer.cleanUp();
-				audioCompleted.dispatch(); //dispatching this event also call the stop function 
+				_audioCompleted.dispatch(); //dispatching this event also call the stop function 
 			}
 			if(urlOrSongInfo is SongInfo) {
 				//TODO: load beatsound if beatsound is not loaded at this flow
@@ -144,7 +150,7 @@ package vn.karaokeplayer {
 				_lyricPlayer.init(_songInfo.lyrics);
 				_beatPlayer.init(_songInfo.beatSound);
 				_songReady = true;
-				ready.dispatch();
+				_ready.dispatch();
 			} else {
 				var xmlLoader: AssetLoader = new AssetLoader();
 				xmlLoader.completed.add(xmlLoadHandler);
@@ -170,7 +176,7 @@ package vn.karaokeplayer {
 		}
 
 		private function audioLoadingProgressHandler(bytesLoaded: uint, bytesTotal: uint): void {
-			loadProgress.dispatch(bytesLoaded / bytesTotal, bytesLoaded, bytesTotal);	
+			_loadProgress.dispatch(bytesLoaded / bytesTotal, bytesLoaded, bytesTotal);	
 		}
 		
 		private function audioReadyHandler(): void {
@@ -180,7 +186,7 @@ package vn.karaokeplayer {
 			_lyricPlayer.init(_songInfo.lyrics);
 			_songReady = true;
 			trace("KarPlayer - audio ready: " + _songInfo.beatURL);
-			ready.dispatch();
+			_ready.dispatch();
 		}
 		
 		private function acceptSongInfo(song: SongInfo): void {
@@ -199,7 +205,7 @@ package vn.karaokeplayer {
 		}
 		
 		/**
-		 * pause 
+		 * Pauses the karaoke 
 		 */
 		public function pause(): void {
 			_tickingManager.enterFrame.remove(enterFrameHandler);
@@ -208,7 +214,7 @@ package vn.karaokeplayer {
 		}
 
 		/**
-		 * Plays the audio and lyric without recording
+		 * Plays the karaoke
 		 */
 		public function play(): void {
 			GTweener.removeTweens(_lyricPlayer);
@@ -249,7 +255,7 @@ package vn.karaokeplayer {
 			var elapsedTime: uint = _beatPlayer.position; /*getTimer() - _startTime - 50;*/
 			_lyricPlayer.position = elapsedTime;
 			
-			playProgress.dispatch(_beatPlayer.position, _beatPlayer.length);
+			_playProgress.dispatch(_beatPlayer.position, _beatPlayer.length);
 			//_lyricPlayer.position = _beatPlayer.position + 50;
 			 
 			//var diff: Number = (elapsedTime - _beatPlayer.position);
@@ -266,10 +272,16 @@ package vn.karaokeplayer {
 			
 		}
 		
+		/**
+		 * Whether song is ready to play
+		 */
 		public function get songReady(): Boolean {
 			return _songReady;
 		}
 		
+		/**
+		 * SongInfo object which is parsed from the lyrics XML
+		 */
 		public function get songInfo(): SongInfo {
 			return _songInfo;
 		}
@@ -308,15 +320,66 @@ package vn.karaokeplayer {
 			return _lyricPlayer;
 		}
 		
+		/**
+		 * Current position of play head (in milliseconds)
+		 */
 		public function get position(): Number {
 			return _beatPlayer.position;
 		}
 		
+		/**
+		 * Audio length (in milliseconds)
+		 */
 		public function get length(): Number {
 			return _beatPlayer.length;
 		}
 		
+		/**
+		 * Is player playing
+		 */
 		public function get playing(): Boolean { return _beatPlayer.playing; }
+		
+		/**
+		 * Is player pausing
+		 */
 		public function get pausing(): Boolean { return _beatPlayer.pausing; }
+		
+		/**
+		 * Dispatches when data and sound are ready
+		 */
+		public function get ready(): ISignal {
+			return _ready;
+		}
+		
+		/**
+		 * Dispatches playing progress<br/>
+		 * arguments (position: Number, length: Number)  
+		 */
+		public function get playProgress(): ISignal {
+			return _playProgress;
+		}
+		
+		/**
+		 * Dispatches loading progress<br/>
+		 * arguments (percent: Number, byteLoaded: uint, byteTotal: uint)
+		 */
+		public function get loadProgress(): ISignal {
+			return _loadProgress;
+		}
+		
+		/**
+		 * Dispatches when audio (mp3) loading is completed
+		 */
+		public function get loadCompleted(): ISignal {
+			return _loadCompleted;
+		}
+		
+		/**
+		 * Dispatches when audio completes playing
+		 */
+		public function get audioCompleted(): ISignal {
+			return _audioCompleted;
+		}
+		
 	}
 }

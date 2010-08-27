@@ -1,5 +1,5 @@
 /**
- * Copyright 2010 Thu Hoang - Thanh Tran
+ * Copyright 2010 Thu Hoang, Thanh Tran
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,8 +130,8 @@ package vn.karaokeplayer.utils {
 		}*/
 		
 		/**
-		 * Remove CR from a pair of new line maker CRLF to avoid double new line
-		 * @param	src	String needs to be removed CR from a pair of new line maker CRLF to avoid double new line.
+		 * Remove CR from a pair of new line markers CRLF (Windows new line format) to avoid double new line
+		 * @param	src	String needs to be removed CR from a pair of new line markers CRLF to avoid double new line.
 		 * @return
 		 */
 		public static function trimNewLine(src: String): String {

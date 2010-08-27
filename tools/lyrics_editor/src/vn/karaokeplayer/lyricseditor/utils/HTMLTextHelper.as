@@ -5,6 +5,9 @@ package vn.karaokeplayer.lyricseditor.utils {
 	 */
 	public class HTMLTextHelper {
 		
-		
+		public static function insertTimeStamp(ms: Number, caret: uint, str: String): void {
+			
+			
+		}
 	}
 }

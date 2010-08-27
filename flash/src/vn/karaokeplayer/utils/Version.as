@@ -22,7 +22,7 @@ package vn.karaokeplayer.utils {
 		/**
 		 * major.minor.svnrevision
 		 */
-		public static const VERSION: String = "0.7.61";
+		public static const VERSION: String = "0.8.71";
 		/**
 		 * URL to library project
 		 */
@@ -31,5 +31,6 @@ package vn.karaokeplayer.utils {
 		 * Copyright
 		 */
 		public static const COPYRIGHT: String = "© 2010 Thanh Tran - trongthanh@gmail.com";
+		
 	}
 }

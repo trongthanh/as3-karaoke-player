@@ -31,8 +31,20 @@
 		<string>Data classes</string>
 	</package>
 	<package>
+		<string>vn.karaokeplayer.audio</string>
+		<string>Audio player</string>
+	</package>
+	<package>
+		<string>vn.karaokeplayer.parsers</string>
+		<string>Lyrics file parsers</string>
+	</package>
+	<package>
 		<string>vn.karaokeplayer</string>
 		<string>Contains core classes</string>
+	</package>
+	<package>
+		<string>vn.karaokeplayer.utils</string>
+		<string>Utilities</string>
 	</package>
   </packages>
 </flex-config>

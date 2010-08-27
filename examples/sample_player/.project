@@ -16,11 +16,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>as3_karaoke_player</name>
-			<type>2</type>
-			<locationURI>as3_karaoke_player</locationURI>
-		</link>
-		<link>
 			<name>flex.swc</name>
 			<type>1</type>
 			<locationURI>Flex_3_SDK_0/frameworks/libs/flex.swc</locationURI>
