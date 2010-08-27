@@ -65,9 +65,12 @@ package {
 			var songList: String = loaderInfo.parameters["songList"];
 			
 			if(!songList) {
-				songList = "Hạnh Phúc Bất Tận,xml/hanhphucbattan.xml;Cô Bé Mùa Đông,xml/cobemuadong.xml"
-				songList += ";Con Đường Tình Yêu,xml/conduongtinhyeu.xml;Love Story,xml/lovestory.xml";
+				songList = "Hạnh Phúc Bất Tận,xml/hanhphucbattan.xml";
+				songList += ";Cô Bé Mùa Đông,xml/cobemuadong.xml";
+				songList += ";Con Đường Tình Yêu,xml/conduongtinhyeu.xml";
+				songList += ";Love Story,xml/lovestory.xml";
 				songList += ";Love To Be Loved By You,xml/lovetobelovedbyyou.xml";
+				songList += ";I'm yours,xml/imyours.xml";
 			}
 			var songs: Array = songList.split(";");
 			
