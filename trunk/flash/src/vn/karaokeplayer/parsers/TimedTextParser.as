@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.parsers {
+	import vn.karaokeplayer.utils.TimeUtil;
 	import vn.karaokeplayer.utils.Version;
 	
 	import vn.karaokeplayer.data.BlockInfo;
@@ -25,6 +26,7 @@ package vn.karaokeplayer.parsers {
 	
 	use namespace karplayer_internal;
 	/**
+	 * This parser parses the default timed-text based lyrics XML file
 	 * @author Thanh Tran
 	 */
 	public class TimedTextParser implements ILyricsParser {
@@ -222,36 +224,16 @@ package vn.karaokeplayer.parsers {
 			var timeStr:String = parentNode["@" + attr].toString();
 			//trace( "timeStr : " + timeStr );
 
+			//TODO: move these time string parser to TimeUtil
 			// first check for clock format or partial clock format
-			var theTime:Number;
-			var multiplier:Number;
-			var results:Object = /^((\d+):)?(\d+):((\d+)(.\d+)?)$/.exec(timeStr);
-			if (results != null) {
-				theTime = 0;
-				theTime += (uint(results[2]) * 3600 * 1000);
-				theTime += (uint(results[3]) * 60 * 1000);
-				theTime += uint((Number(results[4]) * 1000));
-				return theTime;
-			}
+			var theTime:Number = TimeUtil.clockStringToMs(timeStr);
+			
+			if(theTime) return theTime;			
+
 
 			// next check for offset time
-			results = /^(\d+(.\d+)?)(h|m|s|ms)?$/.exec(timeStr);
-			if (results != null) {
-				switch (results[3]) {
-				case "h": multiplier = 3600 * 1000; break;
-				case "m": multiplier = 60 * 1000; break;
-				case "s":	multiplier = 1000; break;
-				case "ms":
-				default:
-					multiplier = 1;
-					break;
-				}
-				theTime = Number(results[1]) * multiplier;
-				return theTime;
-			}
-
-			// as a last ditch we treat a bare number as milliseconds
-			theTime = uint(timeStr);
+			theTime = TimeUtil.timeOffsetToMs(timeStr);
+			
 			if (isNaN(theTime) || theTime < 0) {
 				if (req) {
 					throw new KarPlayerError(KarPlayerError.INVALID_XML, "Illegal time value " + timeStr + " for required attribute " + attr);

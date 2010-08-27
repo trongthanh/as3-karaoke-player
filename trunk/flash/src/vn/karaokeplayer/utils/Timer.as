@@ -2,6 +2,9 @@ package vn.karaokeplayer.utils {
 	import org.osflash.signals.Signal;
 
 	/**
+	 * A custom timer to replace built in Timer <br/>
+	 * This class will make use of singleton EnterFrameManager and signals to optimize performance.<br/>  
+	 * TODO: This class is not completed and not in used
 	 * @author Thanh Tran
 	 */
 	public class Timer {

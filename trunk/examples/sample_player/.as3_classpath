@@ -9,6 +9,5 @@
     <AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">lib</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/MinimalComps_0_9_5.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">assets/swc/control_bar.swc</AS3Classpath>
-    <AS3Classpath generateProblems="false" type="source" useAsSharedCode="false">as3_karaoke_player</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/GTween_V2_01.swc</AS3Classpath>
 </AS3Classpath>

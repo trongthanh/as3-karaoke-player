@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 package {
+	import flash.display.DisplayObject;
+	import vn.karaokeplayer.IKarPlayer;
 	import fl.controls.Button;
 
 	import thanhtran.stats.StatsButton;
 
-	import vn.karaokeplayer.audio.AudioPlayer;
-	import vn.karaokeplayer.data.BlockInfo;
-	import vn.karaokeplayer.data.LineInfo;
-	import vn.karaokeplayer.data.SongInfo;
-	import vn.karaokeplayer.data.SongLyrics;
-	import vn.karaokeplayer.lyrics.LyricsPlayer;
-	import vn.karaokeplayer.lyrics.TextBlock;
-	import vn.karaokeplayer.lyrics.TextLine;
-	import vn.karaokeplayer.parsers.TimedTextParser;
-	import vn.karaokeplayer.utils.EnterFrameManager;
-	import vn.karaokeplayer.utils.IKarFactory;
-	import vn.karaokeplayer.utils.KarFactory;
+	import vn.karaokeplayer.KarPlayer;
+	import vn.karaokeplayer.data.KarPlayerOptions;
 
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -37,32 +29,23 @@ package {
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.media.Sound;
-	import flash.media.SoundChannel;
-	import flash.media.SoundTransform;
 	import flash.text.Font;
-	import flash.utils.getTimer;
 
 	/**
-	 * To test different components of KarPlayer  
+	 * Simple demo of this engine. <br/>
+	 * Built with Flex SDK 3.5. See ant/build.bat for more instruction <br/>
+	 * See trunk/examples/sample_player for a complete example with GUI and controls   
 	 * @author Thanh Tran
 	 */
 	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="600", height="400")]
 	public class Demo extends Sprite {
 		public var stats: StatsButton;
 		public var playButton: Button;
-		private var block:TextBlock;
-		private var line: TextLine;
+		public var karplayer: IKarPlayer;
 		
 		[Embed(source = '/../assets/images/simplygreen.jpg')]
 		public var BGClass: Class;
 		
-		[Embed(source = "/../bin/xml/song1.xml", mimeType="application/octet-stream")]
-//		[Embed(source = "/../bin/xml/song2.xml", mimeType="application/octet-stream")]
-		public var SongXML: Class;
-		[Embed(source = "/../bin/audio/hanh_phuc_bat_tan.mp3")]
-//		[Embed(source = "/../bin/audio/co_be_mua_dong.mp3")]
-		public var SongAudio: Class
 		
 		[Embed(systemFont='Verdana'
 		,fontFamily  = 'VerdanaRegularVN'
@@ -74,13 +57,6 @@ package {
 		//,embedAsCFF='false'
 		)]
 		public static const fontClass:Class;
-		
-		public var sound: Sound;
-		public var lyricPlayer: LyricsPlayer;
-		public var startTime: int;
-		public var enterFrameManager: EnterFrameManager;
-		
-		public var factory: IKarFactory;
 		
 		public function Demo():void {
 			Font.registerFont(fontClass);
@@ -96,121 +72,43 @@ package {
 			var bg: Bitmap = new BGClass();
 			addChild(bg);
 			
-			factory = new KarFactory(TimedTextParser, LyricsPlayer, TextLine, TextBlock, AudioPlayer);
+			//prepare KarPlayer options
+			var options: KarPlayerOptions = new KarPlayerOptions();
+			options.width = 600;
+			options.height = 400;
 			
+			//instanciate the player 
+			karplayer = new KarPlayer(options);
+			karplayer.loadSong("xml/song1.xml");
+			karplayer.ready.add(karPlayerReadyHandler);
+			karplayer.audioCompleted.add(audioCompletedHandler);
+			addChild(DisplayObject(karplayer));
+						
 			playButton = new Button();
-			playButton.label = "Start";
+			playButton.label = "Play";
 			playButton.x = stage.stageWidth - playButton.width;
 			playButton.addEventListener(MouseEvent.CLICK, playButtonClickHandler);
 			addChild(playButton);
-			enterFrameManager = new EnterFrameManager();
+			
 			//
 			//testTextBlock();
 			//testTextLine();
-			testLyricPlayer();
-			
-			testControlBar();
 			
 			stats = new StatsButton(true);
 			addChild(stats);
 		}
 
-		private function testControlBar(): void {
-			
-		}
-
-		private function testLyricPlayer(): void {
-			var xml: XML = new XML(new SongXML());
-			sound = new SongAudio();
-			var lyricParser: TimedTextParser = new TimedTextParser();
-			var songInfo: SongInfo = lyricParser.parseXML(xml);
-			lyricPlayer = new LyricsPlayer(factory, 500, 360);
-			lyricPlayer.y = 20;
-			lyricPlayer.x = 50;
-			trace("karPlayer version: " + LyricsPlayer.VERSION);
-			var lyrics: SongLyrics = songInfo.lyrics;
-			lyrics.basicLyricStyle.font = "VerdanaRegularVN";
-			lyrics.basicLyricStyle.embedFonts = true;
-			lyrics.maleLyricStyle.font = "VerdanaRegularVN";
-			lyrics.maleLyricStyle.embedFonts = true;
-			lyrics.femaleLyricStyle.font = "VerdanaRegularVN";
-			lyrics.femaleLyricStyle.embedFonts = true;
-			lyricPlayer.init(songInfo.lyrics);
-			addChild(lyricPlayer);
-			
-			
+		private function audioCompletedHandler(): void {
+			playButton.visible = true;
 		}
 
 		private function playButtonClickHandler(event: MouseEvent): void {
-			//bit.play();
-			//textBlock.play();
-			enterFrameManager.enterFrame.add(enterFrameHandler);
-			startTime = getTimer();
-			var channel: SoundChannel = sound.play(0,1,new SoundTransform(0.5));
 			playButton.visible = false;
+			karplayer.play();	
 		}
 
-		private function enterFrameHandler(): void {
-			var pos: int = getTimer() - startTime;
-			
-			lyricPlayer.position = pos;
-			//test text block seekable:
-			//block.position = pos;
-			//test text line seekable:
-			//line.position = pos;
-		}
-
-		/*
-		 * test text bit:
-		 */
-		public function testTextBlock(): void {
-			var blockInfo: BlockInfo = new BlockInfo();
-			blockInfo.text ="Tran Trong Thanh"; 
-			blockInfo.begin = 0;
-			blockInfo.duration = 5000;
-			
-			block = new TextBlock();
-			block.init(blockInfo);
-			block.completed.add(blockCompleteHandler);
-			addChild(block);
-		}
-
-		private function blockCompleteHandler(block: TextBlock): void {
-			trace("block complete");
-		}
-
-		public function testTextLine(): void {
-			var lb: LineInfo = new LineInfo();
-			var mockupSongLyric: SongLyrics = new SongLyrics();
-			lb.songLyrics = mockupSongLyric; 
-			 
-			var lbit1: BlockInfo = new BlockInfo();
-			lbit1.text = "*";
-			lbit1.duration = 2520;
-			
-			lb.lyricBlocks.push(lbit1);
-			
-			var lbit2: BlockInfo = new BlockInfo();
-			lbit2.text = "Thắp nến đêm nay";
-			lbit2.duration = 2000;
-			
-			lb.lyricBlocks.push(lbit2);
-			
-			var lbit3: BlockInfo = new BlockInfo();
-			lbit3.text = "ấm áp trong tay";
-			lbit3.duration = 1720;
-			
-			lb.lyricBlocks.push(lbit3);
-			
-			line = new TextLine(factory);
-			line.init(lb);
-			line.completed.add(textLineCompleteHandler);
-			
-			addChild(line);
-		}
-
-		private function textLineCompleteHandler(tl: TextLine): void {
-			trace("text line complete");
+		private function karPlayerReadyHandler(): void {
+			playButton.visible = true;			
 		}
 	}
 }

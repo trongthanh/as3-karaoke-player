@@ -5,7 +5,7 @@
 	styleName="flexUnitApplication" >
 	<mx:Script>
 		<![CDATA[		
-			import vn.karaokeplayer.unittest.XMLTestSuite;
+			import vn.karaokeplayer.unittest.KarPlayerTestSuite;
 			//import org.flexunit.assertThat;
 			//import org.flexunit.asserts.*;
 			import org.flexunit.listeners.UIListener;
@@ -35,7 +35,7 @@
 				
 				//This run statements executes the unit tests for the FlexUnit4 framework 
 				//the Hamcrest matchers and some of the tests shown in the FlexUnit in 360 seconds blog post
-				core.run( XMLTestSuite);
+				core.run( KarPlayerTestSuite);
 				
 				//If you are interested, the original FlexUnit1 unit tests are available in
 				//a suite named AllFrameworkTests. Just add this one to the list in core.run()

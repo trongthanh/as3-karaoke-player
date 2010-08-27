@@ -20,7 +20,8 @@ package vn.karaokeplayer.utils {
 	import flash.events.Event;
 
 	/**
-	 * A single manager which centralizes all enter-frame handler
+	 * A single manager which centralizes all enter-frame handler <br/>
+	 * This class extends Shape (the simplest display object) to make use of its internal ENTER_FRAME event. 
 	 * @author Thanh Tran
 	 */
 	public class EnterFrameManager extends Shape {
@@ -43,6 +44,12 @@ package vn.karaokeplayer.utils {
 			enterFrame.dispatch();
 		}
 		
+		/**
+		 * To use:
+		 * <code> 
+		 * EnterFrameManager.instance.enterFrame.add(enterframeEventHandler);
+		 * </code> 
+		 */
 		public function get enterFrame(): Signal {
 			return _enterFrame;
 		}

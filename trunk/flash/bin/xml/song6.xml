@@ -8,7 +8,7 @@
 			<ttm:title><![CDATA[I'm yours]]></ttm:title>
 			<ttm:desc><![CDATA[Singers: Jason Mraz]]></ttm:desc>
 			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
-			<kar:audio>audio/im_yours.mp3</kar:audio>
+			<kar:audio>audio/im_yours_beat.mp3</kar:audio>
 		</metadata>
 	</head>
 	<body>
@@ -73,7 +73,7 @@
 		<p begin="00:29.120">giving</p>
 		<p begin="00:29.480">it</p>
 		<p begin="00:29.750">my</p>
-		<p begin="00:30.020">bestest</p>
+		<p begin="00:30.020">best test</p>
 		</div>
 		<div style="b">
 		<p begin="00:30.740">And</p>
@@ -119,7 +119,7 @@
 		<p begin="00:48.020">cannot</p>
 		<p begin="00:49.790">wait,</p>
 		<p begin="00:50.480">I'm</p>
-		<p begin="00:51.470">yours</p>
+		<p begin="00:51.470" dur="2000">yours</p>
 		</div>
 		<div style="b">
 		<p begin="01:06.420">Well</p>
@@ -205,7 +205,7 @@
 		<p begin="01:34.460">won't</p>
 		<p begin="01:35.220">hesitate</p>
 		<p begin="01:38.260">no</p>
-		<p begin="01:39.060">more,no</p>
+		<p begin="01:39.060">more, no</p>
 		<p begin="01:40.660">more</p>
 		</div>
 		<div style="b">
@@ -232,8 +232,8 @@
 		<p begin="01:54.220">This</p>
 		<p begin="01:54.860">is</p>
 		<p begin="01:55.660">our</p>
-		<p begin="01:56.420">fate,I'm</p>
-		<p begin="01:58.060">yours</p>
+		<p begin="01:56.420">fate, I'm</p>
+		<p begin="01:58.060" dur="3000">yours</p>
 		</div>
 		<div style="b">
 		<p begin="02:05.070">Scooch</p>
@@ -247,7 +247,7 @@
 		<p begin="02:08.580">will</p>
 		<p begin="02:08.840">nibble</p>
 		<p begin="02:09.240">your</p>
-		<p begin="02:09.550">ear</p>
+		<p begin="02:09.550" dur="2000" >ear</p>
 		</div>
 		<div style="b">
 		<p begin="02:24.510">I've</p>
@@ -429,8 +429,8 @@
 		<p begin="03:23.860">This</p>
 		<p begin="03:24.180">is</p>
 		<p begin="03:24.460">out</p>
-		<p begin="03:24.740">fate,I'm</p>
-		<p begin="03:26.940" dur="1000">yours</p>
+		<p begin="03:24.740">fate, I'm</p>
+		<p begin="03:26.940" dur="4000">yours</p>
 		</div>
 	</body>
 </tt>

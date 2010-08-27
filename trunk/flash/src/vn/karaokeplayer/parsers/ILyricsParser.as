@@ -17,6 +17,7 @@ package vn.karaokeplayer.parsers {
 	import vn.karaokeplayer.data.SongInfo;
 
 	/**
+	 * Implement this interface to crate parser of other lyrics format. 
 	 * @author Thanh Tran
 	 */
 	public interface ILyricsParser {

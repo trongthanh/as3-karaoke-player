@@ -31,11 +31,14 @@ package vn.karaokeplayer.utils {
 	 * @author Thanh Tran
 	 */
 	public class AssetLoader {
+		/** Notifies when load completed */
 		public var completed: Signal;
 		/**
+		 * Notifies during load progress <br/>
 		 * Arguments: AssetLoader, percent, byteLoaded, byteTotal
 		 */
 		public var progress: Signal;
+		/** Notifies when load failed */
 		public var failed: Signal;
 		public var url: String;
 		public var data: *;
@@ -48,6 +51,9 @@ package vn.karaokeplayer.utils {
 		}
 		
 		/**
+		 * Loads the asset at url. <br/>
+		 * Curently accept: .mp3, .swf, .png, .gif, .jpg <br/>
+		 * Other extensions are treated as text <br/>
 		 * TODO: add loader context for cross domain checking
 		 * @param	url
 		 */

@@ -9,7 +9,7 @@
 @SET BASE_SRC=..\src
 @SET LINK_REPORT=link_report.xml
 
-echo :: Compiling Main ::
-mxmlc %BASE_SRC%\Main.as -load-config+=build_config.xml -link-report=%LINK_REPORT% -o %BASE_OUTPUT%\main.swf
+echo :: Compiling Demo ::
+mxmlc %BASE_SRC%\Demo.as -load-config+=build_config.xml -link-report=%LINK_REPORT% -o %BASE_OUTPUT%\main.swf
 
 pause

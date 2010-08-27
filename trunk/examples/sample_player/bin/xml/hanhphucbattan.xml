@@ -8,8 +8,8 @@
 			<ttm:title><![CDATA[Hạnh Phúc Bất Tận]]></ttm:title>
 			<ttm:desc><![CDATA[Composed by: Nguyễn Đức Thuận<br/>Singers: Hồ Ngọc Hà ft. V.Music Band]]></ttm:desc>
 			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
-			<!-- <kar:audio>http://www.fileden.com/files/2009/8/2/2530043/music/hanh_phuc_bat_tan_beat.mp3</kar:audio>  -->
-			<kar:audio>audio/hanh_phuc_bat_tan.mp3</kar:audio>
+			<kar:audio>http://www.fileden.com/files/2009/8/2/2530043/music/hanh_phuc_bat_tan_beat.mp3</kar:audio>
+			<!--  kar:audio>audio/hanh_phuc_bat_tan.mp3</kar:audio -->
 		</metadata>
 	</head>
 	<body>
