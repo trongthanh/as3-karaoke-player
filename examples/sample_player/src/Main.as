@@ -28,7 +28,7 @@ package {
 	 * @author Thanh Tran
 	 */
 	public class Main extends Sprite {
-		[Embed(source = '/../assets/images/bg-sapa-vietnam.jpg')]
+		[Embed(source = '/../assets/images/bg-nhatrang-vietnam.jpg')]
 		public var BGClass: Class;
 		public var combobox: ComboBox;
 
@@ -44,8 +44,8 @@ package {
 			
 			var bg: Bitmap = new BGClass();
 			bg.smoothing = true;
-			bg.width = stage.stageWidth;
-			bg.height = stage.stageHeight;
+			bg.width = 600;
+			bg.height = 400;
 			addChild(bg);
 						
 			player = new SampleGUIPlayer();
@@ -57,7 +57,7 @@ package {
 			Style.LABEL_TEXT = 0x000000;
 			
 			combobox = new ComboBox();
-			combobox.defaultLabel = "-- Chọn bài hát --";
+			combobox.defaultLabel = "-- Chọn bài hát / Choose a song --";
 			combobox.alternateRows = true;
 			//combobox.addItem({label: , data: ""});
 			combobox.width = 220;
@@ -79,7 +79,7 @@ package {
 				combobox.addItem({label: songInfo[0], data: songInfo[1]});
 			}
 			
-			combobox.x = stage.stageWidth - combobox.width;
+			combobox.x = 600 - combobox.width;
 			combobox.addEventListener(Event.SELECT, comboboxChangeHandler);
 			addChild(combobox);
 		}
