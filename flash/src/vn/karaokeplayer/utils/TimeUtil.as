@@ -27,16 +27,16 @@ package vn.karaokeplayer.utils {
 		 * @param millis	milliseconds
 		 * @return			clock string format
 		 */
-		public static function msToClockString(millis: Number): String {
-			var ms: String = String(millis % 1000);
+		public static function msToClockString(millis: Number, skipHour: Boolean = false): String {
+			var str: String = fillZeroes(String(millis % 1000), 3);
 			var remain: Number = uint(millis / 1000);
-			var s: String = String(remain % 60);
+			str = fillZeroes(String(remain % 60), 2) + "." + str;
 			remain = uint(remain / 60);
-			var m: String = String(remain % 60);
-			var h: String = String(uint(remain / 60));
+			str = fillZeroes(String(remain % 60), 2) + ":" + str;
+			if(!skipHour)
+				str = fillZeroes(String(uint(remain / 60)), 2) + ":" + str;
 			
-				
-			return fillZeroes(h, 2) + ":" + fillZeroes(m, 2) + ":" + fillZeroes(s, 2) + "." + fillZeroes(ms, 3);
+			return str;
 		}
 		
 		/**
