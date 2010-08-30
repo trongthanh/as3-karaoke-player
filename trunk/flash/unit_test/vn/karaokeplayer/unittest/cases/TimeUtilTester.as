@@ -40,6 +40,17 @@ package vn.karaokeplayer.unittest.cases {
 			expectedStr = "04:06:13.000";
 			
 			Assert.assertEquals("trial 2", expectedStr, TimeUtil.msToClockString(timestamp));
+			
+			//trial 3 - skip hour
+			h = 0;
+			m = 6;
+			s = 13;
+			ms = 0;
+			timestamp = (h * 3600 + m * 60 + s) * 1000 + ms; 
+			expectedStr = "06:13.000";
+			
+			Assert.assertEquals("trial 3 - skip hour", expectedStr, TimeUtil.msToClockString(timestamp, true));
+			
 		}
 		
 		[Test(description="test TimeUtil.clockStringToMs()")]

@@ -1,0 +1,2 @@
+These unit tests are my practising of FlexUnit and may cover just a part of this application.
+Results of these tests are for asserting intended part ONLY.

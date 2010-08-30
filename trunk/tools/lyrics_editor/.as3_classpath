@@ -9,4 +9,9 @@
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">utilities.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/GTween_V2_01.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/as3-signals-v0.6.swc</AS3Classpath>
+    <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">assets/swc/controls_ui.swc</AS3Classpath>
+    <AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">unit_test</AS3Classpath>
+    <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/FlexUnit4.swc</AS3Classpath>
+    <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/FlexUnit4UIListener.swc</AS3Classpath>
+    <AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">lib/UserInterface.swc</AS3Classpath>
 </AS3Classpath>

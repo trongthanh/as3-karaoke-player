@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
+	import flash.geom.Rectangle;
+	import vn.karaokeplayer.lyricseditor.utils.HTMLHelper;
+	import vn.karaokeplayer.utils.TimeUtil;
+	import vn.karaokeplayer.lyricseditor.controls.TimeInput;
 	import flash.text.TextFormat;
 	import flash.display.Sprite;
 	import flash.events.TextEvent;
@@ -26,6 +30,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 	 */
 	public class TextArea extends Sprite {
 		private var _txt: TextField;
+		private var _htmlstr: String;
+		private var _timeInput: TimeInput;
 		private var _css: XML = <![CDATA[
 		a {	color: #0000FF;	}
 		a:link { text-decoration: none; }
@@ -34,6 +40,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		]]>;
 		
 		private var _timePoints: Array;
+		private var _insertIndex: int;
+		private var _replaceTimeValue: uint;
 		
 		public function TextArea() {
 			init();
@@ -46,7 +54,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_txt.height = 400;
 			_txt.multiline = true;
 			_txt.wordWrap = true;
-			_txt.defaultTextFormat = new TextFormat("_sans", 12);
+			_txt.defaultTextFormat = new TextFormat("_sans", 16);
 			_txt.addEventListener(TextEvent.LINK, textLinkHandler);
 			_txt.addEventListener(TextEvent.TEXT_INPUT, textInputHandler);
 			
@@ -56,12 +64,29 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			//_txt.styleSheet = styles;
 			_txt.type = TextFieldType.INPUT;
 			
+			_timeInput = new TimeInput();
+			_timeInput.visible = false;
+			_timeInput.valueCommitted.add(timeInputCommittedHandler);
+			
 			addChild(_txt);
+			addChild(_timeInput);
+		}
+
+		private function timeInputCommittedHandler(timeValue: uint): void {
+			if(_insertIndex >= 0) {
+				_htmlstr = HTMLHelper.insertTimeMarkLink(_htmlstr, _insertIndex, timeValue);
+			} else {
+				_htmlstr = HTMLHelper.replaceTimeMarkLink(_htmlstr, timeValue, _replaceTimeValue);
+			}
+					   
+			_txt.htmlText = _htmlstr;
+			_txt.setTextFormat(new TextFormat("_sans", 16));
+			_timeInput.visible = false;
 		}
 
 		public function set htmlText(value: String): void {
-			_txt.htmlText = value; 
-			_txt.type = TextFieldType.INPUT;
+			_htmlstr = value;
+			_txt.htmlText = _htmlstr; 
 		}
 		
 		public function get htmlText(): String {
@@ -73,11 +98,35 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		private function textLinkHandler(event: TextEvent): void {
-			trace("link called: " + event.text);
+			_insertIndex = -1;
+			_replaceTimeValue = int(event.text); 
+			showTimeInput(_replaceTimeValue);
 		}
 
 		public function get textField(): TextField {
 			return _txt;
 		}
+		
+		public function insertTimeMark(caretIndex: int = -1, timeValue: int = -1): void {
+			_insertIndex = (caretIndex >= 0)? caretIndex: _txt.caretIndex;
+			trace('_insertIndex: ' + (_insertIndex));
+			
+			//temporarily set to 0 
+			
+			showTimeInput(timeValue);
+		}
+		
+		private function showTimeInput(timeValue: int = -1): void {
+			//var charBounds: Rectangle = _txt.; 
+			var x: Number = mouseX; 
+			var y: Number = mouseY;
+			_timeInput.timeValue = (timeValue < 0) ? 0 : timeValue;
+			
+			//TODO: check for boundary;
+			_timeInput.x = x + 10;			_timeInput.y = y + 10;
+			_timeInput.visible = true;	
+		}
+		
+		
 	}
 }
