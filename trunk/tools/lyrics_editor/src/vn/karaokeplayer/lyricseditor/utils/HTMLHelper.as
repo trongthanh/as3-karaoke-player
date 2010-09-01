@@ -18,7 +18,7 @@ package vn.karaokeplayer.lyricseditor.utils {
 		 * Generates a time mark HTML link
 		 */
 		public static function generateTimeMarkLink(timeValue: uint): String {
-			var str: String = '<a href="event:' + timeValue + '"><font color="#FF0000">{' + TimeUtil.msToClockString(timeValue, true) + '}</font></a>';
+			var str: String = '<FONT COLOR="#FF0000"><A HREF="event:' + timeValue + '">{' + TimeUtil.msToClockString(timeValue, true) + '}</A></FONT>';
 			
 			return str;
 		}

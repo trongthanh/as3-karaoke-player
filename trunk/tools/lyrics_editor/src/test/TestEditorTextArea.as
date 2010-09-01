@@ -15,10 +15,10 @@ package test {
 		public var insertButton: Button;
 		
 		private var _dummyHTML: String = 
-			'<a class="synced" href="event:00:00:14.123">{00:00:14.123}</a>We were <a class="synced" href="event:00:00:16.111">{00:00:16.111}</a>both young<br/>' +
-			'<a href="event:00:00:20.555">{00:00:20.555}</a>when I first <a href="event:00:00:23.111">{00:00:23.111}</a>saw you<br/>' +
-			'<a href="event:00:00:26.111">{00:00:26.111}</a>I closed my eye<br/>' +
-			'<a href="event:00:00:34.000">{00:00:34.000}</a>and the flashback <a href="event:00:00:36.111">{00:00:36.111}</a>starts<br/>';
+			'<FONT COLOR"#FF0000"><A HREF="event:00:00:14.123">{00:00:14.123}</A></FONT>We were <FONT COLOR"#FF0000"><a class="synced" href="event:00:00:16.111">{00:00:16.111}</A></FONT>both young<br/>' +
+			'<FONT COLOR"#FF0000"><A HREF="event:00:00:20.555">{00:00:20.555}</A></FONT>when I first <FONT COLOR"#FF0000"><A HREF="event:00:00:23.111">{00:00:23.111}</A></FONT>saw you<br/>' +
+			'<FONT COLOR"#FF0000"><A HREF="event:00:00:26.111">{00:00:26.111}</A></FONT>I closed my eye<br/>' +
+			'<FONT COLOR"#FF0000"><A HREF="event:00:00:34.000">{00:00:34.000}</A></FONT>and the flashback <FONT COLOR"#FF0000"><A HREF="event:00:00:36.111">{00:00:36.111}</A></FONT>starts<br/>';
 		private var _dummyLyrics: String = 
 			'We were both young<br/>' +
 			'when I first saw you<br/>' +
