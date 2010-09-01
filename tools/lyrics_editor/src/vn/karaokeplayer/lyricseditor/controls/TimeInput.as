@@ -1,13 +1,14 @@
 package vn.karaokeplayer.lyricseditor.controls {
-	import org.osflash.signals.Signal;
-	import org.osflash.signals.ISignal;
-	import flash.ui.Keyboard;
-	import flash.events.KeyboardEvent;
-	import flash.display.SimpleButton;
 	import vn.karaokeplayer.utils.TimeUtil;
+
+	import org.osflash.signals.Signal;
+
+	import flash.display.SimpleButton;
 	import flash.display.Sprite;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import flash.ui.Keyboard;
 
 	/**
 	 * @author Thanh Tran
@@ -39,6 +40,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 			min.text = "00";
 			sec.text = "00";
 			millis.text = "000";
+			
+			min.restrict = "0-9";
+			sec.restrict = "0-9";
+			millis.restrict = "0-9";
 			
 			min.addEventListener(MouseEvent.MOUSE_DOWN, textFieldFocusInHandler);			sec.addEventListener(MouseEvent.MOUSE_DOWN, textFieldFocusInHandler);			millis.addEventListener(MouseEvent.MOUSE_DOWN, textFieldFocusInHandler);
 			
