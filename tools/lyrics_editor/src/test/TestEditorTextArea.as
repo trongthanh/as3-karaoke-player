@@ -9,7 +9,7 @@ package test {
 	/**
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#CCDDEE", frameRate="31", width="800", height="600")]
+	[SWF(backgroundColor="#CCCCCC", frameRate="31", width="800", height="600")]
 	public class TestEditorTextArea extends Sprite {
 		public var textArea: TextArea;
 		public var insertButton: Button;
