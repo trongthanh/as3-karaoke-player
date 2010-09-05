@@ -19,13 +19,20 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var min: TextField;
 		public var sec: TextField;
 		public var millis: TextField;
-		public var closeButton: SimpleButton;
+		public var cancelButton: SimpleButton;
+		public var okButton: SimpleButton;
+		public var resetButton: SimpleButton;
 		
 		//signals
 		/**
 		 * Argument: time value (uint)
 		 */
-		public var valueCommitted: Signal;
+		public var committed: Signal;
+		
+		/**
+		 * Argument: time value (uint);
+		 */
+		public var canceled: Signal;
 		
 		//private props
 		private var _timeValue: uint;
@@ -51,11 +58,14 @@ package vn.karaokeplayer.lyricseditor.controls {
 			sec.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 			millis.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 			
-			closeButton.addEventListener(MouseEvent.CLICK, closeButtonClickHandler);
+			cancelButton.addEventListener(MouseEvent.CLICK, cancelButtonClickHandler);
+			okButton.addEventListener(MouseEvent.CLICK, okButtonClickHandler);
+			resetButton.addEventListener(MouseEvent.CLICK, resetButtonClickHandler);
 			
 			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			
-			valueCommitted = new Signal(uint);
+			committed = new Signal(uint);
+			canceled = new Signal(uint);
 		}
 
 		private function mouseDownHandler(event: MouseEvent): void {
@@ -71,16 +81,31 @@ package vn.karaokeplayer.lyricseditor.controls {
 		private function keyUpHandler(event: KeyboardEvent): void {
 			if(event.keyCode == Keyboard.ENTER) {
 				commitValue();
+			}else if(event.keyCode == Keyboard.ENTER) {
+				cancelValue();
 			}
 		}
+		
+		private function resetButtonClickHandler(event: MouseEvent): void {
+			updateText();
+		}
 
-		private function closeButtonClickHandler(event: MouseEvent): void {
+		private function okButtonClickHandler(event: MouseEvent): void {
 			commitValue();
+		}
+
+		private function cancelButtonClickHandler(event: MouseEvent): void {
+			cancelValue();
+		}
+		
+		private function cancelValue(): void {
+			updateText();
+			canceled.dispatch(_timeValue);
 		}
 		
 		private function commitValue(): void {
-			_timeValue = (minValue * 60 + secValue) * 1000 + msValue; 
-			valueCommitted.dispatch(_timeValue);
+			_timeValue = (minValue * 60 + secValue) * 1000 + msValue;
+			committed.dispatch(_timeValue);
 		}
 
 		private function textFieldFocusInHandler(event: MouseEvent): void {
