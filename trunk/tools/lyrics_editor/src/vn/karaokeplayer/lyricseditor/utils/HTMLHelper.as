@@ -6,6 +6,12 @@ package vn.karaokeplayer.lyricseditor.utils {
 	 */
 	public class HTMLHelper {
 		
+		/**
+		 * Inserts a time mark link into a HTML string.
+		 * @param htmlstr		HTML string to be processed  
+		 * @param caretIndex	caret index of text field
+		 * @param timeValue 	value of the time mark
+		 */
 		public static function insertTimeMarkLink(htmlstr: String, caretIndex: int, timeValue: uint): String {
 			var htmlIndex: int = HTMLHelper.calculateHtmlPosition(htmlstr, caretIndex);
 			var newStr: String = htmlstr.substring(0, htmlIndex) + 
@@ -40,10 +46,25 @@ package vn.karaokeplayer.lyricseditor.utils {
 		}
 		
 		/**
+		 * @param htmlstr	HTML string to search for
+		 * @param timeValue	time value ofthe time mark to be removed
+		 * @return string with time marke removed, null if time value is not found 
+		 */
+		public static function removeTimeMarkLink(htmlstr: String, timeValue: uint): String {
+			var result: Object = searchTimeMarkLink(htmlstr, timeValue);
+			if(result) {
+				return result[1] + result[2];
+			} else {
+				return null; 
+			}
+			
+		}
+		
+		/**
 		 * @return an object with 3 properties: [0] full matched string, [1] the string part before the time mark, [2] the string part after the time mark;<br/> null if time mark not found 
 		 */
 		public static function searchTimeMarkLink(htmlstr: String, timeValue: uint): Object {
-			var pattern: String = '([\\w\\W]*)<a href="event:' + String(timeValue) + '">[\\w\\W]*?</a>([\\w\\W]*)';
+			var pattern: String = '([\\w\\W]*)<FONT COLOR="#FF0000"><A HREF="event:' + String(timeValue) + '"[\\w\\W]*?>[\\w\\W]*?</A></FONT>([\\w\\W]*)';
 			//trace('pattern: ' + (pattern));
 			var reg: RegExp = new RegExp(pattern, "i");
 			var result: Object = reg.exec(htmlstr);
@@ -115,10 +136,4 @@ package vn.karaokeplayer.lyricseditor.utils {
 			return i;
 		}
 	}
-}
-
-internal class TextPostion {
-	public var start: int;
-	public var end: int;
-
 }

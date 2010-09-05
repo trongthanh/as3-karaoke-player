@@ -5,7 +5,7 @@ package test {
 	/**
 	 * @author Thanh Tran
 	 */
-	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="800", height="600")]
+	[SWF(backgroundColor="#001133", frameRate="31", width="800", height="600")]
 	public class TestTimeInput extends Sprite {
 		public var timeInput: TimeInput;
 		
