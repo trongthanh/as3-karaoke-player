@@ -11,6 +11,7 @@
 			<ttm:copyright>Copyright (C) 2010 Thanh Tran - trongthanh@gmail.com</ttm:copyright>
 			
 			<!-- below are extra metadata proposed by Karplayer -->
+			<kar:version>0.5</kar:version> <!-- format version of this file -->
 			<kar:id>0001</kar:id> <!-- unique id for back-end identification or recording purposes -->
 			<kar:composer>Nguyễn Đức Thuận</kar:composer> <!-- for info only -->
 			<kar:styleof>Hồ Ngọc Hà ft. V.Music Band</kar:styleof> <!-- for info only; meaning the beat audio is in the style of singer/band/  -->
@@ -23,7 +24,7 @@
 			<kar:extra id="extraItem2">extra item 2</kar:extra>
 		</metadata>
 	<styling> <!-- custom styling is planned to be implemented later-->
-		<!--- basic style, must equal 'b' 
+		<!--- basic style, ID must equal 'b' 
 			font size values: only support absolute pixel (assumed)
 			textOutline: only support color
 		-->

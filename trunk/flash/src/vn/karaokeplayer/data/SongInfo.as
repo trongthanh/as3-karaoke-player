@@ -35,7 +35,7 @@ package vn.karaokeplayer.data {
 		public var genre: String;
 		public var mood: String;
 		
-		public var lyrics: SongLyrics;
+		public var lyrics: ISongLyrics;
 		
 		/** used to store reference of Sound object for this song */
 		public var beatSound: Sound;
