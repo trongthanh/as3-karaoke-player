@@ -191,7 +191,7 @@ package vn.karaokeplayer {
 		
 		private function acceptSongInfo(song: SongInfo): void {
 			//set default styles of this player 
-			var songLyrics: SongLyrics = song.lyrics;
+			var songLyrics: SongLyrics = SongLyrics(song.lyrics);
 			if(_options.basicLyricStyle) songLyrics.basicLyricStyle = _options.basicLyricStyle;
 			if(_options.maleLyricStyle) songLyrics.maleLyricStyle = _options.maleLyricStyle;
 			if(_options.femaleLyricStyle) songLyrics.femaleLyricStyle = _options.femaleLyricStyle;

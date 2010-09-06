@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.utils.IKarFactory;
-	import org.osflash.signals.ISignal;
+	import vn.karaokeplayer.data.ISongLyrics;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongLyrics;
+	import vn.karaokeplayer.utils.IKarFactory;
 	import vn.karaokeplayer.utils.Version;
 
+	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	import flash.display.DisplayObject;
@@ -66,8 +67,8 @@ package vn.karaokeplayer.lyrics {
 		 * TODO: optimization: create exactly number of lines 
 		 * @param	lyrics
 		 */
-		public function init(lyrics: SongLyrics): void {
-			data = lyrics;	
+		public function init(lyrics: ISongLyrics): void {
+			data = SongLyrics(lyrics);	
 			_lines = new Array();
 			_len = data.lyricLines.length;
 			var textLine: ILine;
