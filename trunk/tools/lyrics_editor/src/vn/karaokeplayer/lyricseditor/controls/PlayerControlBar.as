@@ -13,7 +13,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 	 * @author Thanh Tran
 	 */
 	[Embed(source="/../assets/swc/controls_ui.swf", symbol="vn.karaokeplayer.lyricseditor.ui.PlayerBarUI")]	
-	public class PlayerBar extends Sprite {
+	public class PlayerControlBar extends Sprite {
 		//stage
 		public var playButton: SimpleButton;
 		public var pauseButton: SimpleButton;
@@ -28,13 +28,15 @@ package vn.karaokeplayer.lyricseditor.controls {
 		private var _audioPlayer: AudioPlayer;
 		private var _sliderDragging: Boolean; 
 		
-		public function PlayerBar() {
+		public function PlayerControlBar() {
 			
 			init();
+			mouseChildren = false;
 		}
 		
 		public function open(soundURL: String): void {
 			_audioPlayer.open(soundURL);
+			mouseChildren = false;
 		}
 
 		private function init(): void {			
@@ -102,6 +104,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			timeSlider.minimum = 0;
 			timeSlider.maximum = _audioPlayer.length;
 			timeSlider.value = 0;
+			mouseChildren = true;
 		}
 
 		private function audioCompleteHandler(): void {

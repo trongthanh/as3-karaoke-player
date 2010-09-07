@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- set your own path to Flex SDK home folder -->
+<project name="AS3 Karaoke Lyrics Editor Ant Builder" basedir="." default="run-air" >
+    <condition property="FLEX_HOME" value="C:\flex_sdk">
+		<os family="windows" />
+	</condition>
+	<condition property="FLEX_HOME" value="${user.home}/flex_sdk">
+		<os family="unix" />
+	</condition>
+	<condition property="ADL" value="${FLEX_HOME}\bin\adl.exe">
+		<os family="windows" />
+	</condition>
+	<condition property="ADL" value="${FLEX_HOME}/bin/adl">
+		<os family="unix" />
+	</condition>
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	
+	<property name="SRC" value="${basedir}/../src"/>
+	<property name="OUTPUT" value="${basedir}/../bin"/>
+	
+	<target name="build-air">
+		<mxmlc file="${SRC}/vn/karaokeplayer/lyricseditor/LyricsEditor.as"
+			   output="${OUTPUT}/LyricsEditor.swf" >
+			<load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
+			<load-config filename="${basedir}/build_config.xml" />
+			<!-- <frame label="start" classname="Main" /> -->
+		</mxmlc>
+	</target>
+	<target name="run-air" depends="build-air">
+		<exec executable="${ADL}">
+			<arg line="${OUTPUT}/LyricsEditor-app.xml" />
+		</exec>
+	</target>
+</project>

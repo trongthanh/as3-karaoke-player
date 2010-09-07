@@ -32,7 +32,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 	 * @author Thanh Tran
 	 */
 	public class TextArea extends Sprite {
-		[Embed(systemFont='Verdana'
+		[Embed(systemFont='WenQuanYi Micro Hei'
 		,fontFamily  = 'VerdanaRegularVN'
 		,fontName  ='VerdanaRegularVN'
 		,fontStyle   ='normal' // normal|italic
@@ -56,7 +56,6 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		.synced { color: #FF0000; }
 		]]>;
 		
-		private var _timePoints: Array;
 		private var _insertIndex: int;
 		private var _lastCaretIndex: int;
 		private var _replaceTimeValue: uint;
@@ -68,7 +67,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		private function init(): void {
-			_fm = new TextFormat(FONT_NAME, 16);
+			_fm = new TextFormat(FONT_NAME, 14);
 			
 			_tf = new TextField();
 			//TODO: more customization for text field
@@ -303,7 +302,13 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_timeInput.x = x + 10;			_timeInput.y = y + 10;
 			_timeInput.visible = true;	
 		}
-		
-		
+
+		override public function set width(value: Number): void {
+			_tf.width = value;
+		}
+
+		override public function set height(value: Number): void {
+			_tf.height = value;
+		}
 	}
 }
