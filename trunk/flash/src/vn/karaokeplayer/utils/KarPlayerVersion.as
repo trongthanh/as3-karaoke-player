@@ -18,7 +18,7 @@ package vn.karaokeplayer.utils {
 	 * This class manages version of this library
 	 *  
 	 */
-	public class Version {
+	public class KarPlayerVersion {
 		/**
 		 * major.minor.svnrevision
 		 */

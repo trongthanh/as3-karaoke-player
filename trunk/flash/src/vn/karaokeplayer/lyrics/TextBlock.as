@@ -16,7 +16,7 @@
 package vn.karaokeplayer.lyrics {
 	import org.osflash.signals.ISignal;
 	import flash.display.IBitmapDrawable;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
 	import vn.karaokeplayer.data.LyricStyle;
@@ -35,7 +35,7 @@ package vn.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class TextBlock extends Sprite implements IBlock, IBitmapDrawable {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		
 		private var _next: IBlock;
 		public var textColor: uint = 0x8AD420;

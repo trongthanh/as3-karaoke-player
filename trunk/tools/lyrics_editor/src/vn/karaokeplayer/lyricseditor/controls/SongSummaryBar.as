@@ -1,7 +1,9 @@
 package vn.karaokeplayer.lyricseditor.controls {
 	import vn.karaokeplayer.data.SongInfo;
-	import flash.text.TextField;
+	import vn.karaokeplayer.lyricseditor.utils.FontLib;
+
 	import flash.display.Sprite;
+	import flash.text.TextField;
 
 	/**
 	 * @author Thanh Tran
@@ -15,6 +17,8 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var copyText: TextField;
 		public var descText: TextField;
 		
+		public var versionText: TextField; //this text field uses _sans
+		
 		//props
 		private var _songInfo: SongInfo;
 		
@@ -24,6 +28,12 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 
 		private function init() : void {
+			FontLib.initTextField(titleText);
+			FontLib.initTextField(composerText);
+			FontLib.initTextField(artistText);
+			FontLib.initTextField(copyText);
+			FontLib.initTextField(descText);
+			
 			titleText.text = "";
 			composerText.text = "";
 			artistText.text = "";

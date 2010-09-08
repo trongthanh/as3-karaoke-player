@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor.controls {
+	import flash.filters.ColorMatrixFilter;
 	import flash.media.SoundTransform;
 	import flash.media.SoundMixer;
 	import vn.karaokeplayer.utils.EnterFrameManager;
@@ -26,20 +27,34 @@ package vn.karaokeplayer.lyricseditor.controls {
 		
 		//props
 		private var _audioPlayer: AudioPlayer;
-		private var _sliderDragging: Boolean; 
-		
+		private var _sliderDragging: Boolean;
+		private var _grayFilter: ColorMatrixFilter;
+				
 		public function PlayerControlBar() {
 			
 			init();
-			mouseChildren = false;
+			
 		}
 		
 		public function open(soundURL: String): void {
 			_audioPlayer.open(soundURL);
-			mouseChildren = false;
+			enabled = false;
 		}
 
-		private function init(): void {			
+		private function init(): void {
+			var _s: Number = 0; //saturation value 0 - 1 - 2
+						
+			_grayFilter = new ColorMatrixFilter (
+			[0.114 + 0.886 * _s,	0.299 * (1 - _s),	0.1 * (1 - _s),	0,	0,
+			 0.114 * (1 - _s), 		0.299 + 0.701 * _s,	0.1 * (1 - _s),	0,	0, 
+			 0.114 * (1 - _s), 		0.299 * (1 - _s),	0.1 + 0.413 * _s, 0,	0, 					
+			 0,						0, 					0, 					1,	0]);
+			
+//			[0.114 + 0.886 * _s,	0.299 * (1 - _s),	0.587 * (1 - _s),	0,	0,
+//			 0.114 * (1 - _s), 		0.299 + 0.701 * _s,	0.587 * (1 - _s),	0,	0, 
+//			 0.114 * (1 - _s), 		0.299 * (1 - _s),	0.587 + 0.413 * _s, 0,	0, 					
+//			 0,						0, 					0, 					1,	0]);
+			
 			_audioPlayer = new AudioPlayer();
 			_audioPlayer.audioCompleted.add(audioCompleteHandler);
 			_audioPlayer.loadCompleted.add(loadCompleteHandler);
@@ -73,6 +88,9 @@ package vn.karaokeplayer.lyricseditor.controls {
 			volumeSlider.addEventListener(SliderEvent.CHANGE, volumeSliderChangeHandler);
 			timeSlider.addEventListener(SliderEvent.CHANGE, timeSliderChangeHandler);
 			timeSlider.addEventListener(MouseEvent.MOUSE_DOWN, timeSliderStartDragHandler);
+			
+			//default disable
+			enabled = false;
 		}
 
 		private function volumeSliderChangeHandler(event: SliderEvent): void {
@@ -104,7 +122,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			timeSlider.minimum = 0;
 			timeSlider.maximum = _audioPlayer.length;
 			timeSlider.value = 0;
-			mouseChildren = true;
+			enabled = true;
 		}
 
 		private function audioCompleteHandler(): void {
@@ -161,6 +179,19 @@ package vn.karaokeplayer.lyricseditor.controls {
 			var pos: Number = _audioPlayer.position;
 			currentTimer.timeValue = pos;
 			if(!_sliderDragging) timeSlider.value = pos;
+		}
+		
+		public function set enabled(value: Boolean): void {
+			mouseChildren = value;
+			if(value) {
+				this.filters = null;
+			} else {
+				this.filters = [_grayFilter];
+			}
+		}
+		
+		public function get enabled(): Boolean {
+			return mouseChildren;
 		}
 	}
 }

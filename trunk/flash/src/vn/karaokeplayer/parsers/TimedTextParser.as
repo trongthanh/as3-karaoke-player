@@ -15,7 +15,7 @@
  */
 package vn.karaokeplayer.parsers {
 	import vn.karaokeplayer.utils.TimeUtil;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 	
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.KarPlayerError;
@@ -30,7 +30,7 @@ package vn.karaokeplayer.parsers {
 	 * @author Thanh Tran
 	 */
 	public class TimedTextParser implements ILyricsParser {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		
 		public var tt: Namespace = new Namespace("http://www.w3.org/ns/ttml");
 		public var tts: Namespace = new Namespace("http://www.w3.org/ns/ttml#styling");

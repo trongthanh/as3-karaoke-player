@@ -32,7 +32,7 @@ package vn.karaokeplayer {
 	import vn.karaokeplayer.utils.AssetLoader;
 	import vn.karaokeplayer.utils.EnterFrameManager;
 	import vn.karaokeplayer.parsers.TimedTextParser;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 
 	import com.gskinner.motion.GTweener;
 
@@ -45,7 +45,7 @@ package vn.karaokeplayer {
 	 * @author Thanh Tran
 	 */
 	public class KarPlayer extends Sprite implements IKarPlayer {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		
 		/**
 		 * dispatch when data and sound are ready
