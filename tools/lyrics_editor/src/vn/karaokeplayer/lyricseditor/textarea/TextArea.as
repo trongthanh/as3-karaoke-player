@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
-	import flash.events.KeyboardEvent;
+	import fl.controls.UIScrollBar;
 	import vn.karaokeplayer.lyricseditor.controls.TimeInput;
+	import vn.karaokeplayer.lyricseditor.utils.FontLib;
 	import vn.karaokeplayer.lyricseditor.utils.HTMLHelper;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
-	import flash.text.Font;
+	import flash.text.AntiAliasType;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
@@ -32,19 +34,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 	 * @author Thanh Tran
 	 */
 	public class TextArea extends Sprite {
-		[Embed(systemFont='WenQuanYi Micro Hei'
-		,fontFamily  = 'VerdanaRegularVN'
-		,fontName  ='VerdanaRegularVN'
-		,fontStyle   ='normal' // normal|italic
-		,fontWeight  ='normal' // normal|bold
-		,unicodeRange = 'U+0020-U+002F,U+0030-U+0039,U+003A-U+0040,U+0041-U+005A,U+005B-U+0060,U+0061-U+007A,U+007B-U+007E,U+00C0-U+00C3,U+00C8-U+00CA,U+00CC-U+00CD,U+00D0,U+00D2-U+00D5,U+00D9-U+00DA,U+00DD,U+00E0-U+00E3,U+00E8-U+00EA,U+00EC-U+00ED,U+00F2-U+00F5,U+00F9-U+00FA,U+00FD,U+0102-U+0103,U+0110-U+0111,U+0128-U+0129,U+0168-U+0169,U+01A0-U+01B0,U+1EA0-U+1EF9,U+02C6-U+0323'
-		,mimeType='application/x-font'
-		//,embedAsCFF='false'
-		)]
-		public static const FONT_CLASS:Class;
-		public static const FONT_NAME: String = "VerdanaRegularVN";
-		
-		
+		private var _scroll: UIScrollBar;		
 		private var _tf: TextField;
 		private var _fm: TextFormat;
 		private var _htmlstr: String;
@@ -62,12 +52,11 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		
 		
 		public function TextArea() {
-			Font.registerFont(FONT_CLASS);
 			init();
 		}
 
 		private function init(): void {
-			_fm = new TextFormat(FONT_NAME, 14);
+			_fm = new TextFormat(FontLib.FONT_NAME, 14);
 			
 			_tf = new TextField();
 			//TODO: more customization for text field
@@ -76,6 +65,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_tf.multiline = true;
 			_tf.wordWrap = true;
 			_tf.embedFonts = true;
+			_tf.antiAliasType = AntiAliasType.ADVANCED;
 //			_tf.textColor = 0xFFFFFF; IMPORTANT
 			_tf.defaultTextFormat = _fm;
 			_tf.addEventListener(TextEvent.LINK, textLinkHandler);
@@ -93,8 +83,15 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_timeInput.visible = false;
 			_timeInput.committed.add(timeInputCommittedHandler);			_timeInput.canceled.add(timeInputCancelHandler);
 			
+			_scroll = new UIScrollBar();
+			
+			_scroll.x = _tf.x;
+			//_scroll.y = _tf.y;
+			_scroll.height = _tf.height;
+			_scroll.scrollTarget = _tf;
 			
 			addChild(_tf);
+			addChild(_scroll);
 			addChild(_timeInput);
 		}
 
@@ -129,7 +126,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			//search for broken time mark
 			//(({\d\d:\d\d.\d\d\d)[^}])|([^{](\d\d:\d\d.\d\d\d)})
 			_htmlstr = _tf.htmlText;
-			trace('changed _htmlstr: ' + (_htmlstr));
+//			trace('changed _htmlstr: ' + (_htmlstr));
 			
 		}
 
@@ -146,11 +143,12 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			else trace("cannot remove time mark " + timeValue);
 			_tf.setTextFormat(_fm);
 			
+			/*
 			if(_insertIndex >= 0) {
 				setCaretIndex(_insertIndex);
 			} else {
 				setCaretIndex(_lastCaretIndex);
-			}
+			}*/
 
 			_timeInput.visible = false;
 		}
@@ -178,12 +176,13 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			else trace("cannot insert/replace time mark " + timeValue);
 			_tf.setTextFormat(_fm);
 			
+			/* won't set caret to avoid scroll being updated
 			if(_insertIndex >= 0) {
 				setCaretIndex(_insertIndex);
 			} else {
 				setCaretIndex(_lastCaretIndex);
 				moveCaretOutOfTimeMark();
-			}
+			}*/
 			
 			_timeInput.visible = false;
 		}
@@ -193,9 +192,10 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_tf.htmlText = _htmlstr;
 			//recapture html text from text field to retain HTML format
 			//_htmlstr = _tf.htmlText;
-			_tf.setTextFormat(_fm); 
+			_tf.setTextFormat(_fm);
+			_scroll.update();
 		}
-		
+
 		public function get htmlText(): String {
 			return _tf.htmlText;
 		}
@@ -221,7 +221,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			return _tf;
 		}
 		
-		public function insertTimeMark(caretIndex: int = -1, timeValue: int = -1): void {
+		public function insertTimeMark(timeValue: int = -1, caretIndex: int = -1): void {
 			_insertIndex = (caretIndex >= 0)? caretIndex: _tf.caretIndex;
 			trace('_insertIndex: ' + (_insertIndex));
 			
@@ -287,9 +287,15 @@ package vn.karaokeplayer.lyricseditor.textarea {
 				
 				var bounds: Rectangle = _tf.getCharBoundaries(caretPos);
 				
+				//check if text field is scrolled
+				trace("_tf.scrollV: " + _tf.scrollV);
+				var scrollV: int = _tf.scrollV;
+				var subtractY: Number = _tf.getLineMetrics(scrollV).height * (scrollV - 1);
+				trace('subtractY: ' + (subtractY));
+				
 				if(bounds) {
 					x = bounds.x;
-					y = bounds.y;
+					y = bounds.y - subtractY;
 				}
 					
 			} else {
@@ -304,11 +310,13 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		override public function set width(value: Number): void {
-			_tf.width = value;
+			_tf.width = value - _scroll.width;
+			_scroll.x = _tf.width;
 		}
 
 		override public function set height(value: Number): void {
 			_tf.height = value;
+			_scroll.height = value;
 		}
 	}
 }

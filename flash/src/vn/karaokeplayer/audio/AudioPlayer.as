@@ -1,6 +1,6 @@
 package vn.karaokeplayer.audio {
 	import org.osflash.signals.ISignal;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 
 	import org.osflash.signals.Signal;
 
@@ -16,7 +16,7 @@ package vn.karaokeplayer.audio {
 	 * @author Thanh Tran
 	 */
 	public class AudioPlayer implements IAudioPlayer {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		
 		public var _audioCompleted: Signal;
 		public var _ready: Signal;

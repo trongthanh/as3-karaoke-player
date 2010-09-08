@@ -1,6 +1,8 @@
 package vn.karaokeplayer.lyricseditor.controls {
 	import fl.controls.Button;
 
+	import vn.karaokeplayer.lyricseditor.utils.FontLib;
+
 	import org.osflash.signals.Signal;
 
 	import flash.display.SimpleButton;
@@ -11,7 +13,6 @@ package vn.karaokeplayer.lyricseditor.controls {
 	import flash.net.FileFilter;
 	import flash.text.TextField;
 
-	
 	/**
 	 * @author Thanh Tran
 	 */
@@ -24,17 +25,30 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var saveButton: SimpleButton;
 		public var previewXmlButton: Button;
 		public var testKaraokeButton: Button;
-		public var lyricsText: TextField;
+		public var lyricText: TextField;
 		public var mp3Text: TextField;
 		
 		public var insertButton: Button;
 		public var validateButton: Button;
 		
 		//signals
-		public var audioFileOpened: Signal;
+		/**
+		 * Arguments: fileURL (String)
+		 */
+		public var audioFileSelected: Signal;
+		/**
+		 * Arguments: fileURL (String)
+		 */
+		public var lyricFileSelected: Signal;
+		/**
+		 * Arguments: 
+		 */
+		public var timeMarkInserted: Signal;
+		
 		
 		//props
 		private var _audioFile: File;
+		private var _lyricFile: File;
 		
 		public function TopControlBar() {
 			init();
@@ -82,22 +96,42 @@ package vn.karaokeplayer.lyricseditor.controls {
 			testKaraokeButton.addEventListener(MouseEvent.CLICK, testKaraokeButtonClickHandler);	
 			insertButton.addEventListener(MouseEvent.CLICK, insertButtonClickHandler);
 			validateButton.addEventListener(MouseEvent.CLICK, validateButtonClickHandler);
+			
+			FontLib.initTextField(lyricText);
+			FontLib.initTextField(mp3Text);
+			lyricText.text = "Lyric file: N/A";
+			mp3Text.text = "MP3 file: N/A";
+			
+			audioFileSelected = new Signal(String);			lyricFileSelected = new Signal(String);
+			timeMarkInserted = new Signal();
 		}
 
 		private function newButtonClickHandler(event: MouseEvent): void {
+			
 		}
 
 		private function openLyricButtonClickHandler(event: MouseEvent): void {
+			_lyricFile = new File();
+			_lyricFile.addEventListener(Event.SELECT, lyricFileSelectHandler, false,0,true);
+			_lyricFile.browse([new FileFilter("Lyric Text File", "*.xml;*.txt;*.lrc")]);
+			
+		}
+
+		private function lyricFileSelectHandler(event: Event): void {
+			lyricText.text = "Lyric file: " + _lyricFile.name;
+			lyricFileSelected.dispatch(_lyricFile.url)
 		}
 
 		private function openMp3ButtonClickHandler(event: MouseEvent): void {
 			_audioFile = new File();
-			_audioFile.addEventListener(Event.SELECT, audioFileSelectHandler);
-			_audioFile.browse([new FileFilter("MP3", "*.mp3")]);
+			_audioFile.addEventListener(Event.SELECT, audioFileSelectHandler, false,0,true);
+			_audioFile.browse([new FileFilter("MP3", "*.mp3")]);			
 		}
 
 		private function audioFileSelectHandler(event: Event): void {
-			trace("audio file: " + _audioFile.url);
+			//trace("audio file: " + _audioFile.url);
+			audioFileSelected.dispatch(_audioFile.url);
+			mp3Text.text = "MP3 file: " + _audioFile.name;
 		}
 
 		private function saveButtonClickHandler(event: MouseEvent): void {
@@ -110,6 +144,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 
 		private function insertButtonClickHandler(event: MouseEvent): void {
+			timeMarkInserted.dispatch();
 		}
 
 		private function validateButtonClickHandler(event: MouseEvent): void {

@@ -19,7 +19,7 @@ package vn.karaokeplayer.lyrics {
 	import vn.karaokeplayer.data.BlockInfo;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.LyricStyle;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 
 	import org.osflash.signals.Signal;
 
@@ -32,7 +32,7 @@ package vn.karaokeplayer.lyrics {
 	 * TODO: pass screen width from LyricPlayer and auto reduce font size if text line width exceed
 	 */
 	public class TextLine extends Sprite implements ILine {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		private var _factory: IKarFactory;	
 		private var _completed: Signal;
 		private var _blocks: Array;

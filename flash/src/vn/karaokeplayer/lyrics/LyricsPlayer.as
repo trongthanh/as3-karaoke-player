@@ -18,7 +18,7 @@ package vn.karaokeplayer.lyrics {
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongLyrics;
 	import vn.karaokeplayer.utils.IKarFactory;
-	import vn.karaokeplayer.utils.Version;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
 
 	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
@@ -30,7 +30,7 @@ package vn.karaokeplayer.lyrics {
 	 * @author Thanh Tran
 	 */
 	public class LyricsPlayer extends Sprite implements ILyricsPlayer {
-		public static const VERSION: String = Version.VERSION;
+		public static const VERSION: String = KarPlayerVersion.VERSION;
 		
 		private var _factory: IKarFactory;
 		private var data: SongLyrics;
