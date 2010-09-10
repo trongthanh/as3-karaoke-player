@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/1.5" minimumPatchLevel="0">
 <!-- AIR Application Descriptor File. See http://www.adobe.com/go/learn_air_1.0_application_descriptor_en. -->
-	<id>LyricsEditor</id>
-	<name>LyricsEditor</name>
-	<version>1.0</version>
-	<filename>LyricsEditor</filename>
+	<id>vn.karaokeplayer.LyricsEditor</id>
+	<name>KarLyricsEditor</name>
+	<version>0.1</version>
+	<filename>KarLyricsEditor</filename>
 	<description>
-		<text xml:lang="en">This is a sample Adobe AIR application.</text>
-		<text xml:lang="ja">これは Adobe AIR のサンプルアプリケーションです。</text>
+		<text xml:lang="en">Tool to edit AS3 Karaoke Player's timedtext-based lyrics files. For more info, visit: http://code.google.com/p/as3-karaoke-player/</text>
 	</description>
 	<copyright>Copyright 2010, Thanh Tran.</copyright>
 	<initialWindow>
@@ -20,25 +19,39 @@
 		<maximizable>true</maximizable>
 		<resizable>true</resizable>
 		<width>800</width>
-		<height>628</height>
+		<height>628</height> <!-- extra 28 to compensate the title bar -->
 		<x>150</x>
 		<y>150</y>
-		<minSize>800 600</minSize>
-		<maxSize>1024 768</maxSize>
+		<minSize>800 628</minSize>
+		<maxSize>1280 1024</maxSize>
 	</initialWindow>
-	<installFolder>Karaoke Lyrics Editor</installFolder>
-	<programMenuFolder>Karaoke Lyrics Editor</programMenuFolder>
+	<!-- <installFolder>KarLyrics Editor</installFolder> -->
+	<!-- <programMenuFolder>KarLyrics Editor</programMenuFolder> -->
 	
+	<!-- The icon the system uses for the application. For at least one resolution,
+		 specify the path to a PNG file included in the AIR package. Optional. -->
+	<!-- <icon>
+		<image16x16></image16x16>
+		<image32x32></image32x32>
+		<image48x48></image48x48>
+		<image128x128></image128x128>
+	</icon> -->
+
 	<customUpdateUI>false</customUpdateUI>
 	<allowBrowserInvocation>true</allowBrowserInvocation>
-	<!--  <fileTypes>
+	<fileTypes>
 		<fileType>
-			<name>com.example</name>
-			<extension>xmpl</extension>
-			<description>Example file</description>
-			<contentType>example/x-data-type</contentType>
-			
+			<name>LyricsFile</name>
+			<extension>lrc</extension>
+			<description>Common text-based lyrics file</description>
+			<contentType>text/plain</contentType>
+			<!-- The icon to display for the file type. Optional. -->
+			<!-- <icon>
+				<image16x16></image16x16>
+				<image32x32></image32x32>
+				<image48x48></image48x48>
+				<image128x128></image128x128>
+			</icon> -->
 		</fileType>
 	</fileTypes>
-	 -->
 </application>

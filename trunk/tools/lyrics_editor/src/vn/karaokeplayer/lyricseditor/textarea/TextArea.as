@@ -85,7 +85,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			
 			_scroll = new UIScrollBar();
 			
-			_scroll.x = _tf.x;
+			_scroll.x = _tf.width;
 			//_scroll.y = _tf.y;
 			_scroll.height = _tf.height;
 			_scroll.scrollTarget = _tf;

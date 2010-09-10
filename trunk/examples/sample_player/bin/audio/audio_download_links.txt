@@ -17,3 +17,7 @@
 [song5]
 - With vocal: 
 - Beat: http://www.fileden.com/files/2009/8/2/2530043/music/love_to_be_loved_by_you_beat.mp3
+
+[song6]
+- With vocal: 
+- Beat: http://www.fileden.com/files/2009/8/2/2530043/music/im_yours_beat.mp3
