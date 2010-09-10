@@ -1,4 +1,10 @@
 package vn.karaokeplayer.lyricseditor {
+	import air.update.events.UpdateEvent;
+
+	import flash.filesystem.File;
+
+	import air.update.ApplicationUpdaterUI;
+
 	import vn.karaokeplayer.lyricseditor.controls.PlayerControlBar;
 	import vn.karaokeplayer.lyricseditor.controls.SongSummaryBar;
 	import vn.karaokeplayer.lyricseditor.controls.TopControlBar;
@@ -24,6 +30,7 @@ package vn.karaokeplayer.lyricseditor {
 		
 		public function LyricsEditor() {
 			init();
+			checkForUpdates();
 		}
 
 		private function init(): void {
@@ -64,6 +71,18 @@ package vn.karaokeplayer.lyricseditor {
 		private function audioFileSelectHandler(fileURL: String): void {
 			trace('mp3 fileURL: ' + (fileURL));
 			playerControl.open(fileURL);
+		}
+		
+		
+		private var appUpdater:ApplicationUpdaterUI	= new ApplicationUpdaterUI();
+		
+		private function checkForUpdates():void {
+			appUpdater.configurationFile = new File("app:/updater_config.xml");
+			appUpdater.addEventListener(UpdateEvent.INITIALIZED, updaterInitialised);
+			appUpdater.initialize();
+		}
+		private function updaterInitialised(event: UpdateEvent):void {
+			appUpdater.checkNow();
 		}
 	}
 }
