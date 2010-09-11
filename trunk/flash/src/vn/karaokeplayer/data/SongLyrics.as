@@ -18,7 +18,7 @@ package vn.karaokeplayer.data {
 	/**
 	 * @author Thanh Tran
 	 */
-	public class SongLyrics implements ISongLyrics {
+	public class SongLyrics {
 		public var lyricLines: Array = new Array();
 		
 		public var basicLyricStyle: LyricStyle;

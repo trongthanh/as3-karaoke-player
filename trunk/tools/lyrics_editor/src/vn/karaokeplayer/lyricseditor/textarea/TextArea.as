@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
+	import fl.controls.ScrollBarDirection;
 	import fl.controls.UIScrollBar;
+
 	import vn.karaokeplayer.lyricseditor.controls.TimeInput;
 	import vn.karaokeplayer.lyricseditor.utils.FontLib;
 	import vn.karaokeplayer.lyricseditor.utils.HTMLHelper;
@@ -34,7 +36,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 	 * @author Thanh Tran
 	 */
 	public class TextArea extends Sprite {
-		private var _scroll: UIScrollBar;		
+		private var _vscroll: UIScrollBar;
+		private var _hscroll: UIScrollBar;		
 		private var _tf: TextField;
 		private var _fm: TextFormat;
 		private var _htmlstr: String;
@@ -49,6 +52,10 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		private var _insertIndex: int;
 		private var _lastCaretIndex: int;
 		private var _replaceTimeValue: uint;
+		/** internal width */
+		private var _width: Number;
+		/** internal height */
+		private var _height: Number;
 		
 		
 		public function TextArea() {
@@ -56,14 +63,15 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		private function init(): void {
-			_fm = new TextFormat(FontLib.FONT_NAME, 14);
+			_width = 600;
+			_fm = new TextFormat(FontLib.DEFAULT_FONT_NAME, 14);
 			
 			_tf = new TextField();
 			//TODO: more customization for text field
-			_tf.width = 600;
-			_tf.height = 400;
+			_tf.width = 585;
+			_tf.height = 385;
 			_tf.multiline = true;
-			_tf.wordWrap = true;
+			_tf.wordWrap = false;
 			_tf.embedFonts = true;
 			_tf.antiAliasType = AntiAliasType.ADVANCED;
 //			_tf.textColor = 0xFFFFFF; IMPORTANT
@@ -83,17 +91,23 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_timeInput.visible = false;
 			_timeInput.committed.add(timeInputCommittedHandler);			_timeInput.canceled.add(timeInputCancelHandler);
 			
-			_scroll = new UIScrollBar();
+			_vscroll = new UIScrollBar();
+			_vscroll.x = _tf.width;
+			_vscroll.height = _tf.height;
+			_vscroll.scrollTarget = _tf;
 			
-			_scroll.x = _tf.width;
-			//_scroll.y = _tf.y;
-			_scroll.height = _tf.height;
-			_scroll.scrollTarget = _tf;
-			
+			_hscroll = new UIScrollBar();
+			_hscroll.direction = ScrollBarDirection.HORIZONTAL;
+			_hscroll.y = _tf.height;
+			_hscroll.width = _tf.width;
+			_hscroll.scrollTarget = _tf;
+						
 			addChild(_tf);
-			addChild(_scroll);
+			addChild(_vscroll);
+			addChild(_hscroll);
 			addChild(_timeInput);
 		}
+
 
 		private function textKeyUpHandler(event: KeyboardEvent): void {
 			//trace("key up:" + event.keyCode);
@@ -126,8 +140,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			//search for broken time mark
 			//(({\d\d:\d\d.\d\d\d)[^}])|([^{](\d\d:\d\d.\d\d\d)})
 			_htmlstr = _tf.htmlText;
-//			trace('changed _htmlstr: ' + (_htmlstr));
-			
+			trace('changed _htmlstr: ' + (_htmlstr));
 		}
 
 		private function timeInputCancelHandler(timeValue: uint): void {
@@ -141,7 +154,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			
 			if(_htmlstr) _tf.htmlText = _htmlstr;
 			else trace("cannot remove time mark " + timeValue);
-			_tf.setTextFormat(_fm);
+			//_tf.setTextFormat(_fm);
 			
 			/*
 			if(_insertIndex >= 0) {
@@ -153,7 +166,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_timeInput.visible = false;
 		}
 		private function timeInputCommittedHandler(timeValue: uint): void {
-			var insertedTimeMark: Object = HTMLHelper.searchTimeMarkLink(_htmlstr, timeValue)
+			var insertedTimeMark: Array = HTMLHelper.searchTimeMarkLink(_htmlstr, timeValue)
 			
 			if(_insertIndex >= 0) {
 				if(insertedTimeMark) {
@@ -174,7 +187,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 					   
 			if(_htmlstr) _tf.htmlText = _htmlstr;
 			else trace("cannot insert/replace time mark " + timeValue);
-			_tf.setTextFormat(_fm);
+			//_tf.setTextFormat(_fm);
 			
 			/* won't set caret to avoid scroll being updated
 			if(_insertIndex >= 0) {
@@ -188,12 +201,14 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		public function set htmlText(value: String): void {
-			_htmlstr = value;
-			_tf.htmlText = _htmlstr;
+			if(!value) value = "";
+			_tf.htmlText = value;
+			_htmlstr = _tf.htmlText;
 			//recapture html text from text field to retain HTML format
 			//_htmlstr = _tf.htmlText;
-			_tf.setTextFormat(_fm);
-			_scroll.update();
+			//_tf.setTextFormat(_fm);
+			_vscroll.update();
+			_hscroll.update();
 		}
 
 		public function get htmlText(): String {
@@ -294,7 +309,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 				trace('subtractY: ' + (subtractY));
 				
 				if(bounds) {
-					x = bounds.x;
+					x = bounds.x - _hscroll.scrollPosition;
 					y = bounds.y - subtractY;
 				}
 					
@@ -310,13 +325,27 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		override public function set width(value: Number): void {
-			_tf.width = value - _scroll.width;
-			_scroll.x = _tf.width;
+			if(isNaN(value)) return;
+			_width = value;
+			_tf.width = value - _vscroll.width;
+			_vscroll.x = _tf.width;
+			_hscroll.width = _tf.width;
+		}
+
+		override public function get width(): Number{
+			return _width;
 		}
 
 		override public function set height(value: Number): void {
-			_tf.height = value;
-			_scroll.height = value;
+			if(isNaN(value)) return;
+			_height = value;
+			_tf.height = value - _hscroll.height;
+			_vscroll.height = _tf.height;
+			_hscroll.y = _tf.height;
+		}
+
+		override public function get height(): Number {
+			return _tf.height;
 		}
 	}
 }

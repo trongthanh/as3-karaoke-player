@@ -44,11 +44,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public function setData(songInfo: SongInfo): void {
 			_songInfo = songInfo;
 			
-			titleText.text = _songInfo.title;
-			composerText.text = _songInfo.composer;
-			artistText.text = _songInfo.styleof;
-			copyText.text = _songInfo.copyright;
-			descText.text = _songInfo.description;	
+			titleText.text = (_songInfo.title)? _songInfo.title : "" ;
+			composerText.text = (_songInfo.composer)?_songInfo.composer : "";
+			artistText.text = (_songInfo.composer)? _songInfo.styleof: "";
+			copyText.text = (_songInfo.copyright)?_songInfo.copyright: "";
+			descText.text = (_songInfo.description)?_songInfo.description:"";	
 		}
 		
 		public function getData(): SongInfo {

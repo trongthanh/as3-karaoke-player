@@ -3,7 +3,7 @@
 <!-- AIR Application Descriptor File. See http://www.adobe.com/go/learn_air_1.0_application_descriptor_en. -->
 	<id>vn.karaokeplayer.LyricsEditor</id>
 	<name>KarLyricsEditor</name>
-	<version>0.1</version>
+	<version>0.1.0</version>
 	<filename>KarLyricsEditor</filename>
 	<description>
 		<text xml:lang="en">Tool to edit AS3 Karaoke Player's timedtext-based lyrics files. For more info, visit: http://code.google.com/p/as3-karaoke-player/</text>

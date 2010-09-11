@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.data.ISongLyrics;
 	import vn.karaokeplayer.data.LineInfo;
 	import vn.karaokeplayer.data.SongLyrics;
 	import vn.karaokeplayer.utils.IKarFactory;
@@ -67,8 +66,8 @@ package vn.karaokeplayer.lyrics {
 		 * TODO: optimization: create exactly number of lines 
 		 * @param	lyrics
 		 */
-		public function init(lyrics: ISongLyrics): void {
-			data = SongLyrics(lyrics);	
+		public function init(lyrics: SongLyrics): void {
+			data = lyrics;	
 			_lines = new Array();
 			_len = data.lyricLines.length;
 			var textLine: ILine;
