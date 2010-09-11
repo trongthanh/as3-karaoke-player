@@ -1,11 +1,11 @@
 package vn.karaokeplayer.lyrics {
-	import vn.karaokeplayer.data.ISongLyrics;
+	import vn.karaokeplayer.data.SongLyrics;
 
 	/**
 	 * @author Thanh Tran
 	 */
 	public interface ILyricsPlayer {
-		function init(lyrics: ISongLyrics): void;
+		function init(lyrics: SongLyrics): void;
 		
 		/**
 		 * position of the 

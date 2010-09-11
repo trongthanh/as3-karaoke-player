@@ -15,16 +15,18 @@ package vn.karaokeplayer.lyricseditor.utils {
 		public static function insertTimeMarkLink(htmlstr: String, caretIndex: int, timeValue: uint): String {
 			var htmlIndex: int = HTMLHelper.calculateHtmlPosition(htmlstr, caretIndex);
 			var newStr: String = htmlstr.substring(0, htmlIndex) + 
-								 HTMLHelper.generateTimeMarkLink(timeValue) +
+								 HTMLHelper.generateTimeMarkLink(timeValue, true) +
 								 htmlstr.slice(htmlIndex);
 			return newStr;
 		}
 
 		/**
 		 * Generates a time mark HTML link
+		 *  
 		 */
-		public static function generateTimeMarkLink(timeValue: uint): String {
-			var str: String = '<FONT COLOR="#FF0000"><A HREF="event:' + timeValue + '">{' + TimeUtil.msToClockString(timeValue, true) + '}</A></FONT>';
+		public static function generateTimeMarkLink(timeValue: uint, withFontTag: Boolean = true): String {
+			var str: String = '<A HREF="event:' + timeValue + '" TARGET="">{' + TimeUtil.msToClockString(timeValue, true) + '}</A>';
+			if(withFontTag) str = '<FONT FACE="DigitRegular" SIZE="16" COLOR="#FF3300" LETTERSPACING="0" KERNING="0">' + str + '</FONT>';
 			
 			return str;
 		}
@@ -38,7 +40,7 @@ package vn.karaokeplayer.lyricseditor.utils {
 		public static function replaceTimeMarkLink(htmlstr: String, newTime: uint, oldTime: uint ): String {
 			var result: Object = searchTimeMarkLink(htmlstr, oldTime);
 			if(result) {
-				var newTimeMark: String = generateTimeMarkLink(newTime);
+				var newTimeMark: String = generateTimeMarkLink(newTime, false);
 				return result[1] + newTimeMark + result[2];
 			} else {
 				return null;	
@@ -51,8 +53,9 @@ package vn.karaokeplayer.lyricseditor.utils {
 		 * @return string with time marke removed, null if time value is not found 
 		 */
 		public static function removeTimeMarkLink(htmlstr: String, timeValue: uint): String {
-			var result: Object = searchTimeMarkLink(htmlstr, timeValue);
+			var result: Array = searchTimeMarkLink(htmlstr, timeValue);
 			if(result) {
+				//trace("removing time mark: " + timeValue);
 				return result[1] + result[2];
 			} else {
 				return null; 
@@ -63,12 +66,18 @@ package vn.karaokeplayer.lyricseditor.utils {
 		/**
 		 * @return an object with 3 properties: [0] full matched string, [1] the string part before the time mark, [2] the string part after the time mark;<br/> null if time mark not found 
 		 */
-		public static function searchTimeMarkLink(htmlstr: String, timeValue: uint): Object {
-			var pattern: String = '([\\w\\W]*)<FONT COLOR="#FF0000"><A HREF="event:' + String(timeValue) + '"[\\w\\W]*?>[\\w\\W]*?</A></FONT>([\\w\\W]*)';
+		public static function searchTimeMarkLink(htmlstr: String, timeValue: uint): Array {
+			//var pattern: String = '([\\w\\W]*)<FONT FACE="DigitRegular" [\\w\\W]*?><A HREF="event:' + String(timeValue) + '"[\\w\\W]*?>[\\w\\W]*?</A></FONT>([\\w\\W]*)';
 			//trace('pattern: ' + (pattern));
-			var reg: RegExp = new RegExp(pattern, "i");
-			var result: Object = reg.exec(htmlstr);
-			return result;
+			//var reg: RegExp = new RegExp(pattern, "i");
+			//var result: Object = reg.exec(htmlstr);
+			var timeMark: String = generateTimeMarkLink(timeValue, false);
+			trace('timeMark: ' + (timeMark));
+			var result: Array = htmlstr.split(timeMark);
+			trace('result: ' + (result));
+			result.unshift(htmlstr);
+			if(result.length == 3) return result;
+			else return null;
 		}
 
 		/**

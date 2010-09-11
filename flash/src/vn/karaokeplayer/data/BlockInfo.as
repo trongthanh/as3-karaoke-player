@@ -26,5 +26,9 @@ package vn.karaokeplayer.data {
 		public function toString(): String {
 			return text + " : " + duration;
 		}
+		
+		public function get end(): Number {
+			return (begin + duration); 
+		}
 	}
 }
