@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
+	import vn.karaokeplayer.lyricseditor.controls.ToolTip;
 	import fl.controls.ScrollBarDirection;
 	import fl.controls.UIScrollBar;
 
@@ -106,6 +107,10 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			addChild(_vscroll);
 			addChild(_hscroll);
 			addChild(_timeInput);
+			
+			ToolTip.attach(_timeInput.cancelButton, "Delete time mark");
+			ToolTip.attach(_timeInput.okButton, "Accept time mark");
+			ToolTip.attach(_timeInput.resetButton, "Reset time mark value");
 		}
 
 
@@ -238,7 +243,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		
 		public function insertTimeMark(timeValue: int = -1, caretIndex: int = -1): void {
 			_insertIndex = (caretIndex >= 0)? caretIndex: _tf.caretIndex;
-			trace('_insertIndex: ' + (_insertIndex));
+			trace('insert time mark: ' + (_insertIndex) + ", time: " + timeValue);
 			
 			showTimeInput(timeValue, true);
 		}
@@ -296,7 +301,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			if(isInsert) {
 				var caretPos: int = _lastCaretIndex;
 				//check for new line character or end of string:
-				while(_tf.text.charCodeAt(caretPos) == 13 || isNaN(_tf.text.charCodeAt(caretPos))) {
+				trace("charcode at " + caretPos + " : " + _tf.text.charCodeAt(caretPos));
+				while(caretPos > 0 && (_tf.text.charCodeAt(caretPos) == 13 || isNaN(_tf.text.charCodeAt(caretPos)))) {
 					caretPos -= 1;
 				}
 				
@@ -304,8 +310,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 				
 				//check if text field is scrolled
 				trace("_tf.scrollV: " + _tf.scrollV);
-				var scrollV: int = _tf.scrollV;
-				var subtractY: Number = _tf.getLineMetrics(scrollV).height * (scrollV - 1);
+				var scrollLine: int = _tf.scrollV - 1;
+				var subtractY: Number = _tf.getLineMetrics(scrollLine).height * (scrollLine);
 				trace('subtractY: ' + (subtractY));
 				
 				if(bounds) {

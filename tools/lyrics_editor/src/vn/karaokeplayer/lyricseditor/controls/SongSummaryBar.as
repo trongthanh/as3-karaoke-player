@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor.controls {
+	import fl.controls.UIScrollBar;
 	import vn.karaokeplayer.data.SongInfo;
 	import vn.karaokeplayer.lyricseditor.utils.FontLib;
 
@@ -16,7 +17,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var artistText: TextField;
 		public var copyText: TextField;
 		public var descText: TextField;
+
+		public var descScroll: UIScrollBar;
 		
+		public var errorText: TextField;		
 		public var versionText: TextField; //this text field uses _sans
 		
 		//props
@@ -33,14 +37,23 @@ package vn.karaokeplayer.lyricseditor.controls {
 			FontLib.initTextField(artistText);
 			FontLib.initTextField(copyText);
 			FontLib.initTextField(descText);
+			FontLib.initTextField(errorText);
 			
 			titleText.text = "";
 			composerText.text = "";
 			artistText.text = "";
 			copyText.text = "";
 			descText.text = "";
+			
+			descScroll = new UIScrollBar();
+			descScroll.x = 180;
+			descScroll.y = 235;
+			descScroll.height = 109;
+			descScroll.scrollTarget = descText;
+			
+			addChild(descScroll);
 		}
-		
+
 		public function setData(songInfo: SongInfo): void {
 			_songInfo = songInfo;
 			
@@ -48,9 +61,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 			composerText.text = (_songInfo.composer)?_songInfo.composer : "";
 			artistText.text = (_songInfo.composer)? _songInfo.styleof: "";
 			copyText.text = (_songInfo.copyright)?_songInfo.copyright: "";
-			descText.text = (_songInfo.description)?_songInfo.description:"";	
+			descText.text = (_songInfo.description)?_songInfo.description:"";
+			
+			descScroll.update();
 		}
-		
+
 		public function getData(): SongInfo {
 			_songInfo.title = titleText.text;
 			_songInfo.composer = composerText.text;
@@ -58,6 +73,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 			_songInfo.copyright = copyText.text;
 			_songInfo.description = descText.text;
 			return _songInfo;	
+		}
+		
+		public function setErrorMessage(txt: String): void {
+			errorText.text = txt;
 		}
 	}
 }

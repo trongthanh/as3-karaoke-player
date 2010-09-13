@@ -98,6 +98,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 			timeSlider.addEventListener(SliderEvent.CHANGE, timeSliderChangeHandler);
 			timeSlider.addEventListener(MouseEvent.MOUSE_DOWN, timeSliderStartDragHandler);
 			
+			ToolTip.attach(playButton, "Play audio from current position");
+			ToolTip.attach(pauseButton, "Pause audio");
+			ToolTip.attach(stopButton, "Stop playing audio and <br/>reset current position to start time");
+			
+			
 			//default disable
 			enabled = false;
 		}

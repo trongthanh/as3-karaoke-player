@@ -28,8 +28,8 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var lyricText: TextField;
 		public var mp3Text: TextField;
 		
-		public var insertButton: Button;
-		public var validateButton: Button;
+		public var insertButton: SimpleButton;
+		public var validateButton: SimpleButton;
 		
 		//signals
 		/**
@@ -44,6 +44,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 		 * Arguments: 
 		 */
 		public var timeMarkInserted: Signal;
+		/**
+		 * Arguments: selected (Boolean)
+		 */
+		public var testKaraokeToggled: Signal;
 		
 		
 		//props
@@ -64,26 +68,13 @@ package vn.karaokeplayer.lyricseditor.controls {
 			
 			testKaraokeButton = new Button();
 			testKaraokeButton.label = "Test Karaoke";
-			testKaraokeButton.width = 105;
+			testKaraokeButton.width = 93;
 			testKaraokeButton.height = 28;
-			testKaraokeButton.x = 686;
+			testKaraokeButton.x = 697;
 			testKaraokeButton.y = 11;
-			
-			insertButton = new Button();
-			insertButton.label = "Insert Time Mark";
-			insertButton.width = 105;
-			insertButton.height = 28;
-			insertButton.x = 569;
-			insertButton.y = 60;
-			
-			validateButton = new Button();
-			validateButton.label = "Validate Times";
-			validateButton.width = 105;
-			validateButton.height = 28;
-			validateButton.x = 686;
-			validateButton.y = 60;			
-			
-			addChild(previewXmlButton);
+			testKaraokeButton.toggle = true;
+				
+//			addChild(previewXmlButton); //need not for now
 			addChild(testKaraokeButton);
 			addChild(insertButton);
 			addChild(validateButton);
@@ -93,7 +84,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			openMp3Button.addEventListener(MouseEvent.CLICK, openMp3ButtonClickHandler);
 			saveButton.addEventListener(MouseEvent.CLICK, saveButtonClickHandler);
 			previewXmlButton.addEventListener(MouseEvent.CLICK, previewXmlButtonClickHandler);
-			testKaraokeButton.addEventListener(MouseEvent.CLICK, testKaraokeButtonClickHandler);	
+			testKaraokeButton.addEventListener(Event.CHANGE, testKaraokeChangeHandler)
 			insertButton.addEventListener(MouseEvent.CLICK, insertButtonClickHandler);
 			validateButton.addEventListener(MouseEvent.CLICK, validateButtonClickHandler);
 			
@@ -104,7 +95,16 @@ package vn.karaokeplayer.lyricseditor.controls {
 			
 			audioFileSelected = new Signal(String);			lyricFileSelected = new Signal(String);
 			timeMarkInserted = new Signal();
+			testKaraokeToggled = new Signal(Boolean);
+			
+			ToolTip.attach(newButton, "Create new lyrics file");
+			ToolTip.attach(openLyricButton, "Open lyrics file");
+			ToolTip.attach(openMp3Button, "Open MP3 file");
+			ToolTip.attach(saveButton, "Save lyrics file as ttl/xml format");
+			ToolTip.attach(insertButton, "Insert time mark");
+			ToolTip.attach(validateButton, "Validate time marks");
 		}
+
 
 		private function newButtonClickHandler(event: MouseEvent): void {
 			
@@ -140,7 +140,14 @@ package vn.karaokeplayer.lyricseditor.controls {
 		private function previewXmlButtonClickHandler(event: MouseEvent): void {
 		}
 
-		private function testKaraokeButtonClickHandler(event: MouseEvent): void {
+		private function testKaraokeChangeHandler(event: Event): void {
+			var selected: Boolean = testKaraokeButton.selected;
+			if(selected) {
+				testKaraokeButton.label = "Edit Lyrics";
+			} else {
+				testKaraokeButton.label = "Test Karaoke";
+			}
+			testKaraokeToggled.dispatch(selected);
 		}
 
 		private function insertButtonClickHandler(event: MouseEvent): void {

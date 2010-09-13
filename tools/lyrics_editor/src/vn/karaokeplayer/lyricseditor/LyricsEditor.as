@@ -1,17 +1,22 @@
 package vn.karaokeplayer.lyricseditor {
-	import flash.desktop.NativeApplication;
+	import vn.karaokeplayer.lyricseditor.controls.KaraokePreviewScreen;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
 
 	import vn.karaokeplayer.lyricseditor.controls.PlayerControlBar;
 	import vn.karaokeplayer.lyricseditor.controls.SongSummaryBar;
+	import vn.karaokeplayer.lyricseditor.controls.ToolTip;
 	import vn.karaokeplayer.lyricseditor.controls.TopControlBar;
 	import vn.karaokeplayer.lyricseditor.data.LyricsFileInfo;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsImporter;
 	import vn.karaokeplayer.lyricseditor.textarea.TextArea;
 	import vn.karaokeplayer.lyricseditor.utils.FileSystemUtil;
+	import vn.karaokeplayer.lyricseditor.utils.FontLib;
 	import vn.karaokeplayer.utils.KarPlayerVersion;
 
+	import com.gskinner.motion.plugins.AutoHidePlugin;
+
+	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
 	import flash.filesystem.File;
 
@@ -24,6 +29,7 @@ package vn.karaokeplayer.lyricseditor {
 		public var songSummary: SongSummaryBar;
 		public var playerControl: PlayerControlBar;
 		public var textArea: TextArea;
+		public var karaokePreviewScreen: KaraokePreviewScreen;
 		
 		//props
 		public var lyricsFile: LyricsFileInfo;
@@ -35,6 +41,32 @@ package vn.karaokeplayer.lyricseditor {
 		}
 
 		private function init(): void {
+			//init tooltip
+			ToolTip.init(stage, 
+			{
+				textAlign: 'center',
+				textColor: 0xFFFFFF,
+				opacity: 70, 
+				defaultDelay: 200,
+				bgColor: 0x000000,
+				borderColor: 'none',
+				cornerRadius: 5,
+				shadow: true,
+				top: 10,
+				left: 10,
+				right: 10,
+				bottom: 10,
+				fadeTime: 100,
+				fontSize: 14,
+				fontFace: FontLib.DEFAULT_FONT_NAME,
+				fontEmbed: true
+			});
+			
+			//init tween plugin
+			AutoHidePlugin.install();
+			AutoHidePlugin.enabled = false; //disabled by default
+			
+			
 			topControl = new TopControlBar();
 
 			songSummary = new SongSummaryBar();
@@ -51,20 +83,28 @@ package vn.karaokeplayer.lyricseditor {
 			playerControl = new PlayerControlBar();
 			playerControl.y = 550;
 			
-			playerControl.karPlayer.x = 200;
-			playerControl.karPlayer.y = 100;
+			
+			karaokePreviewScreen = new KaraokePreviewScreen(600, 450);
+			karaokePreviewScreen.x = 200;
+			karaokePreviewScreen.y = 100;
+			karaokePreviewScreen.setKarPlayer(playerControl.karPlayer);
 			
 			addChild(playerControl);
 			addChild(textArea);
 			addChild(songSummary);
 			addChild(topControl);
-			addChild(playerControl.karPlayer);
+			addChild(karaokePreviewScreen);
 			
 			topControl.audioFileSelected.add(audioFileSelectHandler);
 			topControl.lyricFileSelected.add(lyricFileSelectHandler);
 			topControl.timeMarkInserted.add(timeMarkInsertHandler);
+			topControl.testKaraokeToggled.add(testKaraokeHandler);
 		}
-		
+
+		private function testKaraokeHandler(selected: Boolean): void {
+			karaokePreviewScreen.visible = selected;
+		}
+
 		private function getAppVersion():String {
 			var appXml:XML = NativeApplication.nativeApplication.applicationDescriptor;
 			var ns:Namespace = appXml.namespace();
