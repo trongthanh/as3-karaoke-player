@@ -40,7 +40,7 @@ package vn.karaokeplayer {
 		/**
 		 * Plays the karaoke
 		 */
-		function play(): void;
+		function play(startTime: Number = NaN): void;
 		
 		/**
 		 * Seeks to a position (in milliseconds)

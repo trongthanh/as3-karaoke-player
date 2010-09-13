@@ -145,12 +145,15 @@ package vn.karaokeplayer {
 				_audioCompleted.dispatch(); //dispatching this event also call the stop function 
 			}
 			if(urlOrSongInfo is SongInfo) {
-				//TODO: load beatsound if beatsound is not loaded at this flow
 				acceptSongInfo(urlOrSongInfo as SongInfo);
-				_lyricPlayer.init(_songInfo.lyrics);
-				_beatPlayer.init(_songInfo.beatSound);
-				_songReady = true;
-				_ready.dispatch();
+				if(_songInfo.beatSound) {
+					_lyricPlayer.init(_songInfo.lyrics);
+					_beatPlayer.init(_songInfo.beatSound);
+					_songReady = true;
+					_ready.dispatch();	
+				} else {
+					beatPlayer.open(_songInfo.beatURL);
+				}
 			} else {
 				var xmlLoader: AssetLoader = new AssetLoader();
 				xmlLoader.completed.add(xmlLoadHandler);
@@ -181,8 +184,6 @@ package vn.karaokeplayer {
 		
 		private function audioReadyHandler(): void {
 			//we don't need to init beat player if we open the sound with URL 
-			//_songInfo.beatSound = beatPlayer;
-			//_beatPlayer.init(_songInfo.beatSound);
 			_lyricPlayer.init(_songInfo.lyrics);
 			_songReady = true;
 			trace("KarPlayer - audio ready: " + _songInfo.beatURL);
@@ -216,9 +217,11 @@ package vn.karaokeplayer {
 		/**
 		 * Plays the karaoke
 		 */
-		public function play(): void {
+		public function play(startTime: Number = NaN): void {
 			GTweener.removeTweens(_lyricPlayer);
 			GTweener.to(_lyricPlayer, 1, {alpha:1});
+			if(!isNaN(startTime)) _position = startTime;
+			
 			_beatPlayer.play(_position);
 			_startTime = getTimer() - _position;
 			_tickingManager.enterFrame.add(enterFrameHandler);

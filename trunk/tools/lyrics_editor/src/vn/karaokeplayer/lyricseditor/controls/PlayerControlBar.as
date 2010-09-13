@@ -1,14 +1,18 @@
 package vn.karaokeplayer.lyricseditor.controls {
-	import flash.filters.ColorMatrixFilter;
-	import flash.media.SoundTransform;
-	import flash.media.SoundMixer;
-	import vn.karaokeplayer.utils.EnterFrameManager;
-	import vn.karaokeplayer.audio.AudioPlayer;
-	import fl.events.SliderEvent;
-	import flash.events.MouseEvent;
 	import fl.controls.Slider;
+	import fl.events.SliderEvent;
+
+	import vn.karaokeplayer.KarPlayer;
+	import vn.karaokeplayer.data.KarPlayerOptions;
+	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.utils.EnterFrameManager;
+
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	import flash.filters.ColorMatrixFilter;
+	import flash.media.SoundMixer;
+	import flash.media.SoundTransform;
 
 	/**
 	 * @author Thanh Tran
@@ -26,7 +30,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 		public var volumeSlider: Slider;
 		
 		//props
-		private var _audioPlayer: AudioPlayer;
+		private var _karPlayer: KarPlayer;
 		private var _sliderDragging: Boolean;
 		private var _grayFilter: ColorMatrixFilter;
 				
@@ -36,8 +40,9 @@ package vn.karaokeplayer.lyricseditor.controls {
 			
 		}
 		
-		public function open(soundURL: String): void {
-			_audioPlayer.open(soundURL);
+		public function open(songInfo: SongInfo): void {
+			_karPlayer.loadSong(songInfo);
+			//_karPlayer.open(soundURL);
 			enabled = false;
 		}
 
@@ -55,9 +60,13 @@ package vn.karaokeplayer.lyricseditor.controls {
 //			 0.114 * (1 - _s), 		0.299 * (1 - _s),	0.587 + 0.413 * _s, 0,	0, 					
 //			 0,						0, 					0, 					1,	0]);
 			
-			_audioPlayer = new AudioPlayer();
-			_audioPlayer.audioCompleted.add(audioCompleteHandler);
-			_audioPlayer.loadCompleted.add(loadCompleteHandler);
+			var playerOptions: KarPlayerOptions = new KarPlayerOptions();
+			playerOptions.width = 600;
+			playerOptions.height = 450;
+			
+			_karPlayer = new KarPlayer(playerOptions);
+			_karPlayer.audioCompleted.add(audioCompleteHandler);
+			_karPlayer.loadCompleted.add(loadCompleteHandler);
 			
 			timeSlider = new Slider();
 			timeSlider.x = 346; //refer from fla
@@ -120,7 +129,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			trace("audio load complete");
 			timeSlider.enabled = true;
 			timeSlider.minimum = 0;
-			timeSlider.maximum = _audioPlayer.length;
+			timeSlider.maximum = _karPlayer.length;
 			timeSlider.value = 0;
 			enabled = true;
 		}
@@ -134,11 +143,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 			trace("slider " + event.value);
 			var value: uint = uint(event.value);
 			currentTimer.timeValue = value;
-			_audioPlayer.seek(value);	
+			_karPlayer.seek(value);	
 		}
 
 		private function currentTimerChangeHandler(timeValue: uint): void {
-			if(_audioPlayer.seek(timeValue)) {
+			if(_karPlayer.seek(timeValue)) {
 				timeSlider.value = timeValue;
 			} else {
 				currentTimer.timeValue = timeSlider.value;
@@ -151,32 +160,33 @@ package vn.karaokeplayer.lyricseditor.controls {
 
 		private function pauseButtonClickHandler(event: MouseEvent): void {
 			trace('pauseButtonClickHandler: ');
-			if(_audioPlayer.pausing) return;
+			if(_karPlayer.pausing) return;
 			EnterFrameManager.instance.enterFrame.remove(updateTimePosition);
-			_audioPlayer.pause();	
+			_karPlayer.pause();	
 		}
 
 		private function playButtonClickHandler(event: MouseEvent): void {
 			trace('playButtonClickHandler: ');
 			
-			if(!_audioPlayer.pausing && _audioPlayer.playing) return;
+			if(!_karPlayer.pausing && _karPlayer.playing) return;
 			EnterFrameManager.instance.enterFrame.add(updateTimePosition);
-			if(!_audioPlayer.playing) {
-				_audioPlayer.play(startTimer.timeValue);
+			if(!_karPlayer.playing) {
+				_karPlayer.play(startTimer.timeValue);
+				//_karPlayer.seek(startTimer.timeValue)
 			} else {
-				_audioPlayer.play();
+				_karPlayer.play();
 			}
 		}
 		
 		private function stopButtonClickHandler(event: MouseEvent): void {
 			EnterFrameManager.instance.enterFrame.remove(updateTimePosition);
-			_audioPlayer.stop();
+			_karPlayer.stop();
 			timeSlider.value = startTimer.timeValue;
 			currentTimer.timeValue = startTimer.timeValue;
 		}
 
 		private function updateTimePosition(): void {
-			var pos: Number = _audioPlayer.position;
+			var pos: Number = _karPlayer.position;
 			currentTimer.timeValue = pos;
 			if(!_sliderDragging) timeSlider.value = pos;
 		}
@@ -192,6 +202,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 		
 		public function get enabled(): Boolean {
 			return mouseChildren;
+		}
+		
+		public function get karPlayer(): KarPlayer {
+			return _karPlayer;
 		}
 	}
 }
