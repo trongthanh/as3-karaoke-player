@@ -25,6 +25,9 @@ package vn.karaokeplayer.lyricseditor {
 		public var playerControl: PlayerControlBar;
 		public var textArea: TextArea;
 		
+		//props
+		public var lyricsFile: LyricsFileInfo;
+		
 		
 		public function LyricsEditor() {
 			init();
@@ -48,10 +51,14 @@ package vn.karaokeplayer.lyricseditor {
 			playerControl = new PlayerControlBar();
 			playerControl.y = 550;
 			
+			playerControl.karPlayer.x = 200;
+			playerControl.karPlayer.y = 100;
+			
 			addChild(playerControl);
 			addChild(textArea);
 			addChild(songSummary);
 			addChild(topControl);
+			addChild(playerControl.karPlayer);
 			
 			topControl.audioFileSelected.add(audioFileSelectHandler);
 			topControl.lyricFileSelected.add(lyricFileSelectHandler);
@@ -72,7 +79,6 @@ package vn.karaokeplayer.lyricseditor {
 		private function lyricFileSelectHandler(fileURL: String): void {
 			trace('lyric fileURL: ' + (fileURL));
 			var rawStr: String = FileSystemUtil.readTextFile(fileURL);
-			var lyricsFile: LyricsFileInfo;
 			//check for extension:
 			if(fileURL.indexOf(".xml") || fileURL.indexOf(".ttl")) {
 				lyricsFile = new TimedTextLyricsImporter().importFrom(rawStr);
@@ -84,10 +90,10 @@ package vn.karaokeplayer.lyricseditor {
 
 		private function audioFileSelectHandler(fileURL: String): void {
 			trace('mp3 fileURL: ' + (fileURL));
-			playerControl.open(fileURL);
+			lyricsFile.songInfo.beatURL = fileURL;
+			playerControl.open(lyricsFile.songInfo);
 		}
-		
-		
+
 		private var appUpdater:ApplicationUpdaterUI	= new ApplicationUpdaterUI();
 		
 		private function checkForUpdates():void {
