@@ -66,6 +66,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			
 			committed = new Signal(uint);
 			canceled = new Signal(uint);
+
 		}
 
 		private function mouseDownHandler(event: MouseEvent): void {
