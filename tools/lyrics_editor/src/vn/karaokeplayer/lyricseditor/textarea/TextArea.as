@@ -90,7 +90,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			
 			_timeInput = new TimeInput();
 			_timeInput.visible = false;
-			_timeInput.committed.add(timeInputCommittedHandler);			_timeInput.canceled.add(timeInputCancelHandler);
+			_timeInput.committed.add(timeInputCommittedHandler);
+			_timeInput.canceled.add(timeInputCancelHandler);
 			
 			_vscroll = new UIScrollBar();
 			_vscroll.x = _tf.width;
@@ -145,7 +146,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			//search for broken time mark
 			//(({\d\d:\d\d.\d\d\d)[^}])|([^{](\d\d:\d\d.\d\d\d)})
 			_htmlstr = _tf.htmlText;
-			trace('changed _htmlstr: ' + (_htmlstr));
+			//trace('changed _htmlstr: ' + (_htmlstr));
 		}
 
 		private function timeInputCancelHandler(timeValue: uint): void {
@@ -209,9 +210,6 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			if(!value) value = "";
 			_tf.htmlText = value;
 			_htmlstr = _tf.htmlText;
-			//recapture html text from text field to retain HTML format
-			//_htmlstr = _tf.htmlText;
-			//_tf.setTextFormat(_fm);
 			_vscroll.update();
 			_hscroll.update();
 		}
@@ -219,13 +217,25 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		public function get htmlText(): String {
 			return _tf.htmlText;
 		}
+		
+		public function set text(value: String): void {
+			if(!value) value = "";
+			_tf.text = value;
+			_htmlstr = _tf.htmlText;
+			_vscroll.update();
+			_hscroll.update();
+		}
+
+		public function get text(): String {
+			return _tf.text;
+		}
 
 		private function textInputHandler(event: TextEvent): void {
 			//trace(event.text);
 			//trace(event.text.charCodeAt(0));
 			if(event.text == "") {
 				//user delete something
-				trace("full text : " + _tf.text);
+				//trace("full text : " + _tf.text);
 			}
 		}
 
@@ -326,7 +336,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			_timeInput.timeValue = (timeValue < 0) ? 0 : timeValue;
 			
 			//TODO: check for boundary;
-			_timeInput.x = x + 10;			_timeInput.y = y + 10;
+			_timeInput.x = x + 10;
+			_timeInput.y = y + 10;
 			_timeInput.visible = true;	
 		}
 
