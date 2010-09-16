@@ -6,6 +6,8 @@ package vn.karaokeplayer.lyricseditor.utils {
 	 */
 	public class HTMLHelper {
 		
+		public static const HTML_TAG: RegExp = /<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g;
+		
 		/**
 		 * Inserts a time mark link into a HTML string.
 		 * @param htmlstr		HTML string to be processed  
@@ -34,7 +36,7 @@ package vn.karaokeplayer.lyricseditor.utils {
 		/**
 		 * @param htmlstr	HTML string to search for
 		 * @param newTime	new time value
-		 * @param oldTime	old time to replace in the string
+		 * @param oldTime	old time to replace in the string, font tag is ignored
 		 * @return new time mark link, null if oldTime is not found 
 		 */
 		public static function replaceTimeMarkLink(htmlstr: String, newTime: uint, oldTime: uint ): String {
@@ -143,6 +145,12 @@ package vn.karaokeplayer.lyricseditor.utils {
 			}
 			// return de position in html text
 			return i;
+		}
+		
+		public static function stripHTML(htmlstr: String): String {
+			var str: String = String(htmlstr).replace(HTML_TAG,"");
+			
+			return str;
 		}
 	}
 }

@@ -8,5 +8,6 @@ package vn.karaokeplayer.lyricseditor.data {
 	public class LyricsFileInfo {
 		public var songInfo: SongInfo;
 		public var htmlstr: String;
+		public var plainstr: String;
 	}
 }
