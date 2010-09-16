@@ -1,20 +1,19 @@
 package vn.karaokeplayer.lyricseditor {
-	import vn.karaokeplayer.lyricseditor.controls.KaraokePreviewScreen;
+	import vn.karaokeplayer.utils.KarPlayerVersion;
+	import vn.karaokeplayer.lyricseditor.utils.FontLib;
+	import com.gskinner.motion.plugins.AutoHidePlugin;
+	import vn.karaokeplayer.lyricseditor.controls.ToolTip;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
 
+	import vn.karaokeplayer.lyricseditor.controls.KaraokePreviewScreen;
 	import vn.karaokeplayer.lyricseditor.controls.PlayerControlBar;
 	import vn.karaokeplayer.lyricseditor.controls.SongSummaryBar;
-	import vn.karaokeplayer.lyricseditor.controls.ToolTip;
 	import vn.karaokeplayer.lyricseditor.controls.TopControlBar;
 	import vn.karaokeplayer.lyricseditor.data.LyricsFileInfo;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsImporter;
 	import vn.karaokeplayer.lyricseditor.textarea.TextArea;
 	import vn.karaokeplayer.lyricseditor.utils.FileSystemUtil;
-	import vn.karaokeplayer.lyricseditor.utils.FontLib;
-	import vn.karaokeplayer.utils.KarPlayerVersion;
-
-	import com.gskinner.motion.plugins.AutoHidePlugin;
 
 	import flash.desktop.NativeApplication;
 	import flash.display.Sprite;
@@ -65,8 +64,7 @@ package vn.karaokeplayer.lyricseditor {
 			//init tween plugin
 			AutoHidePlugin.install();
 			AutoHidePlugin.enabled = false; //disabled by default
-			
-			
+
 			topControl = new TopControlBar();
 
 			songSummary = new SongSummaryBar();
