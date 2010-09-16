@@ -4,7 +4,7 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\LyricsEditorAIR.swf" />
+    <movie path="bin\LyricsEditor.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -15,6 +15,7 @@
   <classpaths>
     <class path="src" />
     <class path="lib" />
+    <class path="..\..\flash\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -68,7 +69,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\test\TestEditorTextArea.as" />
+    <compile path="src\vn\karaokeplayer\lyricseditor\LyricsEditor.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
@@ -82,6 +83,6 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="$(FlexSDK)\bin\adl.exe;application.xml bin" />
+    <option testMovieCommand="$(FlexSDK)\bin\adl.exe;$(ProjectDir)\bin\LyricsEditor-app.xml" />
   </options>
 </project>

@@ -49,6 +49,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 		 */
 		public var testKaraokeToggled: Signal;
 		
+		/**
+		 * Arguments: 
+		 */
+		public var lyricsSaved: Signal;
+		
 		
 		//props
 		private var _audioFile: File;
@@ -93,9 +98,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 			lyricText.text = "Lyrics: N/A";
 			mp3Text.text = "MP3: N/A";
 			
-			audioFileSelected = new Signal(String);			lyricFileSelected = new Signal(String);
+			audioFileSelected = new Signal(String);
+			lyricFileSelected = new Signal(String);
 			timeMarkInserted = new Signal();
 			testKaraokeToggled = new Signal(Boolean);
+			lyricsSaved = new Signal(String);
 			
 			ToolTip.attach(newButton, "Create new lyrics file");
 			ToolTip.attach(openLyricButton, "Open lyrics file");
@@ -119,7 +126,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 
 		private function lyricFileSelectHandler(event: Event): void {
 			lyricText.text = "Lyrics: " + _lyricFile.name;
-			lyricFileSelected.dispatch(_lyricFile.url)
+			lyricFileSelected.dispatch(_lyricFile.url);
 		}
 
 		private function openMp3ButtonClickHandler(event: MouseEvent): void {
@@ -135,6 +142,15 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 
 		private function saveButtonClickHandler(event: MouseEvent): void {
+			_lyricFile = new File();
+			_lyricFile.addEventListener(Event.SELECT, lyricFileSaveSelectHandler, false,0,true);
+			_lyricFile.browseForSave("Save Lyrics File");
+			
+			
+		}
+		
+		private function lyricFileSaveSelectHandler(e:Event):void {
+			lyricsSaved.dispatch(_lyricFile.url);
 		}
 
 		private function previewXmlButtonClickHandler(event: MouseEvent): void {
