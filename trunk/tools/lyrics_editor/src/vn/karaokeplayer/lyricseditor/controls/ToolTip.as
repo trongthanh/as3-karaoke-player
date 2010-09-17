@@ -341,7 +341,7 @@ package vn.karaokeplayer.lyricseditor.controls {
             _label.antiAliasType = flash.text.AntiAliasType.ADVANCED;
             _label.selectable = false;
             _label.multiline = true;
-			var fmt: TextFormat = new TextFormat()
+			var fmt: TextFormat = new TextFormat();
 			fmt.color = _displayOptions.textColor;
 			fmt.font = _displayOptions.fontFace;
 			fmt.size = _displayOptions.fontSize;
@@ -489,7 +489,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 				tipOption: opt,
 				tipFormat: fmt,
 				tipAnchor:	anchor
-            }
+            };
             hoverObject.addEventListener(MouseEvent.ROLL_OVER, startShowTimer);       
 			hoverObject.addEventListener(MouseEvent.ROLL_OUT, hide);
 			if (!anchor) hoverObject.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);

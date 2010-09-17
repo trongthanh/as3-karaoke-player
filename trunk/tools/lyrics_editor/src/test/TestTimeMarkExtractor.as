@@ -12,6 +12,9 @@ package test {
 		public var mockupLrc: String = "{00:36.360}F: hạnh phúc {00:37.110}lứa đôi {00:38.090}tràn {00:38.490}dâng {00:41.490}";
 		//public var blockReg: RegExp = /{(\d*:)?\d*:\d*.\d}/;
 		public var styleReg: RegExp = /([fmb]):([\w\W]+)/i;
+		
+		public var multiLine: String = "{00:36.360}F: hạnh phúc {00:37.110}lứa đôi\n {00:38.090}tràn {00:38.490}dâng {00:41.490}";
+		
 		public function TestTimeMarkExtractor() {
 			var groups: Array = mockupLrc.split("{");
 			var len: int = groups.length;
@@ -50,7 +53,8 @@ package test {
 			}
 			s = '<div style="' + curStyle + '">\n' + s + '</div>';
 			
-			trace(s);
+			//trace(s);
+			trace(multiLine.split("\n"));
 		}
 		
 	}
