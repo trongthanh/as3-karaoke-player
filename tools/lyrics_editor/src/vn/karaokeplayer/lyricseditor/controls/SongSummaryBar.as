@@ -72,6 +72,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 			_songInfo.styleof = artistText.text;
 			_songInfo.copyright = copyText.text;
 			_songInfo.description = descText.text;
+			//TODO: implement later:
+			//_songInfo.genre = "";
+			//_songInfo.mood = "";
+			//_songInfo.id = "";
+			
 			return _songInfo;	
 		}
 		

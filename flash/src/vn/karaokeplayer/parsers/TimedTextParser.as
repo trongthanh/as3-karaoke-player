@@ -92,15 +92,15 @@ package vn.karaokeplayer.parsers {
 		 * @param songInfo	value object to put data to
 		 */
 		karplayer_internal function parseMetadata(metadata: XML, songInfo: SongInfo): void {
-			songInfo.title = metadata.ttm::title[0];
-			songInfo.description = metadata.ttm::desc[0];
-			songInfo.copyright = metadata.ttm::copyright[0];
+			songInfo.title = metadata.ttm::title.toString();
+			songInfo.description = metadata.ttm::desc.toString();
+			songInfo.copyright = metadata.ttm::copyright.toString();
 			//get extra metadata:
-			songInfo.id = (metadata.kar::id[0]) ? metadata.kar::id[0] : metadata.tt::id[0];
-			songInfo.composer = (metadata.kar::composer[0]) ? metadata.kar::composer[0] : metadata.tt::composer[0];			songInfo.styleof = (metadata.kar::styleof[0]) ? metadata.kar::styleof[0] : metadata.tt::styleof[0];
-			songInfo.genre = (metadata.kar::genre[0]) ? metadata.kar::genre[0] : metadata.tt::genre[0];
-			songInfo.mood = (metadata.kar::mood[0]) ? metadata.kar::mood[0] : metadata.tt::mood[0];
-			songInfo.beatURL = (metadata.kar::audio[0]) ? metadata.kar::audio[0] : metadata.tt::audio[0];
+			songInfo.id = (metadata.kar::id[0]) ? metadata.kar::id.toString() : metadata.tt::id.toString();
+			songInfo.composer = (metadata.kar::composer[0]) ? metadata.kar::composer.toString() : metadata.tt::composer.toString();			songInfo.styleof = (metadata.kar::styleof[0]) ? metadata.kar::styleof.toString() : metadata.tt::styleof.toString();
+			songInfo.genre = (metadata.kar::genre[0]) ? metadata.kar::genre.toString() : metadata.tt::genre.toString();
+			songInfo.mood = (metadata.kar::mood[0]) ? metadata.kar::mood.toString() : metadata.tt::mood.toString();
+			songInfo.beatURL = (metadata.kar::audio[0]) ? metadata.kar::audio.toString() : metadata.tt::audio.toString();
 			songInfo.extra = getExtraMetadata(metadata);
 		}
 

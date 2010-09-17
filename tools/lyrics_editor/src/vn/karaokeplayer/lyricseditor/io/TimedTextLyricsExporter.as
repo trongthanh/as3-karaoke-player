@@ -79,8 +79,8 @@ package vn.karaokeplayer.lyricseditor.io {
 			var s: String = "<head><metadata>";
 			//default properties
 			s += '<ttm:title><![CDATA[' + songInfo.title + ']]></ttm:title>';
-			s += '<ttm:desc><![CDATA[' + songInfo.title + ']]></ttm:desc>';
-			s += '<ttm:copyright><![CDATA[' + songInfo.title + ']]></ttm:copyright>';
+			s += '<ttm:desc><![CDATA[' + songInfo.description + ']]></ttm:desc>';
+			s += '<ttm:copyright><![CDATA[' + songInfo.copyright + ']]></ttm:copyright>';
 			s += '<kar:version>0.5</kar:version>';
 			s += '<kar:id><![CDATA[' + songInfo.id + ']]></kar:id>';
 			s += '<kar:composer><![CDATA[' + songInfo.composer + ']]></kar:composer>';
@@ -88,6 +88,8 @@ package vn.karaokeplayer.lyricseditor.io {
 			s += '<kar:genre><![CDATA[' + songInfo.genre + ']]></kar:genre>';
 			s += '<kar:mood><![CDATA[' + songInfo.mood + ']]></kar:mood>';
 			s += '<kar:audio><![CDATA[' + songInfo.beatURL + ']]></kar:audio>';
+			trace('songInfo.genre: ' + (songInfo.genre));
+			trace('songInfo.mood: ' + (songInfo.mood));
 			//extra props
 			var extra: Object = songInfo.extra;
 			if(extra) {
@@ -102,11 +104,12 @@ package vn.karaokeplayer.lyricseditor.io {
 		}
 		
 		public function exportBodyPart(lrc: String): String {
-			var s: String = "<body>\n";
+			var s : String = "<body>\n";
 			var curStyle: String = "b";
-			var lines: Array = lrc.split("\n");
+			var lines: Array = lrc.split(/\n|\r/);
 			var len:int = lines.length;
 			var l: String;
+			//trace('len: ' + len + " first: " + lines[0]);
 			
 			for (var i : int = 0; i < len; i++) {
 				l = lines[i];

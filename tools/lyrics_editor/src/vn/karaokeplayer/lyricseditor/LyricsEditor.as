@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor {
+	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
 	import com.gskinner.motion.plugins.AutoHidePlugin;
@@ -39,6 +40,7 @@ package vn.karaokeplayer.lyricseditor {
 		
 		//props
 		public var lyricsFile: LyricsFileInfo;
+		public var audioURL: String;
 		private var appUpdater:ApplicationUpdaterUI	= new ApplicationUpdaterUI();
 		
 		public function LyricsEditor() {
@@ -105,10 +107,12 @@ package vn.karaokeplayer.lyricseditor {
 			topControl.timeMarkInserted.add(timeMarkInsertHandler);
 			topControl.testKaraokeToggled.add(testKaraokeHandler);
 			topControl.lyricsSaved.add(lyricsSaveHandler);
+			
 		}
-		
+
 		private function lyricsSaveHandler(fileURL: String):void {
 			lyricsFile.plainstr = textArea.text;
+			lyricsFile.songInfo = songSummary.getData();
 			var exporter: IExporter = new TimedTextLyricsExporter();
 			var xml: XML = XML(exporter.exportTo(lyricsFile));
 			FileSystemUtil.writeXML(xml, fileURL);
@@ -147,6 +151,9 @@ package vn.karaokeplayer.lyricseditor {
 
 		private function audioFileSelectHandler(fileURL: String): void {
 			trace('mp3 fileURL: ' + (fileURL));
+			audioURL = fileURL;
+			
+			
 			//TODO: make sure songInfo is created even lrc is not opened
 			lyricsFile.songInfo.beatURL = fileURL;
 			playerControl.open(lyricsFile.songInfo);
@@ -162,8 +169,6 @@ package vn.karaokeplayer.lyricseditor {
 			karplayer.lyricPlayer.cleanUp();
 			karplayer.lyricPlayer.init(songInfo.lyrics);
 		}
-		
-		
 
 		private function checkForUpdates():void {
 			appUpdater.configurationFile = new File("app:/updater_config.xml");

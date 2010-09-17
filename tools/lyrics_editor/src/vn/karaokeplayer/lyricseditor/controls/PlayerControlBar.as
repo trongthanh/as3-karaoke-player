@@ -5,12 +5,12 @@ package vn.karaokeplayer.lyricseditor.controls {
 	import vn.karaokeplayer.KarPlayer;
 	import vn.karaokeplayer.data.KarPlayerOptions;
 	import vn.karaokeplayer.data.SongInfo;
+	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
 	import vn.karaokeplayer.utils.EnterFrameManager;
 
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-	import flash.filters.ColorMatrixFilter;
 	import flash.media.SoundMixer;
 	import flash.media.SoundTransform;
 
@@ -32,7 +32,6 @@ package vn.karaokeplayer.lyricseditor.controls {
 		//props
 		private var _karPlayer: KarPlayer;
 		private var _sliderDragging: Boolean;
-		private var _grayFilter: ColorMatrixFilter;
 				
 		public function PlayerControlBar() {
 			
@@ -46,20 +45,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			enabled = false;
 		}
 
-		private function init(): void {
-			var _s: Number = 0; //saturation value 0 - 1 - 2
-						
-			_grayFilter = new ColorMatrixFilter (
-			[0.114 + 0.886 * _s,	0.299 * (1 - _s),	0.1 * (1 - _s),	0,	0,
-			 0.114 * (1 - _s), 		0.299 + 0.701 * _s,	0.1 * (1 - _s),	0,	0, 
-			 0.114 * (1 - _s), 		0.299 * (1 - _s),	0.1 + 0.413 * _s, 0,	0, 					
-			 0,						0, 					0, 					1,	0]);
-			
-//			[0.114 + 0.886 * _s,	0.299 * (1 - _s),	0.587 * (1 - _s),	0,	0,
-//			 0.114 * (1 - _s), 		0.299 + 0.701 * _s,	0.587 * (1 - _s),	0,	0, 
-//			 0.114 * (1 - _s), 		0.299 * (1 - _s),	0.587 + 0.413 * _s, 0,	0, 					
-//			 0,						0, 					0, 					1,	0]);
-			
+		private function init(): void {			
 			var playerOptions: KarPlayerOptions = new KarPlayerOptions();
 			playerOptions.width = 600;
 			playerOptions.height = 450;
@@ -197,11 +183,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 		
 		public function set enabled(value: Boolean): void {
-			mouseChildren = value;
 			if(value) {
-				this.filters = null;
+				DisplayObjectUtil.enableControl(this);
 			} else {
-				this.filters = [_grayFilter];
+				DisplayObjectUtil.disableControl(this);
 			}
 		}
 		
