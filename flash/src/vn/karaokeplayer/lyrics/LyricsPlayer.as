@@ -91,6 +91,21 @@ package vn.karaokeplayer.lyrics {
 				_lines.push(textLine);
 			}
 			
+			//creating fake line for first 2 lines if len < 2
+			if(_len <= 2) {
+				var fakeLen: int = 2 - _len;
+				for(var j: int = 0; j < fakeLen;j++) {
+					lineInfo = new LineInfo();
+					lineInfo.songLyrics = lyrics;
+					textLine = _factory.createTextLine();
+					textLine.init(lineInfo);
+					trace('empty textLine: ' + (textLine));
+					_lines.push(textLine);
+				}
+				_len = 2;	
+			}
+			
+			
 			//_pos = 0;
 			//_idx1 = 0;
 			//_l1 = _lines[_idx1];

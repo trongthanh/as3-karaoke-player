@@ -67,6 +67,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 
 		public function getData(): SongInfo {
+			if(!_songInfo) _songInfo = new SongInfo();
 			_songInfo.title = titleText.text;
 			_songInfo.composer = composerText.text;
 			_songInfo.styleof = artistText.text;

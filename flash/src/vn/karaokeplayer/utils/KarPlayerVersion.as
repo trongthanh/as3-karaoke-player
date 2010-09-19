@@ -20,9 +20,15 @@ package vn.karaokeplayer.utils {
 	 */
 	public class KarPlayerVersion {
 		/**
-		 * major.minor.svnrevision
+		 * major.minor.changelist.svnrevison
 		 */
-		public static const VERSION: String = "0.8.71";
+		public static const VERSION: String = "0.9.0.87";
+		
+		public static const MAJOR: String = "0";
+		public static const MINOR: String = "9";
+		public static const CHANGELIST: String = "0";
+		public static const SVNREV: String = "87";
+		
 		/**
 		 * URL to library project
 		 */

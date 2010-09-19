@@ -16,7 +16,7 @@ package vn.karaokeplayer.lyricseditor.io {
 		public static const STYLE_REG: RegExp = /([fmb]):([\w\W]+)/i;
 		
 		public function exportTo(lyricsFileInfo: LyricsFileInfo): Object {
-			if (!lyricsFileInfo || !lyricsFileInfo.plainstr || !lyricsFileInfo.songInfo) {
+			if (!lyricsFileInfo || lyricsFileInfo.plainstr == null || !lyricsFileInfo.songInfo) {
 				throw new KarPlayerError(KarPlayerError.COMMON_ERROR, "Internal error. Cannot export lyrics");
 				return null;
 			}
@@ -24,7 +24,7 @@ package vn.karaokeplayer.lyricseditor.io {
 			var head: String = exportHeadPart(lyricsFileInfo.songInfo);
 			var body: String = exportBodyPart(lyricsFileInfo.plainstr);
 			
-			var s: String = '<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:kar="http://code.google.com/p/as3-karaoke-player">';
+			var s: String = '<tt xmlns="http://www.w3.org/ns/ttml" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:kar="http://code.google.com/p/as3-karaoke-player">';
 			s += head;
 			s += body;
 			s += '</tt>';
@@ -105,7 +105,6 @@ package vn.karaokeplayer.lyricseditor.io {
 		
 		public function exportBodyPart(lrc: String): String {
 			var s : String = "<body>\n";
-			var curStyle: String = "b";
 			var lines: Array = lrc.split(/\n|\r/);
 			var len:int = lines.length;
 			var l: String;
@@ -117,6 +116,7 @@ package vn.karaokeplayer.lyricseditor.io {
 				s += processLine(l);
 			}
 			s += "</body>";
+			trace('s: ' + (s));
 			
 			return s;
 		}

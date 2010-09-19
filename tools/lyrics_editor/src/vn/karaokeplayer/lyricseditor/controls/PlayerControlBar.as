@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor.controls {
+	import org.osflash.signals.Signal;
 	import fl.controls.Slider;
 	import fl.events.SliderEvent;
 
@@ -32,6 +33,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 		//props
 		private var _karPlayer: KarPlayer;
 		private var _sliderDragging: Boolean;
+		
+		/**
+		 * Dispatch when audio is loaded and ready for play back
+		 */
+		public var playerReady: Signal;
 				
 		public function PlayerControlBar() {
 			
@@ -88,6 +94,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			ToolTip.attach(pauseButton, "Pause audio");
 			ToolTip.attach(stopButton, "Stop playing audio and <br/>reset current position to start time");
 			
+			playerReady = new Signal();
 			
 			//default disable
 			enabled = false;
@@ -123,6 +130,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 			timeSlider.maximum = _karPlayer.length;
 			timeSlider.value = 0;
 			enabled = true;
+			playerReady.dispatch();
 		}
 
 		private function audioCompleteHandler(): void {

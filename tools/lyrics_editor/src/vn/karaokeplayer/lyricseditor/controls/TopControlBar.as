@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor.controls {
+	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
 	import fl.controls.Button;
 
 	import vn.karaokeplayer.lyricseditor.utils.FontLib;
@@ -160,8 +161,12 @@ package vn.karaokeplayer.lyricseditor.controls {
 			var selected: Boolean = testKaraokeButton.selected;
 			if(selected) {
 				testKaraokeButton.label = "Edit Lyrics";
+				DisplayObjectUtil.disableControl(insertButton);
+				DisplayObjectUtil.disableControl(validateButton);
 			} else {
 				testKaraokeButton.label = "Test Karaoke";
+				DisplayObjectUtil.enableControl(insertButton);
+				DisplayObjectUtil.enableControl(validateButton);
 			}
 			testKaraokeToggled.dispatch(selected);
 		}

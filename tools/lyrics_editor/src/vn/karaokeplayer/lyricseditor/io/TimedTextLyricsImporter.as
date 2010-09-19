@@ -16,7 +16,7 @@ package vn.karaokeplayer.lyricseditor.io {
 			try{
 				xml = XML(src);
 			}catch(error:Error){
-				trace("cannot parse lyrics file's texts");				
+				trace("cannot parse lyrics XML");				
 			}
 			if(!xml) return null;
 			
