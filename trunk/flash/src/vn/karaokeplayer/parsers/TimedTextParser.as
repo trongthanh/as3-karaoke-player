@@ -112,7 +112,10 @@ package vn.karaokeplayer.parsers {
 			var divList: XMLList = body.div;
 			var divLen: int = divList.length();
 			if (divLen == 0) {
-				throw new KarPlayerError(KarPlayerError.INVALID_XML, "<div> tags are missing from <body>: " + body.toXMLString());
+				//throw new KarPlayerError(KarPlayerError.INVALID_XML, "<div> tags are missing from <body>: " + body.toXMLString());
+				//accept empty lyrics file
+				trace("[KarPlayer] Warning: <div> tags are missing from <body>: " + body.toXMLString());
+				songInfo.lyrics = new SongLyrics();
 			}
 			var pList: XMLList;
 			var div: XML;
@@ -145,7 +148,8 @@ package vn.karaokeplayer.parsers {
 				pLen = pList.length();
 				lineDur = 0;
 				if (pLen == 0) {
-					throw new KarPlayerError(KarPlayerError.INVALID_XML, "<p> tags are missing from this <div> block: " + div.toXMLString());
+					//throw new KarPlayerError(KarPlayerError.INVALID_XML, "<p> tags are missing from this <div> block: " + div.toXMLString());
+					trace("[KarPlayer] Warning: <p> tags are missing from this <div> block: " + div.toXMLString());
 				} else {
 					//process p
 					for (var j:int = 0; j < pLen; j++) {
@@ -160,7 +164,7 @@ package vn.karaokeplayer.parsers {
 							if(lineBegin) {
 								lyricLine.begin = lineBegin;	
 							} else if(isNaN(lyricLine.begin)) {
-								throw new KarPlayerError(KarPlayerError.INVALID_XML,"<div> and first <p> don't have begin property: " + div.toXMLString());
+								throw new KarPlayerError(KarPlayerError.INVALID_XML,"both <div> and first <p> don't have begin property: " + div.toXMLString());
 							}
 							blockBegin = lyricLine.begin;
 						} 

@@ -152,5 +152,11 @@ package vn.karaokeplayer.lyricseditor.utils {
 			
 			return str;
 		}
+		
+		public static function validate(htmlstr: String, plainstr: String): String {
+			
+			
+			return null;
+		}
 	}
 }

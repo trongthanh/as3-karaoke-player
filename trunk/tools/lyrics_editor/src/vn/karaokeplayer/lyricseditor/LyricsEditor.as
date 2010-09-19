@@ -1,13 +1,9 @@
 package vn.karaokeplayer.lyricseditor {
-	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
-	import com.gskinner.motion.plugins.AutoHidePlugin;
-	import flash.desktop.NativeApplication;
-	import flash.display.Sprite;
-	import flash.filesystem.File;
-	import vn.karaokeplayer.data.SongInfo;
+
 	import vn.karaokeplayer.IKarPlayer;
+	import vn.karaokeplayer.data.SongInfo;
 	import vn.karaokeplayer.lyricseditor.controls.KaraokePreviewScreen;
 	import vn.karaokeplayer.lyricseditor.controls.PlayerControlBar;
 	import vn.karaokeplayer.lyricseditor.controls.SongSummaryBar;
@@ -16,6 +12,7 @@ package vn.karaokeplayer.lyricseditor {
 	import vn.karaokeplayer.lyricseditor.data.LyricsFileInfo;
 	import vn.karaokeplayer.lyricseditor.io.IExporter;
 	import vn.karaokeplayer.lyricseditor.io.IImporter;
+	import vn.karaokeplayer.lyricseditor.io.PlainTextImporter;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsExporter;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsImporter;
 	import vn.karaokeplayer.lyricseditor.textarea.TextArea;
@@ -25,7 +22,11 @@ package vn.karaokeplayer.lyricseditor {
 	import vn.karaokeplayer.parsers.TimedTextParser;
 	import vn.karaokeplayer.utils.KarPlayerVersion;
 
+	import com.gskinner.motion.plugins.AutoHidePlugin;
 
+	import flash.desktop.NativeApplication;
+	import flash.display.Sprite;
+	import flash.filesystem.File;
 
 	/**
 	 * @author Thanh Tran
@@ -78,8 +79,7 @@ package vn.karaokeplayer.lyricseditor {
 
 			songSummary = new SongSummaryBar();
 			songSummary.y = 100;
-			songSummary.versionText.text = "LyricsEditor " + getAppVersion() + " - KarPlayer " + KarPlayerVersion.VERSION;
-			 
+			songSummary.versionText.text = "LyricsEditor " + getAppVersion() + " - KarPlayer " + KarPlayerVersion.MAJOR + "." + KarPlayerVersion.MINOR;
 			
 			textArea = new TextArea();
 			textArea.width = 600;
@@ -89,7 +89,6 @@ package vn.karaokeplayer.lyricseditor {
 			
 			playerControl = new PlayerControlBar();
 			playerControl.y = 550;
-			
 			
 			karaokePreviewScreen = new KaraokePreviewScreen(600, 450);
 			karaokePreviewScreen.x = 200;
@@ -108,6 +107,13 @@ package vn.karaokeplayer.lyricseditor {
 			topControl.testKaraokeToggled.add(testKaraokeHandler);
 			topControl.lyricsSaved.add(lyricsSaveHandler);
 			
+			topControl.testKaraokeButton.enabled = false;
+			
+			playerControl.playerReady.add(playerReadyHandler);
+		}
+
+		private function playerReadyHandler(): void {
+			topControl.testKaraokeButton.enabled = true;
 		}
 
 		private function lyricsSaveHandler(fileURL: String):void {
@@ -140,8 +146,13 @@ package vn.karaokeplayer.lyricseditor {
 			trace('lyric fileURL: ' + (fileURL));
 			var rawStr: String = FileSystemUtil.readTextFile(fileURL);
 			//check for extension:
+			var importer: IImporter;
 			if (fileURL.indexOf(".xml") || fileURL.indexOf(".ttl")) {
-				var importer: IImporter = new TimedTextLyricsImporter();
+				importer = new TimedTextLyricsImporter();
+				lyricsFile = importer.importFrom(rawStr);
+			} else {
+				//assume plain text
+				importer = new PlainTextImporter();
 				lyricsFile = importer.importFrom(rawStr);
 			}
 			
@@ -152,9 +163,24 @@ package vn.karaokeplayer.lyricseditor {
 		private function audioFileSelectHandler(fileURL: String): void {
 			trace('mp3 fileURL: ' + (fileURL));
 			audioURL = fileURL;
+			if(!lyricsFile) {
+				lyricsFile = new LyricsFileInfo();
+				lyricsFile.songInfo = songSummary.getData();
+				lyricsFile.htmlstr = textArea.htmlText;
+				lyricsFile.plainstr = textArea.text;
+				//worst code ever!!
+				var exporter: IExporter = new TimedTextLyricsExporter();
+				var xml: XML = XML(exporter.exportTo(lyricsFile));
+				var parser: ILyricsParser = new TimedTextParser();
+				var songInfo: SongInfo = parser.parseXML(xml);
+				lyricsFile.songInfo = songInfo;		
+				/*try{
+				}catch(error: KarPlayerError) {
+					lyricsFile.songInfo = new SongInfo();
+					lyricsFile.songInfo.lyrics = new SongLyrics();
+				}*/
+			}
 			
-			
-			//TODO: make sure songInfo is created even lrc is not opened
 			lyricsFile.songInfo.beatURL = fileURL;
 			playerControl.open(lyricsFile.songInfo);
 		}
@@ -165,7 +191,7 @@ package vn.karaokeplayer.lyricseditor {
 			var xml: XML = XML(exporter.exportTo(lyricsFile));
 			var parser: ILyricsParser = new TimedTextParser();
 			var songInfo: SongInfo = parser.parseXML(xml);
-			var karplayer: IKarPlayer;
+			var karplayer: IKarPlayer = playerControl.karPlayer;
 			karplayer.lyricPlayer.cleanUp();
 			karplayer.lyricPlayer.init(songInfo.lyrics);
 		}
