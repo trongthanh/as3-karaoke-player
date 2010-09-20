@@ -88,8 +88,8 @@ package vn.karaokeplayer.lyricseditor.io {
 			s += '<kar:genre><![CDATA[' + songInfo.genre + ']]></kar:genre>';
 			s += '<kar:mood><![CDATA[' + songInfo.mood + ']]></kar:mood>';
 			s += '<kar:audio><![CDATA[' + songInfo.beatURL + ']]></kar:audio>';
-			trace('songInfo.genre: ' + (songInfo.genre));
-			trace('songInfo.mood: ' + (songInfo.mood));
+			//trace('songInfo.genre: ' + (songInfo.genre));
+			//trace('songInfo.mood: ' + (songInfo.mood));
 			//extra props
 			var extra: Object = songInfo.extra;
 			if(extra) {
@@ -116,7 +116,7 @@ package vn.karaokeplayer.lyricseditor.io {
 				s += processLine(l);
 			}
 			s += "</body>";
-			trace('s: ' + (s));
+			//trace('s: ' + (s));
 			
 			return s;
 		}

@@ -166,6 +166,12 @@ package vn.karaokeplayer.lyricseditor.controls {
 
 		private function testKaraokeChangeHandler(event: Event): void {
 			var selected: Boolean = testKaraokeButton.selected;
+			toggleTestKaraokeButton(selected);
+			testKaraokeToggled.dispatch(selected);
+		}
+		
+		public function toggleTestKaraokeButton(selected: Boolean, setButton: Boolean = false): void {
+			if(setButton) testKaraokeButton.selected = selected;
 			if(selected) {
 				testKaraokeButton.label = "Edit Lyrics";
 				DisplayObjectUtil.disableControl(insertButton);
@@ -175,7 +181,6 @@ package vn.karaokeplayer.lyricseditor.controls {
 				DisplayObjectUtil.enableControl(insertButton);
 				DisplayObjectUtil.enableControl(validateButton);
 			}
-			testKaraokeToggled.dispatch(selected);
 		}
 
 		private function insertButtonClickHandler(event: MouseEvent): void {

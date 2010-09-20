@@ -1,4 +1,6 @@
 package vn.karaokeplayer.lyricseditor {
+	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
+	import vn.karaokeplayer.lyricseditor.managers.ErrorMessageManager;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
 
@@ -29,6 +31,8 @@ package vn.karaokeplayer.lyricseditor {
 	import flash.filesystem.File;
 
 	/**
+	 * Thanh Tran: Please bear with me. This program was made with poor architecture design and planning due to my lack of motivation recently.
+	 * I intend to refactor it later.
 	 * @author Thanh Tran
 	 */
 	[SWF(backgroundColor="#EEEEEE", frameRate="31", width="800", height="600")]
@@ -81,6 +85,8 @@ package vn.karaokeplayer.lyricseditor {
 			songSummary.y = 100;
 			songSummary.versionText.text = "LyricsEditor " + getAppVersion() + " - KarPlayer " + KarPlayerVersion.MAJOR + "." + KarPlayerVersion.MINOR;
 			
+			ErrorMessageManager.init(songSummary.errorText);
+			
 			textArea = new TextArea();
 			textArea.width = 600;
 			textArea.height = 450;//to full line
@@ -111,10 +117,25 @@ package vn.karaokeplayer.lyricseditor {
 			topControl.testKaraokeButton.enabled = false;
 			
 			playerControl.playerReady.add(playerReadyHandler);
+			
+			textArea.validateOK.add(validateOKChangeHandler);
+			validateOKChangeHandler(false);
+		}
+
+		private function validateOKChangeHandler(ok: Boolean): void {
+			if(ok) {
+				DisplayObjectUtil.enableControl(topControl.validateButton);
+			} else {
+				DisplayObjectUtil.disableControl(topControl.validateButton);
+			}
 		}
 
 		private function timeMarkValidateHandler() : void {
-			textArea.validate();
+			if(textArea.validate()) {
+				ErrorMessageManager.showMessage("Time marks validation OK.", true);
+			} else {
+				ErrorMessageManager.showMessage("Validation error: There must be 1 time mark at line start and end of song; time values must not reverse.");
+			}
 		}
 
 		private function playerReadyHandler(): void {
@@ -131,7 +152,14 @@ package vn.karaokeplayer.lyricseditor {
 
 		private function testKaraokeHandler(selected: Boolean): void {
 			if (selected) {
-				updateLyrics();
+				if(textArea.validate()) {
+					updateLyrics();
+				} else {
+					selected = false;
+					topControl.toggleTestKaraokeButton(selected, true);
+					ErrorMessageManager.showMessage("Validation error: There must be 1 time mark at line start and end of song; time values must not reverse.");
+					
+				}
 			}
 			karaokePreviewScreen.visible = selected;
 		}
