@@ -44,7 +44,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 		/**
 		 * Arguments: 
 		 */
-		public var timeMarkInserted: Signal;
+		public var insertTimeMarkSelected: Signal;
+		/**
+		 * Arguments: 
+		 */
+		public var validateTimeMarkSelected: Signal;
 		/**
 		 * Arguments: selected (Boolean)
 		 */
@@ -53,8 +57,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 		/**
 		 * Arguments: 
 		 */
-		public var lyricsSaved: Signal;
+		public var saveLyricsSelected: Signal;
 		
+		
+				
 		
 		//props
 		private var _audioFile: File;
@@ -101,9 +107,10 @@ package vn.karaokeplayer.lyricseditor.controls {
 			
 			audioFileSelected = new Signal(String);
 			lyricFileSelected = new Signal(String);
-			timeMarkInserted = new Signal();
+			insertTimeMarkSelected = new Signal();
+			validateTimeMarkSelected = new Signal();
 			testKaraokeToggled = new Signal(Boolean);
-			lyricsSaved = new Signal(String);
+			saveLyricsSelected = new Signal(String);
 			
 			ToolTip.attach(newButton, "Create new lyrics file");
 			ToolTip.attach(openLyricButton, "Open lyrics file");
@@ -151,7 +158,7 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 		
 		private function lyricFileSaveSelectHandler(e:Event):void {
-			lyricsSaved.dispatch(_lyricFile.url);
+			saveLyricsSelected.dispatch(_lyricFile.url);
 		}
 
 		private function previewXmlButtonClickHandler(event: MouseEvent): void {
@@ -172,10 +179,11 @@ package vn.karaokeplayer.lyricseditor.controls {
 		}
 
 		private function insertButtonClickHandler(event: MouseEvent): void {
-			timeMarkInserted.dispatch();
+			insertTimeMarkSelected.dispatch();
 		}
 
 		private function validateButtonClickHandler(event: MouseEvent): void {
+			validateTimeMarkSelected.dispatch();
 		}
 	}
 }

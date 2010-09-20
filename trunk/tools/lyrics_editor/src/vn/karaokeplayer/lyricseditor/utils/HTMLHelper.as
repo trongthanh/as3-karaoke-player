@@ -154,9 +154,36 @@ package vn.karaokeplayer.lyricseditor.utils {
 		}
 		
 		public static function validate(htmlstr: String, plainstr: String): String {
+			//var timeReg: RegExp = /{(\d{2}:)?\d{2}:\d{2}.\d{2,3}}/g;
+			//var result: Object = plainstr;
+			var s: String = validateStartLine(htmlstr, plainstr);
 			
 			
-			return null;
+			return s;
+		}
+		
+		private static function validateStartLine(htmlstr: String, plainstr: String): String {
+			var lineReg: RegExp =/^(:{(?:\d{2}:)?\d{2}:\d{2}.\d{2,3}})?[\w\W]*?$/gm;
+			var result: Object = lineReg.exec(plainstr);
+			
+			while(result != null) {
+				trace('result[1]: ' + (result[1]));
+				if(!result[1]) {
+					//time mark at line start missing
+					//insertHTMLText(htmlstr, lineReg.lastIndex, '<font color="#FF0000">{!}</font>');
+					trace("found error at index: " + lineReg.lastIndex);
+				}
+				result = lineReg.exec(plainstr);
+			}
+			return htmlstr;
+		}
+
+		public static function insertHTMLText(htmlstr: String, caretIndex: int, insertText: String): String {
+			var htmlIndex: int = HTMLHelper.calculateHtmlPosition(htmlstr, caretIndex);
+			var s: String = htmlstr.substring(0, htmlIndex) + 
+								 insertText +
+								 htmlstr.slice(htmlIndex);
+			return s;
 		}
 	}
 }

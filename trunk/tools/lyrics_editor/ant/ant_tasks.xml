@@ -34,7 +34,7 @@
 	</target>
 
 	<!--adt -package %SIGNING_OPTIONS% %AIR_FILE% %APP_XML% %FILE_OR_DIR% -->
-	<target name="package-air" >
+	<target name="package-air" depends="build-air" >
 		<!-- <input message="Please enter Cert password:" addproperty="svn.password" /> -->
 		<java jar="${ADT.JAR}" fork="true" failonerror="true"> 
 		    <arg line="-package"/> 
@@ -44,7 +44,7 @@
 		    <arg line="${AIR_FILE}"/> 
 		    <arg line="${OUTPUT}/LyricsEditor-app.xml"/> 
 			<arg line="-C ${OUTPUT}/"/>
-			<arg line="LyricsEditor.swf update_config.xml"/>
+			<arg line="LyricsEditor.swf updater_config.xml icons"/>
 		</java> 
 	</target>
 </project>
