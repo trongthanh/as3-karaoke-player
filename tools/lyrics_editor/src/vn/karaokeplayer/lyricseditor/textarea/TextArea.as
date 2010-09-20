@@ -251,6 +251,11 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			return _tf;
 		}
 		
+		public function validate(): void {
+			_htmlstr = HTMLHelper.validate(_htmlstr, text);
+			_tf.htmlText = _htmlstr;
+		}
+
 		public function insertTimeMark(timeValue: int = -1, caretIndex: int = -1): void {
 			_insertIndex = (caretIndex >= 0)? caretIndex: _tf.caretIndex;
 			trace('insert time mark: ' + (_insertIndex) + ", time: " + timeValue);

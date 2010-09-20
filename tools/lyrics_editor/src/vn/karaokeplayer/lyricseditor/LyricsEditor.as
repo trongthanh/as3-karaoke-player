@@ -103,13 +103,18 @@ package vn.karaokeplayer.lyricseditor {
 			
 			topControl.audioFileSelected.add(audioFileSelectHandler);
 			topControl.lyricFileSelected.add(lyricFileSelectHandler);
-			topControl.timeMarkInserted.add(timeMarkInsertHandler);
+			topControl.insertTimeMarkSelected.add(timeMarkInsertHandler);
+			topControl.validateTimeMarkSelected.add(timeMarkValidateHandler);
 			topControl.testKaraokeToggled.add(testKaraokeHandler);
-			topControl.lyricsSaved.add(lyricsSaveHandler);
+			topControl.saveLyricsSelected.add(lyricsSaveHandler);
 			
 			topControl.testKaraokeButton.enabled = false;
 			
 			playerControl.playerReady.add(playerReadyHandler);
+		}
+
+		private function timeMarkValidateHandler() : void {
+			textArea.validate();
 		}
 
 		private function playerReadyHandler(): void {
