@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package vn.karaokeplayer.lyricseditor.textarea {
+	import org.osflash.signals.Signal;
+	import vn.karaokeplayer.lyricseditor.managers.ErrorMessageManager;
 	import vn.karaokeplayer.lyricseditor.controls.ToolTip;
 	import fl.controls.ScrollBarDirection;
 	import fl.controls.UIScrollBar;
@@ -41,7 +43,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		private var _hscroll: UIScrollBar;		
 		private var _tf: TextField;
 		private var _fm: TextFormat;
-		private var _htmlstr: String;
+		private var _htmlstr: String = "";
 		private var _timeInput: TimeInput;
 		private var _css: XML = <![CDATA[
 		a {	color: #0000FF;	}
@@ -58,6 +60,11 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		/** internal height */
 		private var _height: Number;
 		
+		/**
+		 * Argument: ok to validate (Boolean);
+		 */
+		public var validateOK: Signal;
+		private var _isValidateOK: Boolean;
 		
 		public function TextArea() {
 			init();
@@ -109,6 +116,9 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			addChild(_hscroll);
 			addChild(_timeInput);
 			
+			validateOK = new Signal(Boolean);
+			_isValidateOK = false;
+			
 			ToolTip.attach(_timeInput.cancelButton, "Delete time mark");
 			ToolTip.attach(_timeInput.okButton, "Accept time mark");
 			ToolTip.attach(_timeInput.resetButton, "Reset time mark value");
@@ -147,6 +157,13 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			//(({\d\d:\d\d.\d\d\d)[^}])|([^{](\d\d:\d\d.\d\d\d)})
 			_htmlstr = _tf.htmlText;
 			//trace('changed _htmlstr: ' + (_htmlstr));
+			if(!_isValidateOK && _tf.length > 0) {
+				_isValidateOK = true;
+				validateOK.dispatch(_isValidateOK);
+			} else if (_isValidateOK && _tf.length == 0) {
+				_isValidateOK = false;
+				validateOK.dispatch(_isValidateOK);
+			}
 		}
 
 		private function timeInputCancelHandler(timeValue: uint): void {
@@ -158,8 +175,13 @@ package vn.karaokeplayer.lyricseditor.textarea {
 				_htmlstr = HTMLHelper.removeTimeMarkLink(_htmlstr, timeValue);
 			}
 			
-			if(_htmlstr) _tf.htmlText = _htmlstr;
-			else trace("cannot remove time mark " + timeValue);
+			if(_htmlstr) {
+				 _tf.htmlText = _htmlstr;
+			}
+			else  {
+				ErrorMessageManager.showMessage("Internal error: Cannot remove time mark.");
+				trace("cannot remove time mark " + timeValue);
+			}
 			//_tf.setTextFormat(_fm);
 			
 			/*
@@ -178,6 +200,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 				if(insertedTimeMark) {
 					//this time value is already set
 					trace("time mark existed");
+					ErrorMessageManager.showMessage("Time mark existed");
 					return;
 				}
 				_htmlstr = HTMLHelper.insertTimeMarkLink(_htmlstr, _insertIndex, timeValue);
@@ -185,14 +208,19 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			} else {
 				if(insertedTimeMark && timeValue != _replaceTimeValue) {
 					//this value duplicate one of another time mark
+					ErrorMessageManager.showMessage("Time mark duplicated");
 					trace("time mark existed");
 					return;	
 				}
 				_htmlstr = HTMLHelper.replaceTimeMarkLink(_htmlstr, timeValue, _replaceTimeValue);
 			}
 					   
-			if(_htmlstr) _tf.htmlText = _htmlstr;
-			else trace("cannot insert/replace time mark " + timeValue);
+			if(_htmlstr) {
+				 _tf.htmlText = _htmlstr;
+			} else {
+				ErrorMessageManager.showMessage("Internal error: Cannot insert/replace time mark.");
+				trace("cannot insert/replace time mark " + timeValue);
+			}
 			//_tf.setTextFormat(_fm);
 			
 			/* won't set caret to avoid scroll being updated
@@ -207,11 +235,15 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 
 		public function set htmlText(value: String): void {
-			if(!value) value = "";
+			if(!value) value = " ";
 			_tf.htmlText = value;
 			_htmlstr = _tf.htmlText;
 			_vscroll.update();
 			_hscroll.update();
+			if(!_isValidateOK) {
+				_isValidateOK = true;
+				validateOK.dispatch(_isValidateOK);
+			}
 		}
 
 		public function get htmlText(): String {
@@ -219,11 +251,15 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 		
 		public function set text(value: String): void {
-			if(!value) value = "";
+			if(!value) value = " ";
 			_tf.text = value;
 			_htmlstr = _tf.htmlText;
 			_vscroll.update();
 			_hscroll.update();
+			if(!_isValidateOK) {
+				_isValidateOK = true;
+				validateOK.dispatch(_isValidateOK);
+			}
 		}
 
 		public function get text(): String {
@@ -251,9 +287,18 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			return _tf;
 		}
 		
-		public function validate(): void {
-			_htmlstr = HTMLHelper.validate(_htmlstr, text);
+		/**
+		 * @return true if time marks OK, false if there are still errors
+		 */
+		public function validate(): Boolean {
+			ErrorMessageManager.clearMessage();
+			_htmlstr = HTMLHelper.validate(_htmlstr);
 			_tf.htmlText = _htmlstr;
+			if(_htmlstr.indexOf("{!}") == -1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public function insertTimeMark(timeValue: int = -1, caretIndex: int = -1): void {
@@ -310,6 +355,7 @@ package vn.karaokeplayer.lyricseditor.textarea {
 		}
 		
 		private function showTimeInput(timeValue: int = -1, isInsert: Boolean = false): void {
+			ErrorMessageManager.clearMessage();
 			var x: Number = 0;
 			var y: Number = 0;
 			_lastCaretIndex = _tf.caretIndex;  
@@ -340,9 +386,18 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			}
 			_timeInput.timeValue = (timeValue < 0) ? 0 : timeValue;
 			
-			//TODO: check for boundary;
-			_timeInput.x = x + 10;
-			_timeInput.y = y + 10;
+			x += 10;
+			y += 10;
+			
+			if(x + _timeInput.width > this.width) {
+				x = this.width - _timeInput.width; 
+			}
+			if(y + _timeInput.height > this.height) {
+				y = this.height - _timeInput.height;
+			}
+			
+			_timeInput.x = x;
+			_timeInput.y = y;
 			_timeInput.visible = true;	
 		}
 

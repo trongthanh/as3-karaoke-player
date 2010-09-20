@@ -1,4 +1,5 @@
 package vn.karaokeplayer.lyricseditor.utils {
+	import vn.karaokeplayer.utils.StringUtil;
 	import vn.karaokeplayer.utils.TimeUtil;
 
 	/**
@@ -7,6 +8,8 @@ package vn.karaokeplayer.lyricseditor.utils {
 	public class HTMLHelper {
 		
 		public static const HTML_TAG: RegExp = /<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g;
+		public static const HTML_NEWLINE: RegExp = /(<br>|<br\/>|<\/p>)/ig;
+		public static const TIMEMARK_COLOR: String = "#0033FF";  
 		
 		/**
 		 * Inserts a time mark link into a HTML string.
@@ -26,9 +29,13 @@ package vn.karaokeplayer.lyricseditor.utils {
 		 * Generates a time mark HTML link
 		 *  
 		 */
-		public static function generateTimeMarkLink(timeValue: uint, withFontTag: Boolean = true): String {
+		public static function generateTimeMarkLink(timeValue: uint, withFontTag: Boolean = true, color: Number = NaN): String {
 			var str: String = '<A HREF="event:' + timeValue + '" TARGET="">{' + TimeUtil.msToClockString(timeValue, true) + '}</A>';
-			if(withFontTag) str = '<FONT FACE="DigitRegular" SIZE="16" COLOR="#FF3300" LETTERSPACING="0" KERNING="0">' + str + '</FONT>';
+			if(withFontTag) {
+				var colorstr: String = TIMEMARK_COLOR;
+				if(!isNaN(color)) colorstr = color.toString(16);
+				str = '<FONT FACE="DigitRegular" SIZE="16" COLOR="' +TIMEMARK_COLOR +'" LETTERSPACING="0" KERNING="0">' + str + '</FONT>';
+			}
 			
 			return str;
 		}
@@ -39,10 +46,10 @@ package vn.karaokeplayer.lyricseditor.utils {
 		 * @param oldTime	old time to replace in the string, font tag is ignored
 		 * @return new time mark link, null if oldTime is not found 
 		 */
-		public static function replaceTimeMarkLink(htmlstr: String, newTime: uint, oldTime: uint ): String {
+		public static function replaceTimeMarkLink(htmlstr: String, newTime: uint, oldTime: uint, color: Number = NaN): String {
 			var result: Object = searchTimeMarkLink(htmlstr, oldTime);
 			if(result) {
-				var newTimeMark: String = generateTimeMarkLink(newTime, false);
+				var newTimeMark: String = generateTimeMarkLink(newTime, false, color);
 				return result[1] + newTimeMark + result[2];
 			} else {
 				return null;	
@@ -148,34 +155,107 @@ package vn.karaokeplayer.lyricseditor.utils {
 		}
 		
 		public static function stripHTML(htmlstr: String): String {
-			var str: String = String(htmlstr).replace(HTML_TAG,"");
+			var s: String = htmlstr.replace(HTML_NEWLINE, "\n");
+			s = s.replace(HTML_TAG,"");
 			
-			return str;
+			return s;
 		}
 		
-		public static function validate(htmlstr: String, plainstr: String): String {
+		public static function validate(htmlstr: String): String {
 			//var timeReg: RegExp = /{(\d{2}:)?\d{2}:\d{2}.\d{2,3}}/g;
 			//var result: Object = plainstr;
-			var s: String = validateStartLine(htmlstr, plainstr);
-			
+			var s: String = removeErrorMarks(htmlstr);
+			s = validateStartLine(s, stripHTML(s));
+			s = validateTimeSequence(s, stripHTML(s));
+			s = validateLastTimeMark(s, stripHTML(s));
 			
 			return s;
 		}
 		
 		private static function validateStartLine(htmlstr: String, plainstr: String): String {
-			var lineReg: RegExp =/^(:{(?:\d{2}:)?\d{2}:\d{2}.\d{2,3}})?[\w\W]*?$/gm;
+			var lineReg: RegExp = /^({(?:\d{2}:)?\d{2}:\d{2}.\d{2,3}})?[\w\W]*?$/gm;
+			var lastIndex: int = 0;
 			var result: Object = lineReg.exec(plainstr);
+			var errIndex: Array = [];
 			
 			while(result != null) {
-				trace('result[1]: ' + (result[1]));
+				//trace('result[1]: ' + (result[1]));
 				if(!result[1]) {
 					//time mark at line start missing
 					//insertHTMLText(htmlstr, lineReg.lastIndex, '<font color="#FF0000">{!}</font>');
-					trace("found error at index: " + lineReg.lastIndex);
+					errIndex.push(lastIndex + 1); // +1 to start of next line
 				}
+				lastIndex = lineReg.lastIndex;
 				result = lineReg.exec(plainstr);
 			}
-			return htmlstr;
+			
+			var s: String = htmlstr;
+			for (var i : int = 0; i < errIndex.length; i++) {
+				//(i*3) to compensate new newly added charaters {!}
+				s = insertHTMLText(s, errIndex[i] + (i*3), '<font color="#FF0000">{!}</font>');	
+			}
+			
+			return s;
+		}
+		
+		private static function validateTimeSequence(htmlstr: String, plainstr: String): String {
+			var timeReg: RegExp = /{((?:\d{2}:)?\d{2}:\d{2}.\d{2,3})}/g;
+			var lastTime: uint = 0;
+			var curTime: uint = 0;
+			var result: Object = timeReg.exec(plainstr);
+			var errIndex: Array = [];
+			var s: String = htmlstr;
+			
+			while(result != null) {
+				//trace('result[1]: ' + (result[1]));
+				curTime = TimeUtil.clockStringToMs(result[1]);
+				if(curTime < lastTime) {				 
+					errIndex.push(timeReg.lastIndex - 11); //-11 to move back to start of time mark
+//					s = replaceTimeMarkLink(s, curTime, curTime, 0xFF0000); 
+				}
+				lastTime = curTime;
+				result = timeReg.exec(plainstr);
+			}
+			
+			for (var i : int = 0; i < errIndex.length; i++) {
+				//(i*3) to compensate new newly added charaters {!}
+				s = insertHTMLText(s, errIndex[i] + (i*3), '<font color="#FF0000">{!}</font>');	
+			}
+			
+			return s;
+		}
+		
+		private static function validateLastTimeMark(htmlstr: String, plainstr: String): String {
+//			trace('htmlstr: ' + (htmlstr));
+			var lastReg: RegExp = /{((?:\d{2}:)?\d{2}:\d{2}.\d{2,3})}\s*$/;
+			var result: Object = lastReg.exec(plainstr);
+			var s: String = htmlstr;
+			if(!result) {
+				/*
+				var lastCharReg: RegExp = /\S\s*?$/;
+				var test: Object = lastCharReg.exec(plainstr);
+				var index: int = plainstr.length;
+				trace('plainstr.length: ' + (plainstr.length));
+				if(test) {
+					index = plainstr.length - test[0].length;
+					trace('test[0]: ' + (test[0]));
+					trace('test[0].length: ' + (test[0].length));
+					trace('lastCharReg.lastIndex: ' + (lastCharReg.lastIndex));
+					trace('index: ' + (index)); 
+				}*/
+				var index: int = s.lastIndexOf("</P>");
+//				trace('index: ' + (index));
+				
+				s = s.substring(0, index) + 
+					'<font color="#FF0000">{!}</font>' +			 
+					s.slice(index); 
+			}
+			
+			return s;
+		}
+		
+		private static function removeErrorMarks(htmlstr: String): String {
+			return htmlstr.replace(/{!}/ig, '');
 		}
 
 		public static function insertHTMLText(htmlstr: String, caretIndex: int, insertText: String): String {
