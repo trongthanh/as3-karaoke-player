@@ -177,9 +177,8 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			
 			if(_htmlstr) {
 				 _tf.htmlText = _htmlstr;
-			}
-			else  {
-				ErrorMessageManager.showMessage("Internal error: Cannot remove time mark.");
+			} else {
+				if(_insertIndex < 0) ErrorMessageManager.showMessage("Internal error: Cannot remove time mark.");
 				trace("cannot remove time mark " + timeValue);
 			}
 			//_tf.setTextFormat(_fm);

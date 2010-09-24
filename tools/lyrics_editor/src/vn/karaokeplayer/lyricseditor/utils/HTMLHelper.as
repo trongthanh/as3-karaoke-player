@@ -183,7 +183,8 @@ package vn.karaokeplayer.lyricseditor.utils {
 				if(!result[1]) {
 					//time mark at line start missing
 					//insertHTMLText(htmlstr, lineReg.lastIndex, '<font color="#FF0000">{!}</font>');
-					errIndex.push(lastIndex + 1); // +1 to start of next line
+					if(lastIndex > 0) lastIndex += 1; //+1 to the start of next line
+					errIndex.push(lastIndex);
 				}
 				lastIndex = lineReg.lastIndex;
 				result = lineReg.exec(plainstr);

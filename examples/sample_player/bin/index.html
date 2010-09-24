@@ -30,24 +30,26 @@
 		swfobject.embedSWF("sampleplayer.swf", "altContent", "600", "400", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
 	</script>
 	<style type="text/css">
-		html, body { height:100%; overflow:hidden; }
+		html, body { height:100%; overflow:hidden; text-align:center }
 		body { margin:0; }
+		div#container {margin-top: -300px; top: 50%; position: relative;}
 	</style>
 </head>
 <body>
-	<div id="altContent">
-		<h1>SampleKaraokePlayer</h1>
-		<p>Alternative content</p>
-		<p><a href="http://www.adobe.com/go/getflashplayer"><img 
-			src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" 
-			alt="Get Adobe Flash player" /></a></p>
+	<div id="container">
+		<div id="altContent">
+			<h1>SampleKaraokePlayer</h1>
+			<p>Alternative content</p>
+			<p><a href="http://www.adobe.com/go/getflashplayer"><img 
+				src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" 
+				alt="Get Adobe Flash player" /></a></p>
+		</div>
+		<div>
+			<a href="http://int3ractive.blogspot.com/2010/08/announcing-as3-karaoke-player-my-first.html" target="_blank">Go to the blog post introducing this application</a><br/>
+			<a href="http://code.google.com/p/as3-karaoke-player/" target="_blank">Go to the project site on Google Code</a><br/><br/>
+			Copyright &copy; 2010 trongthanh-AT-gmail-DOT-com
+		</div>
 	</div>
-	<div>
-		<a href="http://int3ractive.blogspot.com/2010/08/announcing-as3-karaoke-player-my-first.html" target="_blank">Go to the blog post introducing this application</a><br/>
-		<a href="http://code.google.com/p/as3-karaoke-player/" target="_blank">Go to the project site on Google Code</a><br/><br/>
-		Copyright &copy; 2010 trongthanh-AT-gmail-DOT-com
-	</div>
-
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
