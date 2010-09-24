@@ -113,6 +113,7 @@ package vn.karaokeplayer.lyricseditor {
 			topControl.validateTimeMarkSelected.add(timeMarkValidateHandler);
 			topControl.testKaraokeToggled.add(testKaraokeHandler);
 			topControl.saveLyricsSelected.add(lyricsSaveHandler);
+			topControl.newLyricSelected.add(newLyricHandler);
 			
 			topControl.testKaraokeButton.enabled = false;
 			
@@ -120,6 +121,11 @@ package vn.karaokeplayer.lyricseditor {
 			
 			textArea.validateOK.add(validateOKChangeHandler);
 			validateOKChangeHandler(false);
+		}
+
+		private function newLyricHandler() : void {
+			topControl.lyricText.text = "Lyrics: N/A";
+			textArea.text = " ";
 		}
 
 		private function validateOKChangeHandler(ok: Boolean): void {

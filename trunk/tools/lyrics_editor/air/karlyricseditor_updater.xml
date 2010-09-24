@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.adobe.com/air/framework/update/description/1.0">
     <version>0.1.0</version>
-    <url>https://as3-karaoke-player.googlecode.com/svn/trunk/tools/lyrics_editor/air/karlyricseditor_updater.xml</url>
+    <url>https://as3-karaoke-player.googlecode.com/svn/trunk/tools/lyrics_editor/air/KarLyricsEditor.air</url>
     <description><![CDATA[
          This is the first beta release of KarLyrics Editor.
    ]]></description>
