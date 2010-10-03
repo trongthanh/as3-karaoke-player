@@ -9,6 +9,11 @@
 	<!-- Conditional OS checking for ADL tool -->
 	<condition property="ADL" value="${FLEX_HOME}\bin\adl.exe" else="${FLEX_HOME}/bin/adl">
 		<os family="windows" />
+	</condition>	
+	<condition property="FLASH_PLAYER" 
+			value="${FLEX_HOME}\runtimes\player\10\win\FlashPlayer.exe"
+			else="${FLEX_HOME}/runtimes/player/10/lnx/flashplayer">
+			<os family="windows" />
 	</condition>
 
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
@@ -19,6 +24,18 @@
 	<property name="CERTIFICATE" value="${basedir}/../ThanhTran.p12"/>
 	<property name="PASSWORD" value="Tr0ngTh4nh"/>
 	<property name="AIR_FILE" value="${basedir}/../air/KarLyricsEditor.air"/>
+	
+	<target name="run-tests">
+		<mxmlc file="${basedir}/../tests/TestRunner.mxml"
+			output="${OUTPUT}/TestRunner.swf" >	
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
+			<load-config filename="${basedir}/build_config.xml" />
+			<default-size width="1024" height="768" />
+		</mxmlc>
+		<exec executable="${FLASH_PLAYER}">
+			<arg line="${OUTPUT}/TestRunner.swf" />
+		</exec>
+	</target>
 	
 	<target name="build-air">
 		<mxmlc file="${SRC}/vn/karaokeplayer/lyricseditor/LyricsEditor.as"

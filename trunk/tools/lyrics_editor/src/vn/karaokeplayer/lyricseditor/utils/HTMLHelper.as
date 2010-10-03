@@ -1,5 +1,4 @@
 package vn.karaokeplayer.lyricseditor.utils {
-	import vn.karaokeplayer.utils.StringUtil;
 	import vn.karaokeplayer.utils.TimeUtil;
 
 	/**
@@ -9,6 +8,7 @@ package vn.karaokeplayer.lyricseditor.utils {
 		
 		public static const HTML_TAG: RegExp = /<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g;
 		public static const HTML_NEWLINE: RegExp = /(<br>|<br\/>|<\/p>)/ig;
+		public static const EMPTY_LINE: RegExp = /<p[a-zA-Z="# ]+><font[0-9a-zA-Z="# ]+>[{!}\s]*<\/font><\/p>/ig;
 		public static const TIMEMARK_COLOR: String = "#0033FF";  
 		
 		/**
@@ -157,14 +157,24 @@ package vn.karaokeplayer.lyricseditor.utils {
 		public static function stripHTML(htmlstr: String): String {
 			var s: String = htmlstr.replace(HTML_NEWLINE, "\n");
 			s = s.replace(HTML_TAG,"");
+			s = unescapeHTMLEntities(s);
 			
 			return s;
 		}
 		
+		public static function unescapeHTMLEntities(src: String): String {
+			return XML(src).toString();
+		}
+		
+		
 		public static function validate(htmlstr: String): String {
 			//var timeReg: RegExp = /{(\d{2}:)?\d{2}:\d{2}.\d{2,3}}/g;
 			//var result: Object = plainstr;
-			var s: String = removeErrorMarks(htmlstr);
+			//trace('validate input htmlstr: ' + (htmlstr));
+			var s: String = removeEmptyLines(htmlstr);
+			//trace('empty line removed: ' + (s));
+			s = removeErrorMarks(s);
+			//trace('error marks removed: ' + (s));
 			s = validateStartLine(s, stripHTML(s));
 			s = validateTimeSequence(s, stripHTML(s));
 			s = validateLastTimeMark(s, stripHTML(s));
@@ -178,6 +188,8 @@ package vn.karaokeplayer.lyricseditor.utils {
 			var result: Object = lineReg.exec(plainstr);
 			var errIndex: Array = [];
 			
+			var lc: uint = 0; //loop count
+			
 			while(result != null) {
 				//trace('result[1]: ' + (result[1]));
 				if(!result[1]) {
@@ -188,6 +200,12 @@ package vn.karaokeplayer.lyricseditor.utils {
 				}
 				lastIndex = lineReg.lastIndex;
 				result = lineReg.exec(plainstr);
+				
+				lc++;
+				if(lc > 100000) {
+					trace("validateStartLine: infinitive loops detected");
+					break;
+				}
 			}
 			
 			var s: String = htmlstr;
@@ -207,6 +225,8 @@ package vn.karaokeplayer.lyricseditor.utils {
 			var errIndex: Array = [];
 			var s: String = htmlstr;
 			
+			var lc: uint = 0; //loop count
+			
 			while(result != null) {
 				//trace('result[1]: ' + (result[1]));
 				curTime = TimeUtil.clockStringToMs(result[1]);
@@ -216,6 +236,12 @@ package vn.karaokeplayer.lyricseditor.utils {
 				}
 				lastTime = curTime;
 				result = timeReg.exec(plainstr);
+				
+				lc++;
+				if(lc > 100000) {
+					trace("validateTimeSequence: infinitive loops detected");
+					break;
+				}
 			}
 			
 			for (var i : int = 0; i < errIndex.length; i++) {
@@ -255,8 +281,15 @@ package vn.karaokeplayer.lyricseditor.utils {
 			return s;
 		}
 		
+		private static function removeEmptyLines(htmlstr : String) : String {
+			return htmlstr.replace(EMPTY_LINE, ''); 
+		}
+		
 		private static function removeErrorMarks(htmlstr: String): String {
-			return htmlstr.replace(/{!}/ig, '');
+			var s: String = htmlstr.replace(/{!}/ig, '');
+			s = s.replace(/FF0000/ig, "000000");
+			return s;
+			//return htmlstr.replace(/<font[0-9a-zA-Z="# ]*>{!}<\/font>/ig, '');
 		}
 
 		public static function insertHTMLText(htmlstr: String, caretIndex: int, insertText: String): String {

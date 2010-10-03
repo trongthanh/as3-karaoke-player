@@ -1,6 +1,4 @@
 package vn.karaokeplayer.lyricseditor {
-	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
-	import vn.karaokeplayer.lyricseditor.managers.ErrorMessageManager;
 	import air.update.ApplicationUpdaterUI;
 	import air.update.events.UpdateEvent;
 
@@ -17,7 +15,9 @@ package vn.karaokeplayer.lyricseditor {
 	import vn.karaokeplayer.lyricseditor.io.PlainTextImporter;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsExporter;
 	import vn.karaokeplayer.lyricseditor.io.TimedTextLyricsImporter;
+	import vn.karaokeplayer.lyricseditor.managers.ErrorMessageManager;
 	import vn.karaokeplayer.lyricseditor.textarea.TextArea;
+	import vn.karaokeplayer.lyricseditor.utils.DisplayObjectUtil;
 	import vn.karaokeplayer.lyricseditor.utils.FileSystemUtil;
 	import vn.karaokeplayer.lyricseditor.utils.FontLib;
 	import vn.karaokeplayer.parsers.ILyricsParser;
@@ -186,7 +186,7 @@ package vn.karaokeplayer.lyricseditor {
 			var rawStr: String = FileSystemUtil.readTextFile(fileURL);
 			//check for extension:
 			var importer: IImporter;
-			if (fileURL.indexOf(".xml") || fileURL.indexOf(".ttl")) {
+			if (fileURL.indexOf(".xml") > 0 || fileURL.indexOf(".ttl") > 0) {
 				importer = new TimedTextLyricsImporter();
 				lyricsFile = importer.importFrom(rawStr);
 			} else {
