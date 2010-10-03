@@ -55,5 +55,15 @@ package vn.karaokeplayer.unittest.cases {
 			Assert.assertEquals("strip html",result, HTMLHelper.stripHTML(htmlstr));
 				
 		}
+		
+		[Test(description="test HTMLHelper.unescapeHTMLEntities")]
+		public function testUnescapeHTMLEntities(): void {
+			//trial 1
+			var str: String = '&quot;But you ain&apos;t seen &lt;nothing&gt; like me yet. There ain&apos;t nothing that I wouldn&apos;t do. Go to the ends of the earth for you&quot;';
+			var result: String = '"But you ain\'t seen <nothing> like me yet. There ain\'t nothing that I wouldn\'t do. Go to the ends of the earth for you"';
+			//trace(result);			
+			Assert.assertEquals("unescape html entities",result, HTMLHelper.unescapeHTMLEntities(str));
+				
+		}
 	}
 }

@@ -361,18 +361,27 @@ package vn.karaokeplayer.lyricseditor.textarea {
 			if(isInsert) {
 				var caretPos: int = _lastCaretIndex;
 				//check for new line character or end of string:
-				trace("charcode at " + caretPos + " : " + _tf.text.charCodeAt(caretPos));
+				//trace("charcode at " + caretPos + " : " + _tf.text.charCodeAt(caretPos));
+				
+				var lc: uint= 0;
+				
 				while(caretPos > 0 && (_tf.text.charCodeAt(caretPos) == 13 || isNaN(_tf.text.charCodeAt(caretPos)))) {
 					caretPos -= 1;
+					
+					lc ++;
+					if(lc > 100000) {
+						trace("showTimeInput: infinitive loops detected");
+						break;
+					}
 				}
 				
 				var bounds: Rectangle = _tf.getCharBoundaries(caretPos);
 				
 				//check if text field is scrolled
-				trace("_tf.scrollV: " + _tf.scrollV);
+				//trace("_tf.scrollV: " + _tf.scrollV);
 				var scrollLine: int = _tf.scrollV - 1;
 				var subtractY: Number = _tf.getLineMetrics(scrollLine).height * (scrollLine);
-				trace('subtractY: ' + (subtractY));
+				//trace('subtractY: ' + (subtractY));
 				
 				if(bounds) {
 					x = bounds.x - _hscroll.scrollPosition;

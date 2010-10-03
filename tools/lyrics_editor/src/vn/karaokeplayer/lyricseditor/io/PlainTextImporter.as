@@ -11,7 +11,7 @@ package vn.karaokeplayer.lyricseditor.io {
 		public function importFrom(src: Object): LyricsFileInfo {
 			var s: String = String(src);
 			s = StringUtil.trimNewLine(s);
-			var f: LyricsFileInfo;
+			var f: LyricsFileInfo = new LyricsFileInfo();
 			f.songInfo = new SongInfo();
 			f.songInfo.lyrics = new SongLyrics(); //empty song lyrics
 			f.htmlstr = s;
